@@ -5,10 +5,11 @@ namespace backend\controllers;
 use backend\models\Rider;
 use backend\models\RiderSearch;
 use backend\models\CertParticipation;
+use backend\models\CertAchievement;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\AccessControl;
-use backend\models\CertAchievement;
+
 
 /**
  * RiderController implements the CRUD actions for Rider model.
@@ -56,6 +57,7 @@ class RiderController extends Controller
         $pdf = new CertParticipation();
         $pdf->model = $model;
         $pdf->generatePdf();
+        exit;
     }
     
     public function actionCertAchievement($id){
@@ -63,6 +65,7 @@ class RiderController extends Controller
         $pdf = new CertAchievement();
         $pdf->model = $model;
         $pdf->generatePdf();
+        exit;
     }
 
     /**

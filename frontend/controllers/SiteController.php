@@ -8,6 +8,9 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use backend\models\Rider;
 use frontend\models\RiderSearch;
+use frontend\models\DownloadForm;
+use backend\models\CertParticipation;
+use backend\models\CertAchievement;
 
 /**
  * Site controller
@@ -94,8 +97,35 @@ class SiteController extends Controller
      */
     public function actionView($id)
     {
+        $download = new DownloadForm();
+        $model = $this->findModel($id);
+        
+        if ($download->load(Yii::$app->request->post())) {
+            $jenis = Yii::$app->request->post('jenis');
+       
+            if($download->nric == $model->nric){
+                if($jenis == 1){
+                    $pdf = new CertParticipation();
+                    $pdf->model = $model;
+                    $pdf->generatePdf();
+                    exit;
+                }else if($jenis == 2 && $model->cert_achive == 1){
+                    $pdf = new CertAchievement();
+                    $pdf->model = $model;
+                    $pdf->generatePdf();
+                    exit;
+                }
+
+            }else{
+                Yii::$app->session->addFlash('error', "No. Kad Pengenalan tidak sah");
+                return $this->refresh();
+            }
+        }
+        
+        
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model ,
+            'download' => $download
         ]);
     }
     

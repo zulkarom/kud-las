@@ -5,10 +5,7 @@
 
 use common\widgets\Alert;
 use frontend\assets\AppAsset;
-use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap4\Html;
-use yii\bootstrap4\Nav;
-use yii\bootstrap4\NavBar;
 use yii\helpers\Url;
 
 AppAsset::register($this);
@@ -57,6 +54,9 @@ AppAsset::register($this);
     -o-transition: all 0.4s ease-out 0s;
     transition: all 0.4s ease-out 0s;
 }
+.help-block{
+    color:#721c24;
+}
   
   </style>
 </head>
@@ -80,6 +80,7 @@ AppAsset::register($this);
                 </div>
             </div> <!-- row -->
             <div class="contact-box mt-15">
+             
 <?php echo $content; ?>
 </div>
         </div> <!-- container -->
