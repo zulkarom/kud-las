@@ -75,10 +75,10 @@ class Rider extends \yii\db\ActiveRecord
             'horse_gender' => 'Horse Gender',
             'country_born' => 'Country Born',
             'kelab' => 'Kelab',
-            'hadlaju' => 'Hadlaju',
-            'jarak' => 'Jarak',
+            'hadlaju' => 'Hadlaju (KM/J)',
+            'jarak' => 'Jarak (KM)',
             'cert_achive' => 'Certificate of Achievement',
-            'status' => 'Certificate Status',
+            'statusText' => 'Certificate Status',
         ];
     }
     

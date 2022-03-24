@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
           
             <?php  
             if($model->cert_achive == 1){
-                echo Html::a('SIJIL KEJAYAAN', ['cert-achivement', 'id' => $model->id], ['class' => 'btn btn-success', 'target' => '_blank']);
+                echo Html::a('SIJIL KEJAYAAN', ['cert-achievement', 'id' => $model->id], ['class' => 'btn btn-success', 'target' => '_blank']);
             }
             ?>
   
