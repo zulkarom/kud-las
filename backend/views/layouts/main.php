@@ -40,8 +40,8 @@ AppAsset::register($this);
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
-        $menuItems[] = ['label' => 'PESERTA', 'url' => ['/site/index']];
-        $menuItems[] = ['label' => 'JAWATANKUASA', 'url' => ['/site/index']];
+        $menuItems[] = ['label' => 'PESERTA', 'url' => ['/rider']];
+      //  $menuItems[] = ['label' => 'JAWATANKUASA', 'url' => ['/site/index']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
             . Html::submitButton(
@@ -71,8 +71,8 @@ AppAsset::register($this);
 
 <footer class="footer mt-auto py-3 text-muted">
     <div class="container">
-        <p class="float-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
-        <p class="float-right"><?= Yii::powered() ?></p>
+        <p class="float-left">&copy; E-SIJIL KUDA LASAK <?= date('Y') ?></p>
+        <p class="float-right">SKYHINT DESIGN</p>
     </div>
 </footer>
 

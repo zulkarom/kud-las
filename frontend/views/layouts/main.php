@@ -9,6 +9,7 @@ use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap4\Html;
 use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
+use yii\helpers\Url;
 
 AppAsset::register($this);
 ?>
@@ -26,7 +27,38 @@ AppAsset::register($this);
     <?php $this->head() ?>
 
   
+  <style type="text/css">
+  a {
+    color: #fff;
+    text-decoration: none;
+}
+  a:hover {
+    color: #fff;
+    text-decoration:underline;
+}
+
+  .reset-btn {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    @inlude user-select(none): ;
+    border: 1px solid #fe7865;
+    padding: 0 35px;
+    font-size: 16px;
+    line-height: 48px;
+    color: #fe7865;
+    cursor: pointer;
+    z-index: 5;
+    -webkit-transition: all 0.4s ease-out 0s;
+    -moz-transition: all 0.4s ease-out 0s;
+    -ms-transition: all 0.4s ease-out 0s;
+    -o-transition: all 0.4s ease-out 0s;
+    transition: all 0.4s ease-out 0s;
+}
   
+  </style>
 </head>
 
 <body>
@@ -40,7 +72,16 @@ AppAsset::register($this);
     
     <section id="contact" class="contact-area pt-11">
         <div class="container">
+        <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="contact-title text-center">
+                        <h2 class="title" style="color:white"><a href="<?php echo Url::to(['/'])?>">e-SIJIL KUDA LASAK</a></h2>
+                    </div> <!-- contact title -->
+                </div>
+            </div> <!-- row -->
+            <div class="contact-box mt-15">
 <?php echo $content; ?>
+</div>
         </div> <!-- container -->
     </section>
     

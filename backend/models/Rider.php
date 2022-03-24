@@ -41,7 +41,7 @@ class Rider extends \yii\db\ActiveRecord
     {
         return [
             [['horse_dob'], 'safe'],
-            [['hadlaju', 'jarak'], 'required'],
+            [['rider_name', 'horse_name'], 'required'],
             [['hadlaju', 'jarak'], 'number'],
             [['cert_achive', 'status'], 'integer'],
             [['phone'], 'string', 'max' => 11],
@@ -64,20 +64,56 @@ class Rider extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'phone' => 'Phone',
-            'rider_name' => 'Rider Name',
-            'nric' => 'Nric',
+            'riderName' => 'Nama Pemilik',
+            'nric' => 'NRIC',
             'email' => 'Email',
             'address' => 'Address',
-            'horse_name' => 'Horse Name',
-            'horse_dob' => 'Horse Dob',
+            'horseName' => 'Nama Kuda',
+            'horse_dob' => 'Horse D.O.B',
             'horse_color' => 'Horse Color',
+            'horseColor' => 'Warna Kuda',
             'horse_gender' => 'Horse Gender',
             'country_born' => 'Country Born',
             'kelab' => 'Kelab',
             'hadlaju' => 'Hadlaju',
             'jarak' => 'Jarak',
-            'cert_achive' => 'Cert Achive',
-            'status' => 'Status',
+            'cert_achive' => 'Certificate of Achievement',
+            'status' => 'Certificate Status',
         ];
     }
+    
+    public function getRiderName(){
+        return strtoupper($this->rider_name);
+    }
+    
+    public function getHorseName(){
+        return strtoupper($this->horse_name);
+    }
+    
+    public function getHorseColor(){
+        return strtoupper($this->horse_color);
+    }
+    
+    public function statusList(){
+        return [ 0 => 'DRAFT', 10 => 'PUBLISHED'];
+    }
+    
+    public function achiveList(){
+        return [ 0 => 'NO', 1 => 'YES'];
+    }
+    
+    public function getStatusText(){
+        $list = $this->statusList();
+        if(array_key_exists($this->status, $list)){
+            return $list[$this->status];
+        }
+    }
+    
+    public function getAchieveText(){
+        $list = $this->achiveList();
+        if(array_key_exists($this->cert_achive, $list)){
+            return $list[$this->cert_achive];
+        }
+    }
+    
 }

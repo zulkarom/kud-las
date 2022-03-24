@@ -6,17 +6,54 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Rider */
 
-$this->title = $model->id;
+$this->title = 'View: ' . $model->rider_name;
 $this->params['breadcrumbs'][] = ['label' => 'Riders', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="rider-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h3><?= Html::encode($model->rider_name) ?></h3>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        
+          <?= Html::a('SIJIL PENYERTAAN', ['cert-participation', 'id' => $model->id], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
+          
+            <?php  
+            if($model->cert_achive == 1){
+                echo Html::a('SIJIL KEJAYAAN', ['cert-achivement', 'id' => $model->id], ['class' => 'btn btn-success', 'target' => '_blank']);
+            }
+            ?>
+  
+    </p>
+
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            'riderName',
+            'horseName',
+            'nric',
+            'phone',
+            
+            
+            'email:email',
+            'address',
+            
+            'horse_dob',
+            'horse_color',
+            'horse_gender',
+            'country_born',
+            'kelab',
+            'hadlaju',
+            'jarak',
+            'achieveText',
+            'statusText',
+        ],
+    ]) ?>
+    <br />
+     <p>
+
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -25,27 +62,5 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
-
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'phone',
-            'rider_name',
-            'nric',
-            'email:email',
-            'address',
-            'horse_name',
-            'horse_dob',
-            'horse_color',
-            'horse_gender',
-            'country_born',
-            'kelab',
-            'hadlaju',
-            'jarak',
-            'cert_achive',
-            'status',
-        ],
-    ]) ?>
 
 </div>
