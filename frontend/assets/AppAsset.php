@@ -9,12 +9,15 @@ use yii\web\AssetBundle;
  */
 class AppAsset extends AssetBundle
 {
-    public $basePath = '@webroot';
-    public $baseUrl = '@web';
+    public $sourcePath = '@frontend/assets/sijil';
     public $css = [
-        'css/site.css',
+        'css/default.css',
+        'css/style.css',
+        'responsive.css'
     ];
+
     public $js = [
+        'js/jquery.nav.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',
