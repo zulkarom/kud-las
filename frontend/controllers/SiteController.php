@@ -103,7 +103,7 @@ class SiteController extends Controller
         if ($download->load(Yii::$app->request->post())) {
             $jenis = Yii::$app->request->post('jenis');
        
-            if($download->nric == $model->nric){
+            if($download->nric == $model->nric && $model->status == 10){
                 if($jenis == 1){
                     $pdf = new CertParticipation();
                     $pdf->frontend = true;
@@ -116,10 +116,13 @@ class SiteController extends Controller
                     $pdf->model = $model;
                     $pdf->generatePdf();
                     exit;
+                }else{
+                    Yii::$app->session->addFlash('error', "Sijil tidak dijumpai");
+                    return $this->refresh();
                 }
 
             }else{
-                Yii::$app->session->addFlash('error', "No. Kad Pengenalan tidak sah");
+                Yii::$app->session->addFlash('error', "Sijil tidak dijumpai");
                 return $this->refresh();
             }
         }
