@@ -78,6 +78,7 @@ class Rider extends \yii\db\ActiveRecord
             'hadlaju' => 'Hadlaju (KM/J)',
             'jarak' => 'Jarak (KM)',
             'cert_achive' => 'Certificate of Achievement',
+            'achieveText' => 'Certificate of Achievement',
             'statusText' => 'Certificate Status',
         ];
     }
