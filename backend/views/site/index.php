@@ -4,7 +4,7 @@
 
 use yii\helpers\Url;
 
-$this->title = 'My Yii Application';
+$this->title = 'E-SIJIL KUDA LASAK';
 ?>
 <div class="site-index">
 
