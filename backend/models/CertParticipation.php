@@ -7,12 +7,17 @@ class CertParticipation
 	public $model;
 	public $pdf;
 	public $filename;
+	public $frontend = false;
 
 	
 	public function generatePdf(){
 
 		$this->pdf = new StartPdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-		$this->pdf->image_background = 'cert-participation.jpg';
+		if($this->frontend){
+		    $this->pdf->image_background = 'admin/images/cert-participation.jpg';
+		}else{
+		    $this->pdf->image_background = 'images/cert-participation.jpg';
+		}
 		$this->startPage();
 		$this->writeData();
 		$this->pdf->Output($this->filename .'.pdf', 'I'); 

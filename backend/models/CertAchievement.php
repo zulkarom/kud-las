@@ -7,12 +7,18 @@ class CertAchievement
 	public $model;
 	public $pdf;
 	public $filename;
+	public $frontend = false;
 
 	
 	public function generatePdf(){
 
 		$this->pdf = new StartPdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-		$this->pdf->image_background = 'cert-achievement.jpg';
+		if($this->frontend){
+		    $this->pdf->image_background = 'admin/images/cert-achievement.jpg';
+		}else{
+		    $this->pdf->image_background = 'images/cert-achievement.jpg';
+		}
+		
 		$this->startPage();
 		$this->writeData();
 		

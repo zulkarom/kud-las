@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="rider-view">
 
-    <h4 class="info-title mb-15">MAKLUMAT PESERTA</h4>
+    <h4 class="info-title mb-15 mt-10">MAKLUMAT PESERTA</h4>
 
 
     <?= DetailView::widget([

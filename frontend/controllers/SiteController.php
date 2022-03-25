@@ -106,11 +106,13 @@ class SiteController extends Controller
             if($download->nric == $model->nric){
                 if($jenis == 1){
                     $pdf = new CertParticipation();
+                    $pdf->frontend = true;
                     $pdf->model = $model;
                     $pdf->generatePdf();
                     exit;
                 }else if($jenis == 2 && $model->cert_achive == 1){
                     $pdf = new CertAchievement();
+                    $pdf->frontend = true;
                     $pdf->model = $model;
                     $pdf->generatePdf();
                     exit;
