@@ -14,8 +14,8 @@ $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="rider-view">
-
-    <h4 class="info-title mb-15 mt-10">MAKLUMAT PESERTA</h4>
+<br />
+    <h4 class="info-title mb-15">MAKLUMAT PESERTA</h4>
 
 
     <?= DetailView::widget([
@@ -45,16 +45,37 @@ $this->params['breadcrumbs'][] = $this->title;
    
     
     <br />
-<div class="form-group">
-        
-<?= Html::submitButton('SIJIL PENYERTAAN', ['class' => 'btn btn-warning', 'name' => 'jenis', 'value' => 1]) ?> 
-<?php 
+
+
+<div class="row">
+	<div class="col-md-6">
+	
+	<div class="row">
+	<div class="col-md-6">
+	<div class="form-group">
+	<?= Html::submitButton('SIJIL PENYERTAAN', ['class' => 'btn btn-warning btn-block', 'name' => 'jenis', 'value' => 1]) ?> 
+	
+	</div></div>
+	<div class="col-md-6">
+	<div class="form-group">
+	<?php 
 
 if($model->cert_achive == 1){
-    echo Html::submitButton('SIJIL KEJAYAAN', ['class' => 'btn btn-success', 'name' => 'jenis', 'value' => 2]) ;
+    echo Html::submitButton('SIJIL KEJAYAAN', ['class' => 'btn btn-success btn-block', 'name' => 'jenis', 'value' => 2]) ;
 }
 ?>
-    </div>
+	
+	</div></div>
+</div>
+	
+	
+	</div>
+
+</div>
+        
+
+
+ 
 
     <?php ActiveForm::end(); ?>
     
