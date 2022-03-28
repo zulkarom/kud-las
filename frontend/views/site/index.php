@@ -21,7 +21,7 @@ $this->title = 'e-SIJIL KUDA LASAK';
                                     <div class="mt-30" style="font-size:20px;">
                                 
                                         <div class="info-content">
-                                            Sila taip nama pemilik dan nama kuda (keywords)
+                                            Sila taip nama <i>rider</i> dan nama kuda (keywords)
                                         </div>
                                     </div> <!-- single info -->
                        
@@ -44,7 +44,7 @@ $this->title = 'e-SIJIL KUDA LASAK';
                     'options' => [
                         'tag' => false, // Don't wrap with "form-group" div
                     ]]
-                                                )->textInput(['placeholder' => "NAMA PEMILIK", 'required' => true])->label(false) ?>
+                                                )->textInput(['placeholder' => "NAMA RIDER", 'required' => true])->label(false) ?>
                                         </div> <!-- single form -->
                                     </div>
                                     <div class="col-lg-12">

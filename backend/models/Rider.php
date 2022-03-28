@@ -64,7 +64,7 @@ class Rider extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'phone' => 'Phone',
-            'riderName' => 'Nama Pemilik',
+            'riderName' => 'Nama Rider',
             'nric' => 'NRIC',
             'email' => 'Email',
             'address' => 'Address',
