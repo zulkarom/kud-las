@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'cert_achive',
                 'format' => 'html',
-                'filter' => Html::activeDropDownList($searchModel, 'status', $searchModel->achiveList(),['class'=> 'form-control','prompt' => 'Choose']),
+                'filter' => Html::activeDropDownList($searchModel, 'cert_achive', $searchModel->achiveList(),['class'=> 'form-control','prompt' => 'Choose']),
                 'value' => function($model){
                 return $model->achieveText;
                 }
