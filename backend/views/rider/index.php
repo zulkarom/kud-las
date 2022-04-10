@@ -33,10 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             'rider_name',
             'horse_name',
-           
-            
             'nric',
-            
             [
                 'attribute' => 'cert_achive',
                 'format' => 'html',
@@ -57,7 +54,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 
             //'address',
-           
             //'horse_dob',
             //'horse_color',
             //'horse_gender',

@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\date\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Rider */
@@ -25,9 +26,27 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
 
- 
 
-    <?= $form->field($model, 'horse_dob')->textInput() ?>
+
+ <?php  
+ if($model->isNewRecord){
+     $model->horse_dob = date('Y-m-d');
+ }
+ echo $form->field($model, 'horse_dob')->widget(DatePicker::classname(), [
+    'removeButton' => false,
+     'pickerIcon' => '<i class="fa fa-calendar"></i>',
+    'pluginOptions' => [
+        'autoclose'=>true,
+        'format' => 'yyyy-mm-dd',
+        'todayHighlight' => true,
+        
+    ],
+    
+    
+]);
+?>
+    
+    
 </div>
 	<div class="col-md-6"> 
 	
