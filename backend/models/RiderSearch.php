@@ -17,9 +17,8 @@ class RiderSearch extends Rider
     public function rules()
     {
         return [
-            [['id', 'cert_achive', 'status'], 'integer'],
-            [['phone', 'rider_name', 'nric', 'email', 'address', 'horse_name', 'horse_dob', 'horse_color', 'horse_gender', 'country_born', 'kelab'], 'safe'],
-            [['hadlaju', 'jarak'], 'number'],
+            [['id'], 'integer'],
+            [['rider_name', 'nric', 'email', 'address', 'phone', 'kelab'], 'safe'],
         ];
     }
 
@@ -60,22 +59,13 @@ class RiderSearch extends Rider
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'horse_dob' => $this->horse_dob,
-            'hadlaju' => $this->hadlaju,
-            'jarak' => $this->jarak,
-            'cert_achive' => $this->cert_achive,
-            'status' => $this->status,
         ]);
 
-        $query->andFilterWhere(['like', 'phone', $this->phone])
-            ->andFilterWhere(['like', 'rider_name', $this->rider_name])
+        $query->andFilterWhere(['like', 'rider_name', $this->rider_name])
             ->andFilterWhere(['like', 'nric', $this->nric])
             ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'address', $this->address])
-            ->andFilterWhere(['like', 'horse_name', $this->horse_name])
-            ->andFilterWhere(['like', 'horse_color', $this->horse_color])
-            ->andFilterWhere(['like', 'horse_gender', $this->horse_gender])
-            ->andFilterWhere(['like', 'country_born', $this->country_born])
+            ->andFilterWhere(['like', 'phone', $this->phone])
             ->andFilterWhere(['like', 'kelab', $this->kelab]);
 
         return $dataProvider;

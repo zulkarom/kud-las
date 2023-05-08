@@ -75,14 +75,14 @@ AppAsset::register($this);
         <div class="row justify-content-center">
                 <div class="col-lg-12">
                     <div class="contact-title text-center">
-                        <h2 class="title" style="color:white"><a href="<?php echo Url::to(['/'])?>">e-SIJIL KUDA LASAK</a></h2>
+                        <h2 class="title" style="color:white"><a href="<?php echo Url::to(['/ecert'])?>">Pendaftaran Sukan Kuda Lasak</a></h2>
                     </div> <!-- contact title -->
                 </div>
             </div> <!-- row -->
-            <div class="contact-box mt-15">
+            
              
 <?php echo $content; ?>
-</div>
+
         </div> <!-- container -->
     </section>
     

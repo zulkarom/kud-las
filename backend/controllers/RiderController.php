@@ -4,12 +4,9 @@ namespace backend\controllers;
 
 use backend\models\Rider;
 use backend\models\RiderSearch;
-use backend\models\CertParticipation;
-use backend\models\CertAchievement;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\AccessControl;
-
+use yii\filters\VerbFilter;
 
 /**
  * RiderController implements the CRUD actions for Rider model.
@@ -19,21 +16,19 @@ class RiderController extends Controller
     /**
      * @inheritDoc
      */
-    
-
     public function behaviors()
     {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['@'],
+        return array_merge(
+            parent::behaviors(),
+            [
+                'verbs' => [
+                    'class' => VerbFilter::className(),
+                    'actions' => [
+                        'delete' => ['POST'],
                     ],
                 ],
-            ],
-        ];
+            ]
+        );
     }
 
     /**
@@ -50,22 +45,6 @@ class RiderController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
-    }
-    
-    public function actionCertParticipation($id){
-        $model = $this->findModel($id);
-        $pdf = new CertParticipation();
-        $pdf->model = $model;
-        $pdf->generatePdf();
-        exit;
-    }
-    
-    public function actionCertAchievement($id){
-        $model = $this->findModel($id);
-        $pdf = new CertAchievement();
-        $pdf->model = $model;
-        $pdf->generatePdf();
-        exit;
     }
 
     /**
