@@ -1,5 +1,6 @@
 <?php
 
+use backend\models\Kejohanan;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -7,41 +8,38 @@ use yii\widgets\ActiveForm;
 /* @var $model backend\models\CompetitionSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
+<div class="row">
+    <div class="col-md-6">
 
-<div class="competition-search">
+<?php $form = ActiveForm::begin([
+    'id' => 'form-filter',
+    'action' => ['index'],
+    'method' => 'get',
+]); ?>
 
-    <?php $form = ActiveForm::begin([
-        'action' => ['index'],
-        'method' => 'get',
-    ]); ?>
+<?= $form->field($model, 'kejohanan_id')->dropDownList(Kejohanan::getList())->label(false) ?>
 
-    <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'kejohanan_id') ?>
 
-    <?= $form->field($model, 'category_id') ?>
+<?php ActiveForm::end(); ?>
 
-    <?= $form->field($model, 'rider_id') ?>
 
-    <?= $form->field($model, 'horse_id') ?>
-
-    <?php // echo $form->field($model, 'hadlaju') ?>
-
-    <?php // echo $form->field($model, 'jarak') ?>
-
-    <?php // echo $form->field($model, 'cert_achive') ?>
-
-    <?php // echo $form->field($model, 'status') ?>
-
-    <?php // echo $form->field($model, 'register_at') ?>
-
-    <?php // echo $form->field($model, 'register_status') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
     </div>
 
-    <?php ActiveForm::end(); ?>
-
 </div>
+
+<?php 
+
+
+$this->registerJs('
+
+$("#competitionsearch-kejohanan_id").change(function(){
+    $("#form-filter").submit();
+});
+
+
+
+');
+
+
+?>

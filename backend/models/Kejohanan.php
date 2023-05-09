@@ -3,6 +3,7 @@
 namespace backend\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "kejohanan".
@@ -47,5 +48,9 @@ class Kejohanan extends \yii\db\ActiveRecord
             'date_end' => 'Date End',
             'location' => 'Location',
         ];
+    }
+
+    public static function getList(){
+        return ArrayHelper::map(self::find()->all(), 'id', 'name');
     }
 }

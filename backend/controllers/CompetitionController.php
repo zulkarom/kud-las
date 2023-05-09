@@ -4,9 +4,10 @@ namespace backend\controllers;
 
 use backend\models\Competition;
 use backend\models\CompetitionSearch;
+use backend\models\Kejohanan;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * CompetitionController implements the CRUD actions for Competition model.
@@ -16,19 +17,21 @@ class CompetitionController extends Controller
     /**
      * @inheritDoc
      */
+        
+
     public function behaviors()
     {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
                     ],
                 ],
-            ]
-        );
+            ],
+        ];
     }
 
     /**
@@ -38,7 +41,13 @@ class CompetitionController extends Controller
      */
     public function actionIndex()
     {
+        //find default com
         $searchModel = new CompetitionSearch();
+        $com = Kejohanan::findOne(['is_active' => 1]);
+        if($com){
+            $searchModel->kejohanan_id = $com->id;
+        }
+        
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [

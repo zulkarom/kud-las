@@ -8,11 +8,11 @@ $user = Yii::$app->user;
 
 $items[] = ['label' => 'Dashboard', 'level' => 1, 'url' => ['/site/index'], 'icon' => 'fas fa-tachometer-alt', 'children' => []];
 
+$items[] = ['label' => 'Pendaftaran', 'level' => 1, 'url' => ['/competition/index'], 'icon' => 'fas fa-edit', 'children' => []];
 
 
-$items[] = ['label' => 'Kejohanan', 'level' => 1, 'url' => ['/kejohanan/index'], 'icon' => 'fas fa-trophy', 'children' => []];
 
-$items[] = ['label' => 'Pertandingan', 'level' => 1, 'url' => ['/competition/index'], 'icon' => 'fas fa-star', 'children' => []];
+
 
 $items[] = ['label' => 'Kategori', 'level' => 1, 'url' => ['/category/index'], 'icon' => 'fas fa-cube', 'children' => []];
 
@@ -20,7 +20,7 @@ $items[] = ['label' => 'Riders Data', 'level' => 1, 'url' => ['/rider/index'], '
 
 $items[] = ['label' => 'Horse Data', 'level' => 1, 'url' => ['/horse/index'], 'icon' => 'fas fa-horse', 'children' => []];
 
-
+$items[] = ['label' => 'Kejohanan', 'level' => 1, 'url' => ['/kejohanan/index'], 'icon' => 'fas fa-star', 'children' => []];
 
 $items[] = ['label' => 'Change Password', 'level' => 1, 'url' => ['/user/change-password'], 'icon' => 'fas fa-unlock-alt', 'children' => []];
 
