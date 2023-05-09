@@ -2,14 +2,21 @@
 
 /** @var yii\web\View $this */
 
+use backend\models\Category;
+use backend\models\Country;
+use backend\models\HorseGender;
 use backend\models\Rider;
+use kartik\date\DatePicker;
+use kartik\select2\Select2;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
+
 ?>
 
 <style>
@@ -29,7 +36,7 @@ $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
 </style>
 <ul class="nav nav-tabs  mt-15">
   <li class="nav-item">
-    <a class="nav-link active" href="#"><span class="stepnum">1</span> NO.K/P</a>
+    <a class="nav-link" href="#"><span class="stepnum">1</span></a>
   </li>
   <li class="nav-item">
     <a class="nav-link" href="#"><span class="stepnum">2</span></a>
@@ -38,7 +45,7 @@ $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
     <a class="nav-link" href="#"><span class="stepnum">3</span></a>
   </li>
   <li class="nav-item">
-    <a class="nav-link " href="#"><span class="stepnum">4</span></a>
+    <a class="nav-link active" href="#"><span class="stepnum">4</span> Kejohanan</a>
   </li>
 </ul>
 
@@ -48,7 +55,7 @@ $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
 
 
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-5">
                         <div class="contact-info pt-25">
 
                         <h4 class="info-title">KEJOHANAN KUDA LASAK TERBUKA PIALA NAIB CANSELOR UMK</h4>
@@ -58,39 +65,33 @@ $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
                             <div class="mt-30" style="font-size:20px;">
                         
                                 <div class="info-content">
-                                    Sila taip nombor kad pengenalan anda untuk mula atau sambung proses pendaftaran.
+                                    Sila masukkan maklumat kejohanan yang anda ingin sertai
                                 </div>
                             </div> <!-- single info -->
                        
                         </div> <!-- contact info -->
                     </div> 
-                    <div class="col-lg-8">
+                    <div class="col-lg-7">
 
                     <div class="contact-form">
                         
                         
                             <?php $form = ActiveForm::begin(); ?>
     
-     <div class="row">
-              <div class="col-lg-12">
-                  <div class="single-form form-group">
-                     <?= $form->field($model, 'nric', 
-                    )->textInput() ?>
+<?php
+ echo $form->field($model, 'category_id')->dropdownlist(Category::getCategoryList(), ['prompt' => 'Pilih Kategori']);
 
+?>
 
+<div class="form-group">PERAKUAN:
+DENGAN MENGHANTAR (SUBMIT) BORANG INI SECARA ONLINE: Saya menyatakan bahawa: Saya telah membaca dan memahami jadual pertandingan dan saya menjanji untuk mematuhi semua peraturan pertandingan. Saya membebaskan JAWATANKUASA PENGANJUR dari segala tanggungjawab untuk kemalangan yang mungkin berlaku pada penunggang, kuda atau pembantu semasa tempoh pertandingan.</div>
 
-                        </div> <!-- single form -->
-                    </div>
-                   
-                          
-                                    <p class="form-message"></p>
-                                    <div class="col-lg-12">
-                                        <div class="single-form form-group">
-                                            <button class="main-btn" type="submit">SETERUSNYA</button> 
-                                       
-                                        </div> <!-- single form -->
-                                    </div>
-                                </div> <!-- row -->
+<br />
+        
+          <div class="form-group">
+          <a href="<?=Url::to(['/'])?>" class="btn btn-secondary" >KEMBALI</a>  <button class="btn btn-danger" type="submit">HANTAR PENDAFTARAN</button> 
+          
+          </div> </div> 
 
 
 

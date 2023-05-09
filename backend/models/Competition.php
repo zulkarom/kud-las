@@ -39,7 +39,8 @@ class Competition extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['kejohanan_id', 'category_id'], 'required'],
+            [['kejohanan_id', 'rider_id'], 'required'],
+            [['category_id'], 'required', 'on' => 'kejohanan'],
             [['kejohanan_id', 'category_id', 'rider_id', 'horse_id', 'cert_achive', 'status', 'register_status'], 'integer'],
             [['hadlaju', 'jarak'], 'number'],
             [['register_at'], 'safe'],
@@ -57,7 +58,7 @@ class Competition extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'kejohanan_id' => 'Kejohanan ID',
-            'category_id' => 'Category ID',
+            'category_id' => 'Kategori Kejohanan',
             'rider_id' => 'Rider ID',
             'horse_id' => 'Horse ID',
             'hadlaju' => 'Hadlaju',

@@ -10,6 +10,7 @@ use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
+
 ?>
 
 <style>
@@ -29,10 +30,10 @@ $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
 </style>
 <ul class="nav nav-tabs  mt-15">
   <li class="nav-item">
-    <a class="nav-link active" href="#"><span class="stepnum">1</span> NO.K/P</a>
+    <a class="nav-link" href="#"><span class="stepnum">1</span></a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="#"><span class="stepnum">2</span></a>
+    <a class="nav-link active" href="#"><span class="stepnum">2</span> MAKLUMAT RIDER</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" href="#"><span class="stepnum">3</span></a>
@@ -58,7 +59,7 @@ $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
                             <div class="mt-30" style="font-size:20px;">
                         
                                 <div class="info-content">
-                                    Sila taip nombor kad pengenalan anda untuk mula atau sambung proses pendaftaran.
+                                    Sila masukkan maklumat rider.
                                 </div>
                             </div> <!-- single info -->
                        
@@ -72,21 +73,67 @@ $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
                             <?php $form = ActiveForm::begin(); ?>
     
      <div class="row">
-              <div class="col-lg-12">
+     <div class="col-lg-12">
                   <div class="single-form form-group">
-                     <?= $form->field($model, 'nric', 
+                     <?= $form->field($model, 'rider_name', 
                     )->textInput() ?>
 
 
 
                         </div> <!-- single form -->
                     </div>
+              <div class="col-lg-12">
+                  <div class="single-form form-group">
+                     <?= $form->field($model, 'nric', 
+                    )->textInput(['disabled' => true]) ?>
+
+
+
+                        </div> <!-- single form -->
+                    </div>
+                    <div class="col-lg-12">
+                  <div class="single-form form-group">
+                     <?= $form->field($model, 'email', 
+                    )->textInput() ?>
+                  </div>
+                    </div>
+
+<div class="col-lg-12">
+                  <div class="single-form form-group">
+                     <?= $form->field($model, 'phone', 
+                    )->textInput() ?>
+
+
+
+                        </div> <!-- single form -->
+                    </div>
+
+                    <div class="col-lg-12">
+                  <div class="single-form form-group">
+                     <?= $form->field($model, 'address', 
+                    )->textarea(['rows' => 2]) ?>
+
+
+
+                        </div> <!-- single form -->
+                    </div>
+
+                    <div class="col-lg-12">
+                  <div class="single-form form-group">
+                     <?= $form->field($model, 'kelab', 
+                    )->textInput() ?>
+
+
+
+                        </div> <!-- single form -->
+                    </div>
+
                    
                           
                                     <p class="form-message"></p>
                                     <div class="col-lg-12">
                                         <div class="single-form form-group">
-                                            <button class="main-btn" type="submit">SETERUSNYA</button> 
+                                        <a href="<?=Url::to(['/'])?>" class="btn btn-secondary" >KEMBALI</a>  <button class="btn btn-danger" type="submit">SIMPAN RIDER</button> 
                                        
                                         </div> <!-- single form -->
                                     </div>

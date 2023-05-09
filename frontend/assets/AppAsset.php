@@ -13,6 +13,7 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/default.css',
         'css/style.css',
+        'fontawesome/css/all.min.css',
         'responsive.css'
     ];
 

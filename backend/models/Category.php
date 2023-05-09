@@ -3,6 +3,7 @@
 namespace backend\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "category".
@@ -55,5 +56,9 @@ class Category extends \yii\db\ActiveRecord
     public function getCompetitions()
     {
         return $this->hasMany(Competition::className(), ['category_id' => 'id']);
+    }
+
+    public static function getCategoryList(){
+        return ArrayHelper::map(self::find()->where(['is_enabled' => 1])->all(), 'id', 'category_name');
     }
 }

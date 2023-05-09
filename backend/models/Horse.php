@@ -34,6 +34,7 @@ class Horse extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['horse_name', 'horse_color', 'horse_gender', 'horse_dob'], 'required'],
             [['horse_dob'], 'safe'],
             [['eam_id', 'horse_code'], 'string', 'max' => 255],
             [['horse_name', 'horse_color', 'horse_gender', 'country_born'], 'string', 'max' => 200],
@@ -49,13 +50,13 @@ class Horse extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'eam_id' => 'Eam ID',
-            'horse_code' => 'Horse Code',
-            'horse_name' => 'Horse Name',
-            'horse_dob' => 'Horse Dob',
-            'horse_color' => 'Horse Color',
-            'horse_gender' => 'Horse Gender',
-            'country_born' => 'Country Born',
+            'eam_id' => 'No. EAM',
+            'horse_code' => 'eKudaLasak ID',
+            'horse_name' => 'Nama Kuda',
+            'horse_dob' => 'Tarikh Lahir Kuda',
+            'horse_color' => 'Warna Kuda',
+            'horse_gender' => 'Jantina Kuda',
+            'country_born' => 'Negara Kelahiran Kuda',
         ];
     }
 

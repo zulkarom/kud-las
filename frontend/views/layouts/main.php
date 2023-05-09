@@ -57,6 +57,14 @@ AppAsset::register($this);
 .help-block{
     color:#721c24;
 }
+
+.form-group{
+    margin-top:18px;
+}
+
+.form-note{
+    font-size:12px;
+}
   
   </style>
 </head>
@@ -75,7 +83,7 @@ AppAsset::register($this);
         <div class="row justify-content-center">
                 <div class="col-lg-12">
                     <div class="contact-title text-center">
-                        <h2 class="title" style="color:white"><a href="<?php echo Url::to(['/ecert'])?>">Pendaftaran Sukan Kuda Lasak</a></h2>
+                        <h2 class="title" style="color:white"><a href="<?php echo Url::to(['/'])?>">Pendaftaran Sukan Kuda Lasak</a></h2>
                     </div> <!-- contact title -->
                 </div>
             </div> <!-- row -->

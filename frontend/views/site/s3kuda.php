@@ -2,14 +2,20 @@
 
 /** @var yii\web\View $this */
 
+use backend\models\Country;
+use backend\models\HorseGender;
 use backend\models\Rider;
+use kartik\date\DatePicker;
+use kartik\select2\Select2;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
+
 ?>
 
 <style>
@@ -29,13 +35,13 @@ $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
 </style>
 <ul class="nav nav-tabs  mt-15">
   <li class="nav-item">
-    <a class="nav-link active" href="#"><span class="stepnum">1</span> NO.K/P</a>
+    <a class="nav-link" href="#"><span class="stepnum">1</span></a>
   </li>
   <li class="nav-item">
     <a class="nav-link" href="#"><span class="stepnum">2</span></a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="#"><span class="stepnum">3</span></a>
+    <a class="nav-link active" href="#"><span class="stepnum">3</span> MAKLUMAT KUDA</a>
   </li>
   <li class="nav-item">
     <a class="nav-link " href="#"><span class="stepnum">4</span></a>
@@ -48,7 +54,7 @@ $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
 
 
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-5">
                         <div class="contact-info pt-25">
 
                         <h4 class="info-title">KEJOHANAN KUDA LASAK TERBUKA PIALA NAIB CANSELOR UMK</h4>
@@ -58,39 +64,71 @@ $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
                             <div class="mt-30" style="font-size:20px;">
                         
                                 <div class="info-content">
-                                    Sila taip nombor kad pengenalan anda untuk mula atau sambung proses pendaftaran.
+                                    Sila masukkan maklumat kuda.
                                 </div>
                             </div> <!-- single info -->
                        
                         </div> <!-- contact info -->
                     </div> 
-                    <div class="col-lg-8">
+                    <div class="col-lg-7">
 
                     <div class="contact-form">
                         
                         
                             <?php $form = ActiveForm::begin(); ?>
     
-     <div class="row">
-              <div class="col-lg-12">
-                  <div class="single-form form-group">
-                     <?= $form->field($model, 'nric', 
+
+                     <?= $form->field($model, 'horse_name',['template' => '{label}{input}<i class="form-note">(HURUF BESAR, untuk tujuan SIJIL)</i>{error}
+            '])->textInput() ?>
+
+             
+
+                    
+
+
+                     <?= $form->field($model, 'horse_color', 
                     )->textInput() ?>
 
 
+                 
 
-                        </div> <!-- single form -->
-                    </div>
-                   
-                          
-                                    <p class="form-message"></p>
-                                    <div class="col-lg-12">
-                                        <div class="single-form form-group">
-                                            <button class="main-btn" type="submit">SETERUSNYA</button> 
-                                       
-                                        </div> <!-- single form -->
-                                    </div>
-                                </div> <!-- row -->
+<?php
+ echo $form->field($model, 'horse_gender')->dropdownlist(HorseGender::getGenderList(), ['prompt' => 'Pilih Jantina']);
+
+?>
+
+
+<?=$form->field($model, 'horse_dob',['template' => '{label}{input}<i class="form-note">(Jika hanya ingat tahun, pilih tarikh 01 Jan utk tahun tersebut)</i>{error}
+            '])->widget(DatePicker::classname(), [
+    'removeButton' => false,
+    'pluginOptions' => [
+        'autoclose'=>true,
+        'format' => 'yyyy-mm-dd',
+        'todayHighlight' => true,
+        
+    ],
+    
+    
+]);
+?>
+
+
+                     <?= $form->field($model, 'eam_id', 
+                    )->textInput()->label('No. EAM (Jika ada)') ?>
+
+
+               
+<?php
+ echo $form->field($model, 'country_born')->dropdownlist(Country::getCountryList(), ['prompt' => 'Pilih Negara'])->label('Negara Kelahiran Kuda (Jika ada)');
+ 
+
+?>
+<br />
+        
+          <div class="form-group">
+          <a href="<?=Url::to(['/'])?>" class="btn btn-secondary" >KEMBALI</a>  <button class="btn btn-danger" type="submit">SIMPAN</button> 
+          
+          </div> </div> 
 
 
 

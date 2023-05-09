@@ -19,6 +19,7 @@ use Yii;
  */
 class Rider extends \yii\db\ActiveRecord
 {
+    public $nric_show;
     /**
      * {@inheritdoc}
      */
@@ -33,8 +34,13 @@ class Rider extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['rider_name', 'address', 'phone', 'kelab'], 'required'],
+
             [['rider_name', 'email', 'address', 'phone', 'kelab'], 'string', 'max' => 200],
             [['nric'], 'string', 'max' => 20],
+
+            [['email'], 'trim'],
+            [['email'], 'email'],
             [['nric'], 'unique'],
         ];
     }
@@ -46,11 +52,11 @@ class Rider extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'rider_name' => 'Rider Name',
-            'nric' => 'Nric',
+            'rider_name' => 'Nama Rider',
+            'nric' => 'No. Kad Pengenalan',
             'email' => 'Email',
-            'address' => 'Address',
-            'phone' => 'Phone',
+            'address' => 'Alamat',
+            'phone' => 'No. Telefon',
             'kelab' => 'Kelab',
         ];
     }
