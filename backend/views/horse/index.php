@@ -38,8 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'horse_code',
             'horse_dob',
             'horse_color',
-            'horse_gender',
-            //'country_born',
+            'genderShort',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Horse $model, $key, $index, $column) {

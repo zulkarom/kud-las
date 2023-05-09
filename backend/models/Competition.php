@@ -48,6 +48,8 @@ class Competition extends \yii\db\ActiveRecord
             [['rider_id'], 'exist', 'skipOnError' => true, 'targetClass' => Rider::className(), 'targetAttribute' => ['rider_id' => 'id']],
             [['horse_id'], 'exist', 'skipOnError' => true, 'targetClass' => Horse::className(), 'targetAttribute' => ['horse_id' => 'id']],
             [['rider_size'], 'string'],
+
+            [['category_id'], 'validateCategory'],
         ];
     }
 
@@ -70,6 +72,17 @@ class Competition extends \yii\db\ActiveRecord
             'register_status' => 'Register Status',
             'rider_size' => 'Saiz Baju'
         ];
+    }
+
+    public function validateCategory($attribute, $params, $validator)
+    {
+        $c = Competition::find()
+        ->where(['rider_id' => $this->rider_id, 'kejohanan_id' => $this->kejohanan_id, 'category_id' => $this->category_id])
+        ->andWhere(['<>', 'id', $this->id])
+        ->one();
+        if($c){
+            $this->addError($attribute, 'Satu Rider tidak boleh mendaftar dua kali kategori yang sama!');
+        }
     }
 
     /**

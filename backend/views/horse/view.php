@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'horse_name',
             'horse_dob',
             'horse_color',
-            'horse_gender',
+            'genderShort',
             'country_born',
         ],
     ]) ?>

@@ -3,7 +3,9 @@
 /** @var yii\web\View $this */
 
 use backend\models\Category;
+use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\UrlRule;
 use yii\widgets\ActiveForm;
 
 $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
@@ -56,8 +58,12 @@ $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
                             <div class="mt-30" style="font-size:20px;">
                         
                                 <div class="info-content">
-                                    Sila masukkan maklumat kejohanan yang anda ingin sertai
+                                   Berikut maklumat pendaftaran anda. Sila tekan butang Kemaskini untuk mengemaskini maklumat pendaftaran. Jika sekiranya anda ingin menambah pendaftaran sila klik butang di bawah.
                                 </div>
+
+                                <div class="form-group">  <a href="<?=Url::to(['/site/index', 'n' => $model->rider->nric])?>" class="btn btn-secondary" >KEMBALI</a>  
+                          <?=Html::a('TAMBAH PENDAFTARAN',['summary', 'f' => $model->id, 'new' => 1], ['class' => 'btn btn-danger'])?>
+                        </div>
                             </div> <!-- single info -->
                        
                         </div> <!-- contact info -->
@@ -66,36 +72,84 @@ $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
 
                     <div class="contact-form">
                         
-                        
-                            <?php $form = ActiveForm::begin(); ?>
-    
-<?php
- echo $form->field($model, 'category_id')->dropdownlist(Category::getCategoryList(), ['prompt' => 'Pilih Kategori']);
-
-?>
-
-<?php
-$size = ['XS', 'S', 'M','L', 'XL', 'XXL'];
-$a=[];
-foreach($size as $s){
-  $a[$s] = $s;
-}
- echo $form->field($model, 'rider_size')->dropdownlist($a, ['prompt' => 'Pilih Saiz']);
-
-?>
-<div class="form-group">PERAKUAN:
-DENGAN MENGHANTAR (SUBMIT) BORANG INI SECARA ONLINE: Saya menyatakan bahawa: Saya telah membaca dan memahami jadual pertandingan dan saya menjanji untuk mematuhi semua peraturan pertandingan. Saya membebaskan JAWATANKUASA PENGANJUR dari segala tanggungjawab untuk kemalangan yang mungkin berlaku pada penunggang, kuda atau pembantu semasa tempoh pertandingan.</div>
-
-<br />
-        
-          <div class="form-group">
-          <a href="<?=Url::to(['s3kuda-view', 'f' => $model->id])?>" class="btn btn-secondary" >KEMBALI</a>  <button class="btn btn-danger" type="submit">HANTAR PENDAFTARAN</button> 
+                 
+      <?php  
+      
+      if($semua){
+        foreach($semua as $s){
+          ?>
           
-          </div> </div> 
+          <div class="card mt-50">
+  <div class="card-body">
+    (<?php echo $s->id;?>)<br />
+    <b>Maklumat Rider:</b> 
+
+          <?php  
+          echo $s->rider->rider_name. ' (' . $s->rider->nric. ') ' . $s->rider_phone . ' ' .
+                $s->rider->email . '; Alamat: ' .
+                $s->rider->address . '; Kelab: ' .
+                $s->rider_kelab ;
+          ?>
+<?php if($s->horse_id){ ?>
+<br /><br />
+<b>Maklumat Kuda:</b> 
+
+<?php  
+$m = $s->horse;
+$html = '';
+$g = '';
+$g .= $m->horse_name.'/';
+$g .= $m->horse_color.'/';
+$g .= $m->genderShort;
+$html .= strtoupper($g);
+
+if($m->horse_dob){
+  $html .= '<br />DOB: ' . date('d/m/Y', strtotime($m->horse_dob));
+  if($m->countryText){
+    $html .= '@' . $m->countryText;
+  }
+}
+$eam =  $m->eam_id ? $m->eam_id : '-';
+$html .= '<br />ID: '. $m->horse_code .'; EAM: '.$eam;
+echo $html;
+}
+?>
+
+
+<?php  if($s->category_id){ ?>
+<br /><br />
+<b>Kejohanan:</b> 
+
+<?php  
+echo 'Kategory: ' . $s->category->category_name . '; Size: ' . $s->rider_size ;
+}
+?>
+<br /><br />
+<a href="<?=Url::to(['s2edit', 'f' => $s->id])?>" class="btn btn-primary">Kemaskini</a>
+  </div> 
 
 
 
-    <?php ActiveForm::end(); ?>
+
+
+
+
+    </div>   
+
+          <?php
+
+
+        }
+      }
+      
+      
+      
+      
+      
+      
+      
+      
+      ?>
     
                     
                                

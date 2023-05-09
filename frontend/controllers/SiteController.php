@@ -55,7 +55,13 @@ class SiteController extends Controller
             ->where(['r.nric' => $nric, 'a.kejohanan_id' => $kejohanan->id])
             ->one();
             if($ada){
-                return $this->redirect(['s2edit', 'f' => $ada->id]);
+                //check dah submit?
+                if($ada->register_status == 100){
+                    return $this->redirect(['summary', 'f' => $ada->id]);
+                }else{
+                    return $this->redirect(['s2edit', 'f' => $ada->id]);
+                }
+                
 
             }else{
                 //cari rider dulu
@@ -69,7 +75,7 @@ class SiteController extends Controller
   
                 
             }
-            die();
+
         }
 
         return $this->render('index', [
@@ -188,7 +194,7 @@ class SiteController extends Controller
             if($model->eam_id == ''){
                 $model->eam_id = null;
             }
-            
+            $model->horse_name = strtoupper($model->horse_name);
             if($model->save()){
                 //generate code
                 if($model->horse_name){
@@ -229,6 +235,7 @@ class SiteController extends Controller
             if($model->eam_id == ''){
                 $model->eam_id = null;
             }
+            $model->horse_name = strtoupper($model->horse_name);
             if($model->save()){
                 return $this->redirect(['s4competition', 'f' => $f]);
             }
@@ -259,6 +266,29 @@ class SiteController extends Controller
 
         return $this->render('s4competition', [
             'model' => $daftar,
+        ]);
+    }
+
+    public function actionSummary($f, $new = false){
+        $kejohanan = Kejohanan::findOne(['is_active' => 1]);
+        $daftar = $this->findCompetition($f);
+        $r = $daftar->rider_id;
+        if($new){
+            $daftar = new Competition();
+            $daftar->kejohanan_id = $kejohanan->id;
+            $daftar->rider_id = $r;
+            if($daftar->save()){
+                return $this->redirect(['s3edit', 'f' => $daftar->id]);
+            } 
+        }
+       
+        $semua = Competition::find()
+        ->where(['rider_id' => $r, 'kejohanan_id' => $kejohanan->id])
+        ->all();
+
+        return $this->render('summary', [
+            'model' => $daftar,
+            'semua' => $semua
         ]);
     }
 
