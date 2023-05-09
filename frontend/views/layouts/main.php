@@ -27,11 +27,16 @@ AppAsset::register($this);
   <style type="text/css">
   a {
     color: #fff;
+    font-weight: bold;
     text-decoration: none;
 }
   a:hover {
     color: #fff;
     text-decoration:underline;
+}
+
+.stroke{
+-webkit-text-stroke: 1px black;
 }
 
   .reset-btn {
@@ -83,7 +88,7 @@ AppAsset::register($this);
         <div class="row justify-content-center">
                 <div class="col-lg-12">
                     <div class="contact-title text-center">
-                        <h2 class="title" style="color:white"><a href="<?php echo Url::to(['/'])?>">Pendaftaran Sukan Kuda Lasak</a></h2>
+                        <h2 class="title"><a href="<?php echo Url::to(['/'])?>" class="stroke">Pendaftaran Sukan Kuda Lasak</a></h2>
                     </div> <!-- contact title -->
                 </div>
             </div> <!-- row -->
