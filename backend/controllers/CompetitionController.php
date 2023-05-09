@@ -56,6 +56,15 @@ class CompetitionController extends Controller
         ]);
     }
 
+    public function actionDeleteAll($id){
+        $com = $this->findModel($id);
+        $rider = $com->rider;
+        $kuda = $com->horse;
+        $com->delete();
+        $rider->delete();
+        $kuda->delete();
+    }
+
     /**
      * Displays a single Competition model.
      * @param int $id ID

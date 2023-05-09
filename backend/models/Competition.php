@@ -82,7 +82,17 @@ class Competition extends \yii\db\ActiveRecord
         ->one();
         if($c){
             $this->addError($attribute, 'Satu Rider tidak boleh mendaftar dua kali kategori yang sama!');
+        }else{
+            $h = Competition::find()
+            ->where(['horse_id' => $this->horse_id, 'kejohanan_id' => $this->kejohanan_id, 'category_id' => $this->category_id])
+            ->andWhere(['<>', 'id', $this->id])
+            ->one();
+            if($h){
+                $this->addError($attribute, 'Satu Kuda tidak boleh mendaftar dua kali kategori yang sama!');
+            }
         }
+
+        
     }
 
     /**
