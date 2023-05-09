@@ -133,7 +133,7 @@ $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
                                     <p class="form-message"></p>
                                     <div class="col-lg-12">
                                         <div class="single-form form-group">
-                                        <a href="<?=Url::to(['/'])?>" class="btn btn-secondary" >KEMBALI</a>  <button class="btn btn-danger" type="submit">SIMPAN RIDER</button> 
+                                        <a href="<?=Url::to(['/site/index', 'n' => $model->nric])?>" class="btn btn-secondary" >KEMBALI</a>  <button class="btn btn-danger" type="submit">SETERUSNYA</button> 
                                        
                                         </div> <!-- single form -->
                                     </div>

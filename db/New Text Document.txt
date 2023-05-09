@@ -1,0 +1,4 @@
+ALTER TABLE `competition` ADD `rider_kelab` VARCHAR(200) NULL DEFAULT NULL AFTER `rider_phone`;
+ALTER TABLE `rider` ADD `is_confirmed` INT NOT NULL DEFAULT '0' AFTER `kelab`;
+ALTER TABLE `horse` ADD `is_confirmed` TINYINT(1) NOT NULL DEFAULT '0' AFTER `country_born`;
+ALTER TABLE `competition` ADD `rider_size` VARCHAR(10) NULL DEFAULT NULL AFTER `register_status`;

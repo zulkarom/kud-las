@@ -4,16 +4,11 @@ namespace frontend\controllers;
 
 use Yii;
 use yii\web\Controller;
-use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
 use backend\models\Rider;
-use frontend\models\RiderSearch;
-use frontend\models\DownloadForm;
-use backend\models\CertParticipation;
-use backend\models\CertAchievement;
 use backend\models\Competition;
 use backend\models\Horse;
 use backend\models\Kejohanan;
+use frontend\models\HorseSearch;
 use frontend\models\S1Form;
 use yii\db\Expression;
 
@@ -45,9 +40,12 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($n=false)
     {
         $model = new S1Form;
+        if($n){
+            $model->nric = $n;
+        }
 
         if ($model->load(Yii::$app->request->post())) {
             $nric = $model->nric;
@@ -57,7 +55,7 @@ class SiteController extends Controller
             ->where(['r.nric' => $nric, 'a.kejohanan_id' => $kejohanan->id])
             ->one();
             if($ada){
-                echo 'ada';//bagi preview
+                return $this->redirect(['s2edit', 'f' => $ada->id]);
 
             }else{
                 //cari rider dulu
@@ -84,13 +82,14 @@ class SiteController extends Controller
         $model->nric = $n;
         $kejohanan = Kejohanan::findOne(['is_active' => 1]);
         if ($model->load(Yii::$app->request->post())) {
+            $model->rider_name = strtoupper($model->rider_name);
             if($model->save()){
                 //buat id pendaftaran
                 $daftar = new Competition();
                 $daftar->kejohanan_id = $kejohanan->id;
                 $daftar->rider_id = $model->id;
                 if($daftar->save()){
-                    return $this->redirect(['s3kuda']);
+                    return $this->redirect(['s3kuda-search', 'f' => $daftar->id]);
                 }
                 //redirect ke maklumat kuda
             }
@@ -103,15 +102,26 @@ class SiteController extends Controller
     }
 
     public function actionS2edit($f){
-        $model = new Rider();
         $daftar = $this->findCompetition($f);
-        $kejohanan = Kejohanan::findOne(['is_active' => 1]);
+        $model = Rider::findOne($daftar->rider_id);
+        //$kejohanan = Kejohanan::findOne(['is_active' => 1]);
         if ($model->load(Yii::$app->request->post())) {
+            $model->rider_name = strtoupper($model->rider_name);
             if($model->save()){
+
+                $daftar->rider_address = $model->address;
+                $daftar->rider_phone = $model->phone;
+                $daftar->rider_kelab = $model->kelab;
+
                 if($daftar->save()){
-                    return $this->redirect(['s3kuda']);
+                    if($daftar->horse_id){
+                        return $this->redirect(['s3kuda-view', 'f' => $f]);
+                    }else{
+                        return $this->redirect(['s3kuda-search', 'f' => $daftar->id]);
+                    }
+                    
                 }
-                //redirect ke maklumat kuda
+
             }
         }
 
@@ -121,13 +131,73 @@ class SiteController extends Controller
         ]);
     }
 
+    public function actionTest(){
+        $list = Horse::find()->all();
+        foreach($list as $h){
+            if(!$h->horse_code){
+                if($h->horse_name){
+                    $fr= strtoupper(substr($h->horse_name, 0, 1));
+                    $id = $h->id;
+                    $code = $fr.$id;
+                    $h->horse_code = $code;
+                    if(!$h->save()){
+                        print_r($h->getErrors());
+                    }
+                }
+                echo $h->horse_code;
+                echo '<br />';
+            }
+        }
+    }
+
+    public function actionS3kudaSearch($f, $h = false){
+        $daftar = $this->findCompetition($f);
+        if($h){
+            $kuda = $this->findHorse($h);
+            $daftar->horse_id = $h;
+            if($daftar->save()){
+                return $this->redirect(['s3kuda-view', 'f' => $f]);
+            }
+
+        }
+        
+        $params = Yii::$app->request->queryParams;
+        $dataProvider = null;
+        $model = new HorseSearch();
+        $result = false;
+        if(array_key_exists('HorseSearch', $params)){
+            $result = true;
+            
+            $dataProvider = $model->search($this->request->queryParams);
+        }
+        
+        return $this->render('s3kudaSearch', [
+            'model' => $model,
+            'dataProvider' => $dataProvider,
+            'result' => $result,
+            'daftar' => $daftar
+        ]);
+    }
+
     public function actionS3kuda($f){
         $model = new Horse();
-        $kejohanan = Kejohanan::findOne(['is_active' => 1]);
+       // $kejohanan = Kejohanan::findOne(['is_active' => 1]);
         $daftar = $this->findCompetition($f);
 
         if ($model->load(Yii::$app->request->post())) {
+            if($model->eam_id == ''){
+                $model->eam_id = null;
+            }
+            
             if($model->save()){
+                //generate code
+                if($model->horse_name){
+                    $fr= strtoupper(substr($model->horse_name, 0, 1));
+                    $id = $model->id;
+                    $code = $fr.$id;
+                    $model->horse_code = $code;
+                    $model->save();
+                }
                 $daftar->horse_id = $model->id;
                 if($daftar->save()){
                     return $this->redirect(['s4competition', 'f' => $f]);
@@ -135,7 +205,40 @@ class SiteController extends Controller
             }
         }
 
+        
+
         return $this->render('s3kuda', [
+            'model' => $model,
+            'daftar' => $daftar
+        ]);
+    }
+
+    public function actionS3kudaView($f, $b = false){
+        $daftar = $this->findCompetition($f);
+        if($b){
+            $daftar->horse_id = null;
+            if($daftar->save()){
+                return $this->redirect(['s3kuda-search', 'f' => $f]);
+            }
+        }
+        $model = $this->findHorse($daftar->horse_id);
+       // $kejohanan = Kejohanan::findOne(['is_active' => 1]);
+        
+
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->eam_id == ''){
+                $model->eam_id = null;
+            }
+            if($model->save()){
+                return $this->redirect(['s4competition', 'f' => $f]);
+            }
+            
+
+        }
+
+        
+
+        return $this->render('s3kudaView', [
             'model' => $model,
             'daftar' => $daftar
         ]);
@@ -150,7 +253,7 @@ class SiteController extends Controller
             $daftar->register_at = new Expression('NOW()');
             $daftar->register_status = 100;
             if($daftar->save()){
-                return $this->redirect(['thankyou']);
+                return $this->redirect(['thankyou', 'f' => $f]);
             }
         }
 
@@ -185,6 +288,15 @@ class SiteController extends Controller
     protected function findModel($id)
     {
         if (($model = Rider::findOne(['id' => $id])) !== null) {
+            return $model;
+        }
+        
+        throw new \yii\web\NotFoundHttpException('The requested page does not exist.');
+    }
+
+    protected function findHorse($id)
+    {
+        if (($model = Horse::findOne(['id' => $id])) !== null) {
             return $model;
         }
         

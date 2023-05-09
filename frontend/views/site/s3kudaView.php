@@ -78,31 +78,44 @@ $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
                             <?php $form = ActiveForm::begin(); ?>
     
 
-                     <?= $form->field($model, 'horse_name',['template' => '{label}{input}<i class="form-note">(HURUF BESAR, untuk tujuan SIJIL)</i>{error}
-            '])->textInput() ?>
+                     <?php 
+                     $d = $model->horse_name ? ['disabled' => true] : ['disabled' => false];
+                     
+                     echo $form->field($model, 'horse_name',['template' => '{label}{input}<i class="form-note">(HURUF BESAR, untuk tujuan SIJIL)</i>{error}
+            '])->textInput($d) ?>
 
              
 
                     
 
 
-                     <?= $form->field($model, 'horse_color', 
-                    )->textInput() ?>
+<?php 
+                     $d = $model->horse_color ? ['disabled' => true] : ['disabled' => false];
+                     
+                     echo  $form->field($model, 'horse_color', 
+                    )->textInput($d) ?>
 
 
                  
 
 <?php
- echo $form->field($model, 'horse_gender')->dropdownlist(HorseGender::getGenderList(), ['prompt' => 'Pilih Jantina']);
+$d = $model->horse_gender ? ['prompt' => 'Pilih Jantina', 'disabled' => 'disabled']  : ['prompt' => 'Pilih Jantina'];
+ echo $form->field($model, 'horse_gender')
+ ->dropdownlist(HorseGender::getGenderList(), $d);
 
 ?>
 
 
-<?=$form->field($model, 'horse_dob',['template' => '{label}{input}<i class="form-note">(Jika hanya ingat tahun, pilih tarikh 01 Jan utk tahun tersebut)</i>{error}
+<?php 
+                     $d = $model->horse_dob ? true : false;
+                     
+                     echo  $form->field($model, 'horse_dob',['template' => '{label}{input}<i class="form-note">(Jika hanya ingat tahun, pilih tarikh 01 Jan utk tahun tersebut)</i>{error}
             '])->widget(DatePicker::classname(), [
     'removeButton' => false,
+    'disabled' => $d,
     'pluginOptions' => [
         'autoclose'=>true,
+        
         'format' => 'yyyy-mm-dd',
         'todayHighlight' => true,
         
@@ -113,20 +126,26 @@ $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
 ?>
 
 
-                     <?= $form->field($model, 'eam_id', 
-                    )->textInput()->label('No. EAM (Jika ada)') ?>
+<?php 
+                     $d = $model->eam_id ? ['disabled' => true] : ['disabled' => false] ;
+                     
+                     echo $form->field($model, 'eam_id', 
+                    )->textInput($d)->label('No. EAM (Jika ada)') ?>
 
 
                
 <?php
- echo $form->field($model, 'country_born')->dropdownlist(Country::getCountryList(), ['prompt' => 'Pilih Negara'])->label('Negara Kelahiran Kuda (Jika ada)');
+$d = $model->country_born ? ['prompt' => 'Pilih Negara', 'disabled' => 'disabled']  : ['prompt' => 'Pilih Negara'];
+ echo $form->field($model, 'country_born')->dropdownlist(Country::getCountryList(), $d)->label('Negara Kelahiran Kuda (Jika ada)');
  
 
 ?>
 <br />
-        
+<?=$form->field($model, 'sky')->hiddenInput(['value' => 1])->label(false)?>
           <div class="form-group">
-          <a href="<?=Url::to(['s2edit', 'f' => $daftar->id])?>" class="btn btn-secondary" >KEMBALI</a>  <button class="btn btn-danger" type="submit">SIMPAN</button> 
+          <a href="<?=Url::to(['s2edit', 'f' => $daftar->id])?>" class="btn btn-secondary" >KEMBALI</a>  
+          <a href="<?=Url::to(['s3kuda-view', 'f' => $daftar->id, 'b' => 1])?>" class="btn btn-warning" >BATAL</a>  
+          <button class="btn btn-danger" type="submit">SETERUSNYA</button> 
           
           </div> </div> 
 

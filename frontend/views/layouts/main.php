@@ -30,6 +30,9 @@ AppAsset::register($this);
     font-weight: bold;
     text-decoration: none;
 }
+table.table th a {
+    color: #212529;
+}
   a:hover {
     color: #fff;
     text-decoration:underline;

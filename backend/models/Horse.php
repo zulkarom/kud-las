@@ -20,6 +20,7 @@ use Yii;
  */
 class Horse extends \yii\db\ActiveRecord
 {
+    public $sky;
     /**
      * {@inheritdoc}
      */
@@ -37,8 +38,9 @@ class Horse extends \yii\db\ActiveRecord
             [['horse_name', 'horse_color', 'horse_gender', 'horse_dob'], 'required'],
             [['horse_dob'], 'safe'],
             [['eam_id', 'horse_code'], 'string', 'max' => 255],
-            [['horse_name', 'horse_color', 'horse_gender', 'country_born'], 'string', 'max' => 200],
+            [['horse_name', 'horse_color',  'country_born'], 'string', 'max' => 200],
             [['eam_id'], 'unique'],
+            [['horse_gender'], 'integer'],
             [['horse_code'], 'unique'],
         ];
     }
@@ -58,6 +60,36 @@ class Horse extends \yii\db\ActiveRecord
             'horse_gender' => 'Jantina Kuda',
             'country_born' => 'Negara Kelahiran Kuda',
         ];
+    }
+
+    public function getGenderShort(){
+        $g = HorseGender::findOne(['id' => $this->horse_gender]);
+        if($g){
+            return $g->gender_name;
+        }
+        return '';
+    }
+
+    public function getCountryText(){
+        $g = Country::findOne(['country_code' => $this->country_born]);
+        if($g){
+            return $g->country_name;
+        }
+        return '';
+    }
+
+    public function getLastRider(){
+        $c = Competition::find()
+        ->where(['horse_id' => $this->id])
+        ->orderBy('id DESC')
+        ->one();
+        if($c){
+            $r = $c->rider;
+            $r = $r ? $r->rider_name : '';
+            return $r;
+        }
+
+        return '';
     }
 
     /**

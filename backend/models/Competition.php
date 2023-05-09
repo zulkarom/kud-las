@@ -40,13 +40,14 @@ class Competition extends \yii\db\ActiveRecord
     {
         return [
             [['kejohanan_id', 'rider_id'], 'required'],
-            [['category_id'], 'required', 'on' => 'kejohanan'],
+            [['category_id', 'rider_size'], 'required', 'on' => 'kejohanan'],
             [['kejohanan_id', 'category_id', 'rider_id', 'horse_id', 'cert_achive', 'status', 'register_status'], 'integer'],
             [['hadlaju', 'jarak'], 'number'],
             [['register_at'], 'safe'],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
             [['rider_id'], 'exist', 'skipOnError' => true, 'targetClass' => Rider::className(), 'targetAttribute' => ['rider_id' => 'id']],
             [['horse_id'], 'exist', 'skipOnError' => true, 'targetClass' => Horse::className(), 'targetAttribute' => ['horse_id' => 'id']],
+            [['rider_size'], 'string'],
         ];
     }
 
@@ -67,6 +68,7 @@ class Competition extends \yii\db\ActiveRecord
             'status' => 'Status',
             'register_at' => 'Register At',
             'register_status' => 'Register Status',
+            'rider_size' => 'Saiz Baju'
         ];
     }
 

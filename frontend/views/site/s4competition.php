@@ -83,13 +83,18 @@ $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
 
 ?>
 
+<?php
+$size = ['XS', 'S', 'M','L', 'XL', 'XXL'];
+ echo $form->field($model, 'rider_size')->dropdownlist($size, ['prompt' => 'Pilih Saiz']);
+
+?>
 <div class="form-group">PERAKUAN:
 DENGAN MENGHANTAR (SUBMIT) BORANG INI SECARA ONLINE: Saya menyatakan bahawa: Saya telah membaca dan memahami jadual pertandingan dan saya menjanji untuk mematuhi semua peraturan pertandingan. Saya membebaskan JAWATANKUASA PENGANJUR dari segala tanggungjawab untuk kemalangan yang mungkin berlaku pada penunggang, kuda atau pembantu semasa tempoh pertandingan.</div>
 
 <br />
         
           <div class="form-group">
-          <a href="<?=Url::to(['/'])?>" class="btn btn-secondary" >KEMBALI</a>  <button class="btn btn-danger" type="submit">HANTAR PENDAFTARAN</button> 
+          <a href="<?=Url::to(['s3kuda-view', 'f' => $model->id])?>" class="btn btn-secondary" >KEMBALI</a>  <button class="btn btn-danger" type="submit">HANTAR PENDAFTARAN</button> 
           
           </div> </div> 
 
