@@ -3,15 +3,6 @@
 /** @var yii\web\View $this */
 
 use backend\models\Category;
-use backend\models\Country;
-use backend\models\HorseGender;
-use backend\models\Rider;
-use kartik\date\DatePicker;
-use kartik\select2\Select2;
-use yii\grid\ActionColumn;
-use yii\grid\GridView;
-use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 

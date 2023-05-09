@@ -79,7 +79,7 @@ $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
     
 
                      <?php 
-                     $d = $model->horse_name ? ['disabled' => true] : ['disabled' => false];
+                     $d = $model->horse_name && $model->is_confirmed == 1 ? ['disabled' => true] : ['disabled' => false];
                      
                      echo $form->field($model, 'horse_name',['template' => '{label}{input}<i class="form-note">(HURUF BESAR, untuk tujuan SIJIL)</i>{error}
             '])->textInput($d) ?>
@@ -90,7 +90,7 @@ $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
 
 
 <?php 
-                     $d = $model->horse_color ? ['disabled' => true] : ['disabled' => false];
+                     $d = $model->horse_color && $model->is_confirmed == 1 ? ['disabled' => true] : ['disabled' => false];
                      
                      echo  $form->field($model, 'horse_color', 
                     )->textInput($d) ?>
@@ -99,7 +99,7 @@ $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
                  
 
 <?php
-$d = $model->horse_gender ? ['prompt' => 'Pilih Jantina', 'disabled' => 'disabled']  : ['prompt' => 'Pilih Jantina'];
+$d = $model->horse_gender  && $model->is_confirmed == 1  ? ['prompt' => 'Pilih Jantina', 'disabled' => 'disabled']  : ['prompt' => 'Pilih Jantina'];
  echo $form->field($model, 'horse_gender')
  ->dropdownlist(HorseGender::getGenderList(), $d);
 
@@ -107,7 +107,7 @@ $d = $model->horse_gender ? ['prompt' => 'Pilih Jantina', 'disabled' => 'disable
 
 
 <?php 
-                     $d = $model->horse_dob ? true : false;
+                     $d = $model->horse_dob && $model->is_confirmed == 1  ? true : false;
                      
                      echo  $form->field($model, 'horse_dob',['template' => '{label}{input}<i class="form-note">(Jika hanya ingat tahun, pilih tarikh 01 Jan utk tahun tersebut)</i>{error}
             '])->widget(DatePicker::classname(), [
@@ -127,7 +127,7 @@ $d = $model->horse_gender ? ['prompt' => 'Pilih Jantina', 'disabled' => 'disable
 
 
 <?php 
-                     $d = $model->eam_id ? ['disabled' => true] : ['disabled' => false] ;
+                     $d = $model->eam_id && $model->is_confirmed == 1  ? ['disabled' => true] : ['disabled' => false] ;
                      
                      echo $form->field($model, 'eam_id', 
                     )->textInput($d)->label('No. EAM (Jika ada)') ?>
@@ -135,7 +135,7 @@ $d = $model->horse_gender ? ['prompt' => 'Pilih Jantina', 'disabled' => 'disable
 
                
 <?php
-$d = $model->country_born ? ['prompt' => 'Pilih Negara', 'disabled' => 'disabled']  : ['prompt' => 'Pilih Negara'];
+$d = $model->country_born  && $model->is_confirmed == 1  ? ['prompt' => 'Pilih Negara', 'disabled' => 'disabled']  : ['prompt' => 'Pilih Negara'];
  echo $form->field($model, 'country_born')->dropdownlist(Country::getCountryList(), $d)->label('Negara Kelahiran Kuda (Jika ada)');
  
 
