@@ -41,7 +41,7 @@ $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
     <a class="nav-link" href="#"><span class="stepnum">2</span></a>
   </li>
   <li class="nav-item">
-    <a class="nav-link active" href="#"><span class="stepnum">3</span> MAKLUMAT KUDA</a>
+    <a class="nav-link active" href="#"><span class="stepnum">3</span> KUDA</a>
   </li>
   <li class="nav-item">
     <a class="nav-link " href="#"><span class="stepnum">4</span></a>
