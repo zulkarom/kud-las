@@ -93,7 +93,11 @@ MAKLUMAT KUDA
 <div class="card-body">
 
 
-<?= DetailView::widget([
+<?php 
+
+
+if($model->horse){
+echo DetailView::widget([
     'model' => $model,
     'attributes' => [
         [
@@ -139,7 +143,11 @@ MAKLUMAT KUDA
             } 
         ],
     ],
-]) ?>
+]);
+
+}
+
+?>
 
 </div></div>
 
@@ -168,7 +176,9 @@ MAKLUMAT KEJOHANAN
 <div class="card-body">
 
 
-<?= DetailView::widget([
+<?php 
+if($model->category){
+echo DetailView::widget([
     'model' => $model,
     'attributes' => [
         [
@@ -186,7 +196,9 @@ MAKLUMAT KEJOHANAN
 
 
     ],
-]) ?>
+]);
+}
+?>
 
 </div></div>
 

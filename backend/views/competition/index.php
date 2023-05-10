@@ -45,8 +45,11 @@ $this->params['breadcrumbs'][] = $this->title;
 			    'label' => 'Maklumat Kuda',
                 'format' => 'html',
                 'value' => function($model){
-                    $model=$model->horse;
                     $html = '';
+                    if($model->horse){
+                    $model=$model->horse;
+                   
+                    
                   $s = '';
                   $s .= $model->horse_name.'/';
                   $s .= $model->horse_color.'/';
@@ -63,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
                   $eam =  $model->eam_id ? $model->eam_id : '-';
                   $html .= '<br />ID: '. $model->horse_code .'; EAM: '.$eam.'<br />';
                   
-
+                }
                     return $html;
                     
                 }
@@ -74,8 +77,10 @@ $this->params['breadcrumbs'][] = $this->title;
 			    'label' => 'Kategori',
                 'format' => 'html',
                 'value' => function($model){
-
-                    return $model->category->category_name;
+if($model->category){
+    return $model->category->category_name;
+}
+                    
                     
                 }
                 
