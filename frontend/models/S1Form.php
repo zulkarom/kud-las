@@ -20,9 +20,12 @@ class S1Form extends Model
     {
         return [
             ['nric', 'trim'],
-            ['nric', 'number'],
+            ['nric', 'string'],
+
             ['nric', 'required'],
-            ['nric', 'string', 'min' => 2, 'max' => 20],
+            ['nric', 'string', 'min' => 3, 'max' => 12],
+
+           // ['nric','match','pattern'=>'[^A-Za-z0-9]+/g'],
 
            
         ];
@@ -31,7 +34,7 @@ class S1Form extends Model
     public function attributeLabels()
     {
         return [
-            'nric' => 'NO. KAD PENGENALAN',
+            'nric' => 'NO. KAD PENGENALAN/ PASSPORT',
         ];
     }
 

@@ -68,6 +68,12 @@ class SiteController extends Controller
                 $rider = Rider::findOne(['nric' => $nric]);
                 if($rider){
                     //klu ada create competition terus - edit rider
+                    $daftar = new Competition();
+                    $daftar->kejohanan_id = $kejohanan->id;
+                    $daftar->rider_id = $rider->id;
+                    if($daftar->save()){
+                        return $this->redirect(['s2edit', 'f' => $daftar->id]);
+                    } 
                 }else{
                     return $this->redirect(['s2new', 'n' => $nric]);
                     //redirect to step 2 - create new rider
@@ -278,7 +284,7 @@ class SiteController extends Controller
             $daftar->kejohanan_id = $kejohanan->id;
             $daftar->rider_id = $r;
             if($daftar->save()){
-                return $this->redirect(['s3edit', 'f' => $daftar->id]);
+                return $this->redirect(['s2edit', 'f' => $daftar->id]);
             } 
         }
        

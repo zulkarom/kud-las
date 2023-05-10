@@ -58,7 +58,7 @@ $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
                         <div class="contact-info pt-25">
 
                         <h4 class="info-title">KEJOHANAN KUDA LASAK TERBUKA PIALA NAIB CANSELOR UMK</h4>
-                        <p>6 - 9 June 2023</p>
+                        <p>9 - 10 June 2023</p>
                         
                           
                             <div class="mt-30" style="font-size:20px;">

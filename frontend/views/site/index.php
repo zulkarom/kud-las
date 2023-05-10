@@ -29,7 +29,7 @@ $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
 </style>
 <ul class="nav nav-tabs  mt-15">
   <li class="nav-item">
-    <a class="nav-link active" href="#"><span class="stepnum">1</span> NO.K/P</a>
+    <a class="nav-link active" href="#"><span class="stepnum">1</span> NO.KP</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" href="#"><span class="stepnum">2</span></a>
@@ -52,7 +52,7 @@ $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
                         <div class="contact-info pt-25">
 
                         <h4 class="info-title">KEJOHANAN KUDA LASAK TERBUKA PIALA NAIB CANSELOR UMK</h4>
-                        <p>6 - 9 June 2023</p>
+                        <p>9 - 10 June 2023</p>
                         
                           
                             <div class="mt-30" style="font-size:20px;">
@@ -75,7 +75,7 @@ $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
               <div class="col-lg-12">
                   <div class="single-form form-group">
                      <?= $form->field($model, 'nric', 
-                    )->textInput() ?>
+                    )->textInput(['type' => 'text', 'maxlength' => 12]) ?>
 
 
 
