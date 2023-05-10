@@ -81,7 +81,7 @@ $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
           
           <div class="card mt-50">
   <div class="card-body">
-    (<?php echo $s->id;?>)<br />
+    No. Pendaftaran: <?php echo $s->id;?><br />
     <b>Maklumat Rider:</b> 
 
           <?php  

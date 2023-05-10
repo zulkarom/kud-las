@@ -177,14 +177,24 @@ MAKLUMAT KEJOHANAN
 
 
 <?php 
-if($model->category){
+
 echo DetailView::widget([
     'model' => $model,
     'attributes' => [
         [
+            'label' => 'NO. PENDAFTARAN',
+            'value' => function($model){
+                    return $model->id;
+                
+            } 
+        ],
+        [
             'label' => 'KETEGORI',
             'value' => function($model){
-                return $model->category->category_name;
+                if($model->category){
+                    return $model->category->category_name;
+                }
+                
             } 
         ],
         [
@@ -197,7 +207,7 @@ echo DetailView::widget([
 
     ],
 ]);
-}
+
 ?>
 
 </div></div>

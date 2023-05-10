@@ -28,6 +28,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
+                'attribute' => 'id',
+			    'label' => 'NO.',
+                
+            ],
+            [
                 'attribute' => 'rider_id',
 			    'label' => 'Maklumat Rider',
                 'format' => 'html',

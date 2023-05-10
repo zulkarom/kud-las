@@ -17,7 +17,7 @@ class CompetitionSearch extends Competition
     public function rules()
     {
         return [
-            [['kejohanan_id', 'category_id', 'rider_id', 'horse_id'], 'integer'],
+            [['id','kejohanan_id', 'category_id', 'rider_id', 'horse_id'], 'integer'],
             [['hadlaju', 'jarak'], 'number'],
         ];
     }
@@ -58,6 +58,7 @@ class CompetitionSearch extends Competition
 
         // grid filtering conditions
         $query->andFilterWhere([
+            'id' => $this->id,
             'kejohanan_id' => $this->kejohanan_id
         ]);
 
