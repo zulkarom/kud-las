@@ -21,9 +21,12 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="competition-index">
 
 <?=$this->render('_search', ['model' => $searchModel])?>
-
+<div class="table-responsive">
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'pager' => [
+            'class' => 'yii\bootstrap4\LinkPager',
+        ],
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
@@ -108,7 +111,7 @@ if($model->category){
             //'register_status',
             
         ],
-    ]); ?>
+    ]); ?></div>
 
 
 </div>
