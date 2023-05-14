@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use backend\models\Competition;
+use backend\models\CompetitionPrint;
 use backend\models\CompetitionSearch;
 use backend\models\Kejohanan;
 use yii\web\Controller;
@@ -132,6 +133,24 @@ class CompetitionController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionDownloadPdf($id){
+        $daftar = $this->findCompetition($id);
+        $pdf = new CompetitionPrint;
+        $pdf->model = $daftar;
+        $pdf->generatePdf();
+        exit;
+
+    }
+
+    protected function findCompetition($id)
+    {
+        if (($model = Competition::findOne(['id' => $id])) !== null) {
+            return $model;
+        }
+        
+        throw new \yii\web\NotFoundHttpException('The requested page does not exist.');
     }
 
     /**

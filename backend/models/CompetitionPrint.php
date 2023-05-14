@@ -25,6 +25,11 @@ class CompetitionPrint
 		 $this->writeTitle();
 		 $this->borangKuda();
 		 $this->borangRider();
+		 $this->borangDaftar();
+
+		 $this->disclaimer();
+
+		 
 
 
 		$this->pdf->Output('borang-tuntutan.pdf', 'I');
@@ -160,19 +165,78 @@ EOD;
 		
 		$html = '
 
-		<br /><br />
+		<br />
 		<b>Butiran Peserta</b><br />
 		<table border="1" cellpadding="5">
+
 		<tr>
-		<td width="300">
+		<td width="600" colspan="2">
 		<b>Nama Peserta:</b><br />
 		'.$m->rider->rider_name.'
 		</td>
-		<td width="300">
-		<b>Tarikh Lahir:</b>
-		<br />
-		</td>
+	
+		</tr>
 
+		<tr>
+		<td width="300">
+		<b>No. Kad Pengenalan:</b><br />
+		'.$m->rider->nric.'
+		</td>
+		<td width="300">
+		<b>No. Telefon:</b>
+		<br />'.$m->rider_phone.'
+		</td>
+		</tr>
+
+		<tr>
+		<td width="300">
+		<b>Email:</b><br />
+		'.$m->rider->email.'
+		</td>
+		<td width="300">
+		<b>Kelab:</b>
+		<br />'.$m->rider_kelab.'
+		</td>
+		</tr>
+
+		
+
+		</table>
+		';
+		$this->pdf->SetFont('helvetica', '', 10);
+		$tbl = <<<EOD
+		$html
+EOD;
+		
+		$this->pdf->writeHTML($tbl, true, false, false, false, '');
+	}
+
+	public function borangDaftar(){
+		$k = $this->model->kejohanan;
+		$m = $this->model;
+
+		$html = '
+		<br />
+		<b>Butiran Pedaftaran</b><br />
+		<table border="1" cellpadding="5">
+
+		<tr>
+		<td width="300">
+		<b>Kategori:</b><br />
+		'.$m->category->category_name.'
+		</td>
+		<td width="300">
+		<b>Saiz Baju:</b>
+		<br />'.$m->rider_size .'
+		</td>
+		</tr>
+
+		<tr>
+		<td width="600" colspan="2">
+		<b>Deposit Vest:</b><br />
+		<br />
+		<span style="font-size:8pt">Deposit Vest akan dipulangkan setelah vest diserahkan semula kepada penganjur</span>
+		</td>
 
 		</tr>
 
@@ -187,14 +251,44 @@ EOD;
 		
 		$this->pdf->writeHTML($tbl, true, false, false, false, '');
 	}
+
+	public function disclaimer(){
+		$k = $this->model->kejohanan;
+		$m = $this->model;
+
+		$html = '
+		<br />
+	
+		<br />
+		<table width="600" border="0">
+		<tr>
+		<td width="600">
+		
+		<span style="font-weight:bold">Perakuan : Saya ............................................................................................... yang bertandatangan di bawah ini menyatakan bahawa:-</span><br /><br />
+
+		<span style="text-align:justify">Saya telah membaca dan memahami jadual pertandingan dan saya menjanji untuk mematuhi semua peraturan pertandingan. Saya membebaskan JAWATANKUASA PENGANJUR dari segala tanggungjawab untuk kemalangan yang mungkin berlaku pada penunggang, kuda atau pembantu semasa tempoh pertandingan.</span>
+
+		<br /><br /><br /><br />
+		<span style="font-weight:bold">Tandatangan : ..................................................................... Tarikh : .................................................</span>
+		</td>
+		</tr>
+		</table>
+		';
+		$this->pdf->SetFont('helvetica', '', 9.5);
+		$tbl = <<<EOD
+		$html
+EOD;
+		
+		$this->pdf->writeHTML($tbl, true, false, false, false, '');
+	}
 	
 	
 	public function startPage(){
 		// set document information
 		$this->pdf->SetCreator(PDF_CREATOR);
-		$this->pdf->SetAuthor('Pusat Kokurikulum');
-		$this->pdf->SetTitle('BORANG TUNTUTAN');
-		$this->pdf->SetSubject('BORANG TUNTUTAN');
+		$this->pdf->SetAuthor('EKUDALASA');
+		$this->pdf->SetTitle('BORANG PENDAFTARAN - EKUDALASAK');
+		$this->pdf->SetSubject('BORANG PENDAFTARAN - EKUDALASAK');
 		$this->pdf->SetKeywords('');
 
 

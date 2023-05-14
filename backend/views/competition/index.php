@@ -95,10 +95,13 @@ if($model->category){
             ],
 
             ['class' => 'yii\grid\ActionColumn',
-            'template' => '{update}',
+            'template' => '{update} {pdf}',
             'buttons'=>[
                 'update'=>function ($url, $model) {
                     return Html::a('<span class="fa fa-eye"></span> VIEW',['view', 'id' => $model->id],['class'=>'btn btn-primary btn-sm']);
+                },
+                'pdf'=>function ($url, $model) {
+                    return Html::a('<span class="fa fa-pdf"></span> PDF',['download-pdf', 'id' => $model->id],['class'=>'btn btn-danger btn-sm', 'target' => '_blank']);
                 }
                 ]
             ]
