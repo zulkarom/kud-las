@@ -17,7 +17,7 @@ class KejohananSearch extends Kejohanan
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id', 'is_active'], 'integer'],
             [['name', 'date_start', 'date_end', 'location'], 'safe'],
         ];
     }
@@ -40,7 +40,7 @@ class KejohananSearch extends Kejohanan
      */
     public function search($params)
     {
-        $query = Kejohanan::find();
+        $query = Kejohanan::find()->orderBy('is_active DESC, date_start DESC');
 
         // add conditions that should always apply here
 
@@ -59,6 +59,7 @@ class KejohananSearch extends Kejohanan
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'is_active' => $this->is_active,
             'date_start' => $this->date_start,
             'date_end' => $this->date_end,
         ]);

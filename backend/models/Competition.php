@@ -115,6 +115,11 @@ class Competition extends \yii\db\ActiveRecord
         return $this->hasOne(Horse::className(), ['id' => 'horse_id']);
     }
 
+    public function getKejohanan()
+    {
+        return $this->hasOne(Kejohanan::className(), ['id' => 'kejohanan_id']);
+    }
+
     /**
      * Gets query for [[Rider]].
      *

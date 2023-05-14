@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use Yii;
 use backend\models\Kejohanan;
 use backend\models\KejohananSearch;
 use yii\web\Controller;
@@ -100,6 +101,18 @@ class KejohananController extends Controller
         return $this->render('update', [
             'model' => $model,
         ]);
+    }
+
+    public function actionMakeActive($id)
+    {
+        Kejohanan::updateAll(['is_active' => 0]);
+        $model = $this->findModel($id);
+        $model->is_active = 1; 
+        if($model->save()){
+            Yii::$app->session->addFlash('success', $model->name. " is active");
+        }
+        return $this->redirect(['index']);
+        
     }
 
     /**

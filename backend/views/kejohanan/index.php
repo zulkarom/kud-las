@@ -36,11 +36,25 @@ $this->params['breadcrumbs'][] = $this->title;
             'date_end',
             'location',
             [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Kejohanan $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                'format' => 'html',
+                'attribute' => 'is_active',
+                'filter' => Html::activeDropDownList($searchModel, 'is_active', $searchModel->statusArray,['class'=> 'form-control','prompt' => 'Pilih Status']),
+                'label' => 'Status',
+                'value' => function($model){
+                    return $model->statusLabel;
+                }
             ],
+            ['class' => 'yii\grid\ActionColumn',
+            'template' => '{update}',
+            'buttons'=>[
+                'update'=>function ($url, $model) {
+                    return Html::a('<span class="fa fa-edit"></span> View',['view', 'id' => $model->id],['class'=>'btn btn-primary btn-sm']);
+                }
+                ]
+            ],
+
+
+            
         ],
     ]); ?>
 

@@ -6,6 +6,7 @@ use Yii;
 use yii\web\Controller;
 use backend\models\Rider;
 use backend\models\Competition;
+use backend\models\CompetitionPrint;
 use backend\models\Horse;
 use backend\models\Kejohanan;
 use frontend\models\HorseSearch;
@@ -46,10 +47,10 @@ class SiteController extends Controller
         if($n){
             $model->nric = $n;
         }
-
+        $kejohanan = Kejohanan::findOne(['is_active' => 1]);
         if ($model->load(Yii::$app->request->post())) {
             $nric = $model->nric;
-            $kejohanan = Kejohanan::findOne(['is_active' => 1]);
+            
             $ada = Competition::find()->alias('a')
             ->joinWith(['rider r'])
             ->where(['r.nric' => $nric, 'a.kejohanan_id' => $kejohanan->id])
@@ -85,7 +86,8 @@ class SiteController extends Controller
         }
 
         return $this->render('index', [
-            'model' => $model
+            'model' => $model,
+            'kejohanan' => $kejohanan
         ]);
     }
 
@@ -110,13 +112,14 @@ class SiteController extends Controller
 
         return $this->render('s2new', [
             'model' => $model,
+            'kejohanan' => $kejohanan
         ]);
     }
 
     public function actionS2edit($f){
         $daftar = $this->findCompetition($f);
         $model = Rider::findOne($daftar->rider_id);
-        //$kejohanan = Kejohanan::findOne(['is_active' => 1]);
+        $kejohanan = Kejohanan::findOne(['is_active' => 1]);
         if ($model->load(Yii::$app->request->post())) {
             $model->rider_name = strtoupper($model->rider_name);
             if($model->save()){
@@ -139,12 +142,13 @@ class SiteController extends Controller
 
         return $this->render('s2new', [
             'model' => $model,
-            'daftar' => $daftar
+            'daftar' => $daftar,
+            'kejohanan' => $kejohanan
         ]);
     }
 
     public function actionTest(){
-        $list = Horse::find()->all();
+        /* $list = Horse::find()->all();
         foreach($list as $h){
             if(!$h->horse_code){
                 if($h->horse_name){
@@ -159,11 +163,12 @@ class SiteController extends Controller
                 echo $h->horse_code;
                 echo '<br />';
             }
-        }
+        } */
     }
 
     public function actionS3kudaSearch($f, $h = false){
         $daftar = $this->findCompetition($f);
+        $kejohanan = Kejohanan::findOne(['is_active' => 1]);
         if($h){
             $kuda = $this->findHorse($h);
             $daftar->horse_id = $h;
@@ -187,13 +192,14 @@ class SiteController extends Controller
             'model' => $model,
             'dataProvider' => $dataProvider,
             'result' => $result,
-            'daftar' => $daftar
+            'daftar' => $daftar,
+            'kejohanan' => $kejohanan
         ]);
     }
 
     public function actionS3kuda($f){
         $model = new Horse();
-       // $kejohanan = Kejohanan::findOne(['is_active' => 1]);
+       $kejohanan = Kejohanan::findOne(['is_active' => 1]);
         $daftar = $this->findCompetition($f);
 
         if ($model->load(Yii::$app->request->post())) {
@@ -221,7 +227,8 @@ class SiteController extends Controller
 
         return $this->render('s3kuda', [
             'model' => $model,
-            'daftar' => $daftar
+            'daftar' => $daftar,
+            'kejohanan' => $kejohanan
         ]);
     }
 
@@ -234,7 +241,7 @@ class SiteController extends Controller
             }
         }
         $model = $this->findHorse($daftar->horse_id);
-       // $kejohanan = Kejohanan::findOne(['is_active' => 1]);
+        $kejohanan = Kejohanan::findOne(['is_active' => 1]);
         
 
         if ($model->load(Yii::$app->request->post())) {
@@ -253,7 +260,8 @@ class SiteController extends Controller
 
         return $this->render('s3kudaView', [
             'model' => $model,
-            'daftar' => $daftar
+            'daftar' => $daftar,
+            'kejohanan' => $kejohanan
         ]);
     }
 
@@ -272,6 +280,7 @@ class SiteController extends Controller
 
         return $this->render('s4competition', [
             'model' => $daftar,
+            'kejohanan' => $kejohanan
         ]);
     }
 
@@ -294,7 +303,8 @@ class SiteController extends Controller
 
         return $this->render('summary', [
             'model' => $daftar,
-            'semua' => $semua
+            'semua' => $semua,
+            'kejohanan' => $kejohanan
         ]);
     }
 
@@ -308,7 +318,17 @@ class SiteController extends Controller
 
         return $this->render('thankyou', [
             'model' => $daftar,
+            'kejohanan' => $kejohanan
         ]);
+    }
+
+    public function actionDownloadPdf($f){
+        $daftar = $this->findCompetition($f);
+        $pdf = new CompetitionPrint;
+        $pdf->model = $daftar;
+        $pdf->generatePdf();
+        exit;
+
     }
 
 
