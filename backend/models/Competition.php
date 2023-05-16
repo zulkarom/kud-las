@@ -106,16 +106,16 @@ class Competition extends \yii\db\ActiveRecord
 
     public function getStatusText(){
         $text = '';
-        if(array_key_exists($this->status, $this->statusArray)){
-            $text = $this->statusArray[$this->status];
+        if(array_key_exists($this->register_status, $this->statusArray)){
+            $text = $this->statusArray[$this->register_status];
         }
         return $text;
     }
 
     public function getStatusLabel(){
         $color = "";
-        if(array_key_exists($this->status, $this->statusColor)){
-            $color = $this->statusColor[$this->status];
+        if(array_key_exists($this->register_status, $this->statusColor)){
+            $color = $this->statusColor[$this->register_status];
         }
         return '<span class="badge badge-'.$color.'">'. $this->statusText .'</span>';
     }
