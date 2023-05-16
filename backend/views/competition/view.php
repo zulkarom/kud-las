@@ -219,6 +219,18 @@ echo DetailView::widget([
 
 </div></div>
 
+<div class="card">
+<div class="card-header">
+<h3 class="card-title">
+MAKLUMAT VEST & DEPOSIT
+</h3>
+
+
+</div>
+<div class="card-body">
+
+</div></div>
+
 
 <a href="<?=Url::to(['delete-all', 'id' => $model->id])?>" class="btn btn-danger" data-confirm="Are you sure to delete? This action cannot be undone!">DELETE REGISTRATION + RIDER* + KUDA*</a><br />
 * bergantung klu kebergantungan foreign key

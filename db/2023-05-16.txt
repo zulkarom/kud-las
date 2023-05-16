@@ -1,0 +1,8 @@
+ALTER TABLE `competition` ADD `deposit_paid` TINYINT(1) NOT NULL DEFAULT '0' AFTER `rider_size`;
+
+ALTER TABLE `competition` ADD `vest_id` INT(11) NULL DEFAULT NULL AFTER `deposit_paid`, ADD UNIQUE (`vest_id`);
+
+
+ALTER TABLE `vest` DROP INDEX `competition_id`;
+ALTER TABLE `kuda_2023`.`vest` DROP FOREIGN KEY `vest_ibfk_1`;
+ALTER TABLE `vest` DROP `competition_id`;

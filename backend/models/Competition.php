@@ -120,6 +120,33 @@ class Competition extends \yii\db\ActiveRecord
         return '<span class="badge badge-'.$color.'">'. $this->statusText .'</span>';
     }
 
+    public static function getPaidArray(){
+        return [
+            0 => 'UNPAID', 
+            1 => 'PAID'
+        ];
+    }
+
+    public static function getPaidColor(){
+	    return [0 => 'danger', 100 => 'success'];
+	}
+
+    public function getPaidText(){
+        $text = '';
+        if(array_key_exists($this->deposit_paid, $this->statusArray)){
+            $text = $this->statusArray[$this->deposit_paid];
+        }
+        return $text;
+    }
+
+    public function getPaidLabel(){
+        $color = "";
+        if(array_key_exists($this->deposit_paid, $this->statusColor)){
+            $color = $this->statusColor[$this->deposit_paid];
+        }
+        return '<span class="badge badge-'.$color.'">'. $this->statusText .'</span>';
+    }
+
 
     /**
      * Gets query for [[Category]].
