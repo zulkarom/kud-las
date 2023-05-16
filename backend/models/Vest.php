@@ -15,6 +15,7 @@ use Yii;
  */
 class Vest extends \yii\db\ActiveRecord
 {
+    public $competition_id;
     /**
      * {@inheritdoc}
      */
