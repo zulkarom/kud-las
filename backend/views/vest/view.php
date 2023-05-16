@@ -26,10 +26,27 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'vest_no',
-            'color',
-            'status',
+            [
+                'attribute' => 'color',
+                'format' => 'html',
+			    'label' => 'Warna',
+                'value' => function($model){
+                    return $model->colorLabel;
+                    
+                }
+                
+            ],
+            [
+                'attribute' => 'status',
+                'format' => 'html',
+			    'label' => 'Status',
+                'value' => function($model){
+                    return $model->statusLabel;
+                    
+                }
+                
+            ],
             'competition_id',
         ],
     ]) ?>

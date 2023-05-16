@@ -8,22 +8,29 @@ use yii\widgets\ActiveForm;
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="vest-form">
+<div class="card">
+  <div class="card-body">
 
-    <?php $form = ActiveForm::begin(); ?>
+  <div class="vest-form">
 
-    <?= $form->field($model, 'vest_no')->textInput() ?>
+<?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'color')->textInput(['maxlength' => true]) ?>
+<?= $form->field($model, 'vest_no')->textInput() ?>
 
-    <?= $form->field($model, 'status')->textInput() ?>
+<?= $form->field($model, 'color')->dropDownList($model->listColors()) ?>
 
-    <?= $form->field($model, 'competition_id')->textInput() ?>
+<?= $form->field($model, 'status')->dropDownList($model->statusArray) ?>
 
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-    </div>
 
-    <?php ActiveForm::end(); ?>
+<div class="form-group">
+    <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+</div>
+
+<?php ActiveForm::end(); ?>
 
 </div>
+
+  </div> 
+    </div>
+
+

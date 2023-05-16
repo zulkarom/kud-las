@@ -13,6 +13,7 @@ use yii\grid\GridView;
 $this->title = 'Vests';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="vest-index">
 
     <p>
@@ -21,14 +22,40 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?= GridView::widget([
+    <div class="card">
+  <div class="card-body">
+
+  <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'pager' => [
+            'class' => 'yii\bootstrap4\LinkPager',
+        ],
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
             'vest_no',
-            'color',
-            'status',
+            [
+                'attribute' => 'color',
+                'format' => 'html',
+                'filter' => Html::activeDropDownList($searchModel, 'color', $searchModel->listColors(),['class'=> 'form-control','prompt' => 'Pilih Warna']),
+			    'label' => 'Warna',
+                'value' => function($model){
+                    return $model->colorLabel;
+                    
+                }
+                
+            ],
+            [
+                'attribute' => 'status',
+                'format' => 'html',
+                'filter' => Html::activeDropDownList($searchModel, 'status', $searchModel->statusArray,['class'=> 'form-control','prompt' => 'Pilih Status']),
+			    'label' => 'Status',
+                'value' => function($model){
+                    return $model->statusLabel;
+                    
+                }
+                
+            ],
+            
             'competition_id',
             ['class' => 'yii\grid\ActionColumn',
             'template' => '{update}',
@@ -40,6 +67,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
+
+  </div> 
+    </div>
+   
 
 
 </div>
