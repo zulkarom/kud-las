@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use Yii;
 use backend\models\Competition;
 use backend\models\CompetitionPrint;
 use backend\models\CompetitionSearch;
@@ -61,9 +62,35 @@ class CompetitionController extends Controller
         $com = $this->findModel($id);
         $rider = $com->rider;
         $kuda = $com->horse;
-        $com->delete();
-        $rider->delete();
-        $kuda->delete();
+        if($com->delete()){
+            Yii::$app->session->addFlash('success', "Pendaftaran deleted");
+        }
+        
+        if($rider){
+            try {
+                $rider->delete();
+               
+                Yii::$app->session->addFlash('success', "Rider Deleted");
+            } catch(\yii\db\IntegrityException $e) {
+                
+                Yii::$app->session->addFlash('error', "Rider telah didaftar dlm pendaftaran lain");
+            }
+        }
+
+        
+
+        if($kuda){
+            try {
+                $kuda->delete();
+               
+                Yii::$app->session->addFlash('success', "Horse Deleted");
+            } catch(\yii\db\IntegrityException $e) {
+                
+                Yii::$app->session->addFlash('error', "Kuda telah didaftar dlm pendaftaran lain");
+            }
+        }
+
+        return $this->redirect(['index']);
     }
 
     /**

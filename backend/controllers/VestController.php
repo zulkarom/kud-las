@@ -2,18 +2,17 @@
 
 namespace backend\controllers;
 
-use Yii;
-use backend\models\Kejohanan;
-use backend\models\KejohananSearch;
+use backend\models\Vest;
+use backend\models\VestSearch;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * KejohananController implements the CRUD actions for Kejohanan model.
+ * VestController implements the CRUD actions for Vest model.
  */
-class KejohananController extends Controller
+class VestController extends Controller
 {
     /**
      * @inheritDoc
@@ -34,13 +33,13 @@ class KejohananController extends Controller
     }
 
     /**
-     * Lists all Kejohanan models.
+     * Lists all Vest models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new KejohananSearch();
+        $searchModel = new VestSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -49,8 +48,20 @@ class KejohananController extends Controller
         ]);
     }
 
+    public function actionTest(){
+        /* for($i=1;$i<=50;$i++){
+            $vest = new Vest();
+            $vest->vest_no = $i;
+            $vest->color = 'Cyan';
+            $vest->save();
+            echo 'vest id ' . $vest->id . ' created <br />';
+        }
+
+        exit; */
+    }
+
     /**
-     * Displays a single Kejohanan model.
+     * Displays a single Vest model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -63,13 +74,13 @@ class KejohananController extends Controller
     }
 
     /**
-     * Creates a new Kejohanan model.
+     * Creates a new Vest model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Kejohanan();
+        $model = new Vest();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -85,7 +96,7 @@ class KejohananController extends Controller
     }
 
     /**
-     * Updates an existing Kejohanan model.
+     * Updates an existing Vest model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -104,20 +115,8 @@ class KejohananController extends Controller
         ]);
     }
 
-    public function actionMakeActive($id)
-    {
-        Kejohanan::updateAll(['is_active' => 0]);
-        $model = $this->findModel($id);
-        $model->is_active = 1; 
-        if($model->save()){
-            Yii::$app->session->addFlash('success', $model->name. " is active");
-        }
-        return $this->redirect(['index']);
-        
-    }
-
     /**
-     * Deletes an existing Kejohanan model.
+     * Deletes an existing Vest model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -131,15 +130,15 @@ class KejohananController extends Controller
     }
 
     /**
-     * Finds the Kejohanan model based on its primary key value.
+     * Finds the Vest model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Kejohanan the loaded model
+     * @return Vest the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Kejohanan::findOne(['id' => $id])) !== null) {
+        if (($model = Vest::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

@@ -86,12 +86,21 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'html',
                 'value' => function($model){
 if($model->category){
-    return $model->category->category_name;
+    return $model->category->category_name . '<br />Size: ' . $model->rider_size;
 }
                     
                     
                 }
                 
+            ],
+            [
+                'format' => 'html',
+                'attribute' => 'status',
+                'filter' => Html::activeDropDownList($searchModel, 'status', $searchModel->statusArray,['class'=> 'form-control','prompt' => 'Pilih Status']),
+                'label' => 'Status',
+                'value' => function($model){
+                    return $model->statusLabel;
+                }
             ],
 
             ['class' => 'yii\grid\ActionColumn',

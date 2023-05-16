@@ -74,8 +74,8 @@ $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
      <div class="row">
               <div class="col-lg-12">
                   <div class="single-form form-group">
-                     <?= $form->field($model, 'nric', 
-                    )->textInput(['type' => 'text', 'maxlength' => 12]) ?>
+                     <?= $form->field($model, 'nric', ['template' => '{label}{input}<i class="form-note">(12 digit nombor kad pengenalan tanpa "-")</i>{error}
+            '])->textInput(['type' => 'text', 'maxlength' => 12]) ?>
 
 
 

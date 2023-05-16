@@ -203,6 +203,13 @@ echo DetailView::widget([
                 return $model->rider_size ;
             } 
         ],
+        [
+            'label' => 'STATUS',
+            'format' => 'html',
+            'value' => function($model){
+                return $model->statusLabel ;
+            } 
+        ],
 
 
     ],

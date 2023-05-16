@@ -11,7 +11,7 @@ $items[] = ['label' => 'Dashboard', 'level' => 1, 'url' => ['/site/index'], 'ico
 $items[] = ['label' => 'Pendaftaran', 'level' => 1, 'url' => ['/competition/index'], 'icon' => 'fas fa-edit', 'children' => []];
 
 
-
+$items[] = ['label' => 'Vest Data', 'level' => 1, 'url' => ['/vest/index'], 'icon' => 'fas fa-tshirt', 'children' => []];
 
 
 $items[] = ['label' => 'Kategori', 'level' => 1, 'url' => ['/category/index'], 'icon' => 'fas fa-cube', 'children' => []];

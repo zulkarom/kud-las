@@ -4,12 +4,12 @@ namespace backend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\Competition;
+use backend\models\Vest;
 
 /**
- * CompetitionSearch represents the model behind the search form of `backend\models\Competition`.
+ * VestSearch represents the model behind the search form of `backend\models\Vest`.
  */
-class CompetitionSearch extends Competition
+class VestSearch extends Vest
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class CompetitionSearch extends Competition
     public function rules()
     {
         return [
-            [['id','kejohanan_id', 'category_id', 'rider_id', 'horse_id', 'status'], 'integer'],
-            [['hadlaju', 'jarak'], 'number'],
+            [['id', 'vest_no', 'status', 'competition_id'], 'integer'],
+            [['color'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class CompetitionSearch extends Competition
      */
     public function search($params)
     {
-        $query = Competition::find();
+        $query = Vest::find();
 
         // add conditions that should always apply here
 
@@ -59,9 +59,12 @@ class CompetitionSearch extends Competition
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'kejohanan_id' => $this->kejohanan_id,
-            'status' => $this->status
+            'vest_no' => $this->vest_no,
+            'status' => $this->status,
+            'competition_id' => $this->competition_id,
         ]);
+
+        $query->andFilterWhere(['like', 'color', $this->color]);
 
         return $dataProvider;
     }

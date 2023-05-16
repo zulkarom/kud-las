@@ -90,10 +90,36 @@ class Competition extends \yii\db\ActiveRecord
             if($h){
                 $this->addError($attribute, 'Satu Kuda tidak boleh mendaftar dua kali kategori yang sama!');
             }
-        }
-
-        
+        } 
     }
+
+    public static function getStatusArray(){
+        return [
+            0 => 'DRAFT', 
+            100 => 'SUBMIT'
+        ];
+    }
+
+    public static function getStatusColor(){
+	    return [0 => 'danger', 100 => 'success'];
+	}
+
+    public function getStatusText(){
+        $text = '';
+        if(array_key_exists($this->status, $this->statusArray)){
+            $text = $this->statusArray[$this->status];
+        }
+        return $text;
+    }
+
+    public function getStatusLabel(){
+        $color = "";
+        if(array_key_exists($this->status, $this->statusColor)){
+            $color = $this->statusColor[$this->status];
+        }
+        return '<span class="badge badge-'.$color.'">'. $this->statusText .'</span>';
+    }
+
 
     /**
      * Gets query for [[Category]].

@@ -125,7 +125,14 @@ echo 'Kategory: ' . $s->category->category_name . '; Size: ' . $s->rider_size ;
 }
 ?>
 <br /><br />
+<?php  
+if($s->register_status == 0){
+  ?>
 <a href="<?=Url::to(['s2edit', 'f' => $s->id])?>" class="btn btn-primary">Kemaskini</a>
+  <?php
+}
+?>
+
   </div> 
 
 
