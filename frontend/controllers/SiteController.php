@@ -103,6 +103,11 @@ class SiteController extends Controller
                 $daftar = new Competition();
                 $daftar->kejohanan_id = $kejohanan->id;
                 $daftar->rider_id = $model->id;
+
+                $daftar->rider_address = $model->address;
+                $daftar->rider_phone = $model->phone;
+                $daftar->rider_kelab = $model->kelab;
+                
                 if($daftar->save()){
                     return $this->redirect(['s3kuda-search', 'f' => $daftar->id]);
                 }

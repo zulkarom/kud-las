@@ -212,10 +212,10 @@ echo DetailView::widget([
         ],
         [
             'label' => 'ACTION',
-            'format' => 'html',
+            'format' => 'raw',
             'value' => function($model){
                 if($model->register_status == 100){
-                    return Html::a('<i class="fas fa-arrow-left"></i> Return this form', ['return-form', 'id' => $model->id], ['class' => 'btn btn-warning btn-sm']);
+                    return Html::a('<i class="fas fa-arrow-left"></i> Return this form', ['return-form', 'id' => $model->id], ['class' => 'btn btn-warning btn-sm', 'data-confirm' => 'Are you sure to return this form?']);
                 }else{
                     return '-';
                 }
