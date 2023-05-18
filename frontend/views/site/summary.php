@@ -56,13 +56,32 @@ $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
                         
                           
                             <div class="mt-30" style="font-size:20px;">
+                        <?php 
+                        $edit = false;
+                         if($semua){
+                          foreach($semua as $s){
+                            if($s->register_status == 0){
+                              $edit = true;
+                              break;
+                            }
+                          }
+                        }
                         
+                        ?>
                                 <div class="info-content">
-                                   Berikut maklumat pendaftaran anda. Sila tekan butang Kemaskini untuk mengemaskini maklumat pendaftaran. Jika sekiranya anda ingin menambah pendaftaran sila klik butang di bawah.
+                                   <?php if($edit){
+                                    echo 'Anda masih mempunyai borang yang belum dihantar. Sila klik butang kemaskini untuk mengemaskini serta menghantar borang pendaftaran.';
+                                  }else{
+                                    echo 'Berikut merupakan maklumat pendaftaran anda. Jika sekiranya anda ingin menambah pendaftaran sila klik butang di bawah.';
+                                  
+                                  }?>
                                 </div>
 
                                 <div class="form-group">  <a href="<?=Url::to(['/site/index', 'n' => $model->rider->nric])?>" class="btn btn-secondary" >KEMBALI</a>  
-                          <?=Html::a('TAMBAH PENDAFTARAN',['summary', 'f' => $model->id, 'new' => 1], ['class' => 'btn btn-danger'])?>
+                          <?php if(!$edit){
+                            echo Html::a('TAMBAH PENDAFTARAN',['summary', 'f' => $model->id, 'new' => 1], ['class' => 'btn btn-warning']);
+                          }
+                            ?>
                         </div>
                             </div> <!-- single info -->
                        
@@ -129,6 +148,11 @@ echo 'Kategory: ' . $s->category->category_name . '; Size: ' . $s->rider_size ;
 if($s->register_status == 0){
   ?>
 <a href="<?=Url::to(['s2edit', 'f' => $s->id])?>" class="btn btn-primary">Kemaskini</a>
+  <?php
+}
+if($s->register_status == 100){
+  ?>
+<a href="<?=Url::to(['download-pdf', 'f' => $s->id])?>" target="_blank" class="btn btn-danger">Download PDF</a> 
   <?php
 }
 ?>

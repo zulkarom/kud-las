@@ -66,7 +66,7 @@ MAKLUMAT RIDER
                 } 
             ],
             [
-			    'label' => 'KELAB',
+			    'label' => 'KELAB/STABLE',
                 'value' => function($model){
                     return $model->rider_kelab ;
                 } 
@@ -208,6 +208,18 @@ echo DetailView::widget([
             'format' => 'html',
             'value' => function($model){
                 return $model->statusLabel ;
+            } 
+        ],
+        [
+            'label' => 'ACTION',
+            'format' => 'html',
+            'value' => function($model){
+                if($model->register_status == 100){
+                    return Html::a('<i class="fas fa-arrow-left"></i> Return this form', ['return-form', 'id' => $model->id], ['class' => 'btn btn-warning btn-sm']);
+                }else{
+                    return '-';
+                }
+                
             } 
         ],
 

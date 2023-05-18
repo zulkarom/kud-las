@@ -74,7 +74,7 @@ $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
           <?php  
           echo $s->rider->rider_name. ' (' . $s->rider->nric. ') ' . $s->rider_phone . ' ' .
                 $s->rider->email . '; Alamat: ' .
-                $s->rider->address . '; Kelab: ' .
+                $s->rider->address . '; Kelab/Stable: ' .
                 $s->rider_kelab ;
           ?>
 <?php if($s->horse_id){ ?>
@@ -112,11 +112,11 @@ echo 'Kategory: ' . $s->category->category_name . '; Size: ' . $s->rider_size ;
 }
 ?>
 <br /><br />
-<?php 
 
-/* <a href="<?=Url::to(['download-pdf', 'f' => $s->id])?>" target="_blank" class="btn btn-danger">Download PDF</a> */
 
-?>
+<a href="<?=Url::to(['download-pdf', 'f' => $s->id])?>" target="_blank" class="btn btn-danger">Download PDF</a> 
+
+
 
   </div> 
 

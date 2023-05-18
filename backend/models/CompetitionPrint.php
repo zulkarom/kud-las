@@ -52,7 +52,7 @@ class CompetitionPrint
 		$k = $this->model->kejohanan;
 		$html = '
 		<br /><br /><br />
-		<table border="0">
+		<table border="0" cellpadding="5">
 		<tr>
 		<td width="500" align="center"><span style="font-size:15px;font-weight:bold">'.$k->name.'</span><br />
 		'.strtoupper($k->dateStartEndFormat()).'<br />
@@ -217,7 +217,7 @@ EOD;
 
 		$html = '
 		<br />
-		<b>Butiran Pedaftaran</b><br />
+		<b>Butiran Pendaftaran</b><br />
 		<table border="1" cellpadding="5">
 
 		<tr>
@@ -264,7 +264,7 @@ EOD;
 		<tr>
 		<td width="600">
 		
-		<span style="font-weight:bold">Perakuan : Saya ............................................................................................... yang bertandatangan di bawah ini menyatakan bahawa:-</span><br /><br />
+		<span style="font-weight:bold">Perakuan : Saya <u>'.$m->rider->rider_name.'</u> yang bertandatangan di bawah ini menyatakan bahawa:-</span><br /><br />
 
 		<span style="text-align:justify">Saya telah membaca dan memahami jadual pertandingan dan saya menjanji untuk mematuhi semua peraturan pertandingan. Saya membebaskan JAWATANKUASA PENGANJUR dari segala tanggungjawab untuk kemalangan yang mungkin berlaku pada penunggang, kuda atau pembantu semasa tempoh pertandingan.</span>
 

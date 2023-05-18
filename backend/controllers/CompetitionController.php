@@ -106,6 +106,15 @@ class CompetitionController extends Controller
         ]);
     }
 
+    public function actionReturnForm($id){
+        $model = $this->findModel($id);
+        $model->register_status = 0;
+        if($model->save()){
+            Yii::$app->session->addFlash('success', "The form has been returned");
+        }
+        return $this->redirect(['view', 'id' => $model->id]);
+    }
+
     /**
      * Creates a new Competition model.
      * If creation is successful, the browser will be redirected to the 'view' page.

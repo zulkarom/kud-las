@@ -57,11 +57,12 @@ class SiteController extends Controller
             ->one();
             if($ada){
                 //check dah submit?
-                if($ada->register_status == 100){
-                    return $this->redirect(['summary', 'f' => $ada->id]);
+                return $this->redirect(['summary', 'f' => $ada->id]);
+                /* if($ada->register_status == 100){
+                   
                 }else{
                     return $this->redirect(['s2edit', 'f' => $ada->id]);
-                }
+                } */
                 
 
             }else{

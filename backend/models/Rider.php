@@ -57,7 +57,7 @@ class Rider extends \yii\db\ActiveRecord
             'email' => 'Email',
             'address' => 'Alamat',
             'phone' => 'No. Telefon',
-            'kelab' => 'Kelab',
+            'kelab' => 'Kelab/Stable',
         ];
     }
 
