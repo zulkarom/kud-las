@@ -16,6 +16,9 @@ use yii\helpers\ArrayHelper;
  */
 class Category extends \yii\db\ActiveRecord
 {
+    public $count_assigned;
+    public $count_unassigned;
+    
     /**
      * {@inheritdoc}
      */
@@ -30,9 +33,9 @@ class Category extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['category_name'], 'required'],
+            [['category_name', 'is_enabled'], 'required'],
             [['is_enabled'], 'integer'],
-            [['category_name'], 'string', 'max' => 255],
+            [['category_name', 'color'], 'string', 'max' => 255],
         ];
     }
 
@@ -46,6 +49,54 @@ class Category extends \yii\db\ActiveRecord
             'category_name' => 'Category Name',
             'is_enabled' => 'Is Enabled',
         ];
+    }
+
+    public static function getStatusArray(){
+        return [
+            0 => 'NO', 
+            1 => 'YES'
+        ];
+    }
+
+    public static function getStatusColor(){
+	    return [0 => 'danger', 1 => 'success'];
+	}
+
+    public function getStatusText(){
+        $text = '';
+        if(array_key_exists($this->is_enabled, $this->statusArray)){
+            $text = $this->statusArray[$this->is_enabled];
+        }
+        return $text;
+    }
+
+    public function getStatusLabel(){
+        $color = "";
+        if(array_key_exists($this->is_enabled, $this->statusColor)){
+            $color = $this->statusColor[$this->is_enabled];
+        }
+        return '<span class="badge badge-'.$color.'">'. $this->statusText .'</span>';
+    }
+
+    public function colorCode(){
+        $code = Vest::getColorCodeArray();
+        $color = Vest::getColorArray();
+       switch($this->color){
+            case $color[0];
+                return $code[0];
+            break;
+            case $color[1];
+                return $code[1];
+            break;
+            case $color[2];
+                return $code[2];
+            break;
+       }
+       return '';
+    }
+
+    public function getColorLabel(){
+        return '<span style="padding:5px;color:white;font-size:13px;background-color:'.$this->colorCode().'">'. $this->color .'</span>';
     }
 
     /**

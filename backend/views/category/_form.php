@@ -1,5 +1,6 @@
 <?php
 
+use backend\models\Vest;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -8,18 +9,26 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="category-form">
+<div class="card">
+        <div class="card-body">
+        <div class="category-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+<?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'category_name')->textInput(['maxlength' => true]) ?>
+<?= $form->field($model, 'category_name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'is_enabled')->textInput() ?>
+<?= $form->field($model, 'is_enabled')->dropDownList($model->statusArray) ?>
 
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-    </div>
+<?= $form->field($model, 'color')->dropDownList(Vest::listColors(), ['prompt' => 'Pilih']) ?>
 
-    <?php ActiveForm::end(); ?>
+<div class="form-group">
+    <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+</div>
+
+<?php ActiveForm::end(); ?>
 
 </div>
+        </div>
+    </div>
+
+

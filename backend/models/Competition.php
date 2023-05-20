@@ -25,6 +25,7 @@ use Yii;
  */
 class Competition extends \yii\db\ActiveRecord
 {
+    public $vest_no;
     /**
      * {@inheritdoc}
      */
@@ -41,13 +42,17 @@ class Competition extends \yii\db\ActiveRecord
         return [
             [['kejohanan_id', 'rider_id'], 'required'],
             [['category_id', 'rider_size'], 'required', 'on' => 'kejohanan'],
-            [['kejohanan_id', 'category_id', 'rider_id', 'horse_id', 'cert_achive', 'status', 'register_status'], 'integer'],
+
+            [['kejohanan_id', 'category_id', 'rider_id', 'horse_id', 'cert_achive', 'status', 'register_status', 'vest_id', 'deposit_paid'], 'integer'],
+
             [['hadlaju', 'jarak'], 'number'],
             [['register_at'], 'safe'],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
             [['rider_id'], 'exist', 'skipOnError' => true, 'targetClass' => Rider::className(), 'targetAttribute' => ['rider_id' => 'id']],
             [['horse_id'], 'exist', 'skipOnError' => true, 'targetClass' => Horse::className(), 'targetAttribute' => ['horse_id' => 'id']],
             [['rider_size'], 'string'],
+
+            [['vest_id'], 'unique'],
 
             [['category_id'], 'validateCategory'],
         ];
@@ -70,7 +75,8 @@ class Competition extends \yii\db\ActiveRecord
             'status' => 'Status',
             'register_at' => 'Register At',
             'register_status' => 'Register Status',
-            'rider_size' => 'Saiz Baju'
+            'rider_size' => 'Saiz Baju',
+            'vest_id' => 'Vest No.'
         ];
     }
 
@@ -166,6 +172,11 @@ class Competition extends \yii\db\ActiveRecord
     public function getHorse()
     {
         return $this->hasOne(Horse::className(), ['id' => 'horse_id']);
+    }
+
+    public function getVest()
+    {
+        return $this->hasOne(Vest::className(), ['id' => 'vest_id']);
     }
 
     public function getKejohanan()

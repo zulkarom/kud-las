@@ -53,28 +53,34 @@ class Vest extends \yii\db\ActiveRecord
         ];
     }
 
-    public function getColorArray(){
+    public static function getColorArray(){
         return ['Purple', 'Navy Blue', 'Cyan'];
     }
 
-    public function listColors(){
-        $list = $this->colorArray;
+    public static function getColorCodeArray(){
+        return ['#A020F0', '#000080', '#00D1D1'];
+    }
+
+    public static function listColors(){
+        $list = self::getColorArray();
         $array = [];
         foreach($list as $l){
             $array[$l] = $l;
         }
         return $array;
     }
+
     public function colorCode(){
+        $code = $this->getColorCodeArray();
        switch($this->color){
             case $this->colorArray[0];
-                return '#A020F0';
+                return $code[0];
             break;
             case $this->colorArray[1];
-                return '#000080';
+                return $code[1];
             break;
             case $this->colorArray[2];
-                return '#00D1D1';
+                return $code[2];
             break;
        }
        return '';
@@ -109,5 +115,10 @@ class Vest extends \yii\db\ActiveRecord
             $color = $this->statusColor[$this->status];
         }
         return '<span class="badge badge-'.$color.'">'. $this->statusText .'</span>';
+    }
+
+    public function getCompetition()
+    {
+        return $this->hasOne(Competition::className(), ['vest_id' => 'id']);
     }
 }

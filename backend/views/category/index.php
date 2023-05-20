@@ -1,6 +1,7 @@
 <?php
 
 use backend\models\Category;
+use backend\models\Vest;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -35,12 +36,34 @@ $this->params['breadcrumbs'][] = $this->title;
 
    
             'category_name',
-            'is_enabled',
             [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Category $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                'format' => 'html',
+                'attribute' => 'is_enabled',
+                'filter' => Html::activeDropDownList($searchModel, 'is_enabled', $searchModel->statusArray,['class'=> 'form-control','prompt' => 'Pilih Enabled']),
+                'label' => 'Is Enabled',
+                'value' => function($model){
+                    return $model->statusLabel;
+                }
+            ],
+            [
+                'format' => 'html',
+                'attribute' => 'color',
+                'label' => 'Vest Color',
+                'filter' => Html::activeDropDownList($searchModel, 'color', Vest::listColors(),['class'=> 'form-control','prompt' => 'Pilih Warna']),
+                'value' => function($model){
+                    return $model->colorLabel;
+                }
+            ],
+            ['class' => 'yii\grid\ActionColumn',
+            'template' => '{update} {view}',
+            'buttons'=>[
+                'update'=>function ($url, $model) {
+                    return Html::a('<span class="fa fa-edit"></span> Update',['update', 'id' => $model->id],['class'=>'btn btn-primary btn-sm']);
+                },
+                'view'=>function ($url, $model) {
+                    return Html::a('<span class="fa fa-eye"></span> View',['view', 'id' => $model->id],['class'=>'btn btn-warning btn-sm']);
+                }
+                ]
             ],
         ],
     ]); ?>

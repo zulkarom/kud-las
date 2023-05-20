@@ -2,12 +2,18 @@
 
 namespace backend\controllers;
 
+use backend\models\Category;
+use backend\models\Competition;
+use backend\models\Kejohanan;
 use backend\models\Vest;
 use backend\models\VestSearch;
+use Yii;
+use yii\db\Expression;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 
 /**
  * VestController implements the CRUD actions for Vest model.
@@ -58,6 +64,140 @@ class VestController extends Controller
         }
 
         exit; */
+    }
+
+    public function actionAssign()
+    {
+        $list = Category::find()->alias('a')
+        ->select(new Expression('a.*, SUM(IF(c.vest_id IS NOT NULL,1,0)) as count_assigned, SUM(IF(c.vest_id IS NULL,1,0)) as count_unassigned'))
+        ->joinWith(['competitions c'])
+        ->where(['a.is_enabled' => 1, 'register_status' => 100])
+        ->groupBy('a.id')
+        ->all();
+  
+
+        $kejohanan = Kejohanan::findOne(['is_active' => 1]);
+        if($kejohanan){
+            return $this->render('assign', [
+                'list' => $list,
+                'kejohanan' => $kejohanan
+            ]);
+        }else{
+            Yii::$app->session->addFlash('success', "Tiada Kejohanan aktif");
+            return $this->redirect(['index']);
+        }
+        
+    }
+
+    public function actionReassignAll($cat){
+        $kejohanan = Kejohanan::findOne(['is_active' => 1]);
+        $category = Category::findOne($cat);
+        if($kejohanan && $category){
+            //reset all 
+            Competition::updateAll(['vest_id' => null],['kejohanan_id' => $kejohanan->id,'category_id' => $category->id]);
+
+            //assumption semua unassgined
+            $unassigned = Competition::find()
+            ->where(['kejohanan_id' => $kejohanan->id, 'category_id' => $category->id])
+            ->all();
+
+            $cat_color = $category->color;
+
+            $vest = Vest::find()->alias('v')
+            ->where(['color' => $cat_color, 'v.status' => 1])
+            ->orderBy('vest_no ASC')
+            ->all();
+
+            $vest_arr = [];
+                if($vest) {
+                    foreach($vest as $v) {
+                        $vest_arr[] = $v->id;
+                    }
+
+                    $success = 0;
+                    if($unassigned){
+                        
+                        foreach($unassigned as $i => $ua){
+                            $ua->vest_id = $vest_arr[$i];
+                            if($ua->save()){
+                                $success++;
+                            }
+                        }
+                    }
+                }
+
+        }
+
+        Yii::$app->session->addFlash('success', $success . " Vest(s) has been successfully re-assigned.");
+        return $this->redirect(['assign']);
+
+    }
+
+    public function actionResetAll($cat){
+        $kejohanan = Kejohanan::findOne(['is_active' => 1]);
+        $category = Category::findOne($cat);
+        if($kejohanan && $category){
+            //reset all 
+            Competition::updateAll(['vest_id' => null],['kejohanan_id' => $kejohanan->id,'category_id' => $category->id]);
+
+        }
+
+        Yii::$app->session->addFlash('success', "Reset done.");
+        return $this->redirect(['assign']);
+
+    }
+
+    public function actionRunUnassigned($cat){
+        //get list of unassigned vest
+        //get list of unassigned competition
+        //list assigned
+        $kejohanan = Kejohanan::findOne(['is_active' => 1]);
+        $category = Category::findOne($cat);
+        if($kejohanan && $category){
+            $assigned = Competition::find()
+            ->where(['kejohanan_id' => $kejohanan->id]) // semua category pun ok
+            ->andWhere(new Expression('vest_id IS NOT NULL'))
+            ->all();
+
+            $unassigned = Competition::find()
+            ->where(['kejohanan_id' => $kejohanan->id, 'category_id' => $category->id])
+            ->andWhere(new Expression('vest_id IS NULL'))
+            ->all();
+
+            $assigned_arr = ArrayHelper::map($assigned, 'id', 'vest_id');
+
+            $cat_color = $category->color;
+
+            $vest = Vest::find()->alias('v')
+            ->leftJoin('competition c','c.vest_id = v.id')
+            ->where(['color' => $cat_color, 'v.status' => 1])
+            ->andWhere(['NOT IN', 'v.id', $assigned_arr])
+            ->orderBy('vest_no ASC')
+            ->all();
+
+            $vest_arr = [];
+            if($vest){
+                foreach($vest as $v){
+                    $vest_arr[] = $v->id;
+                }
+                $success = 0;
+                if($unassigned){
+                    
+                    foreach($unassigned as $i => $ua){
+                        $ua->vest_id = $vest_arr[$i];
+                        if($ua->save()){
+                            $success++;
+                        }
+                    }
+                }
+            }
+
+            
+
+
+        }
+        Yii::$app->session->addFlash('success', $success . " Vest(s) has been successfully assigned.");
+        return $this->redirect(['assign']);
     }
 
     /**

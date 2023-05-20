@@ -17,7 +17,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="vest-index">
 
     <p>
-        <?= Html::a('Create Vest', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Vest', ['create'], ['class' => 'btn btn-success']) ?> 
+        <?= Html::a('Assign Vest', ['assign'], ['class' => 'btn btn-primary']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -55,8 +56,21 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
                 
             ],
+
+            [
+                'format' => 'html',
+			    'label' => 'Rider',
+                'value' => function($model){
+                    if($model->competition){
+                        if($model->competition->rider){
+                            return $model->competition->rider->rider_name;
+                        }
+                    }
+                    
+                }
+                
+            ],
             
-            'competition_id',
             ['class' => 'yii\grid\ActionColumn',
             'template' => '{update}',
             'buttons'=>[

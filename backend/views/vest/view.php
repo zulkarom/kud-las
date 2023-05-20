@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /** @var yii\web\View $this */
 /** @var backend\models\Vest $model */
 
-$this->title = $model->id;
+$this->title = 'VEST NO: ' . $model->vest_no;
 $this->params['breadcrumbs'][] = ['label' => 'Vests', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -47,7 +47,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
                 
             ],
-            'competition_id',
+            [
+                'format' => 'html',
+			    'label' => 'Rider',
+                'value' => function($model){
+                    if($model->competition){
+                        if($model->competition->rider){
+                            return $model->competition->rider->rider_name;
+                        }
+                    }
+                    
+                }
+                
+            ],
         ],
     ]) ?>
 

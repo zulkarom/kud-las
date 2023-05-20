@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Category */
 
-$this->title = $model->id;
+$this->title = $model->category_name;
 $this->params['breadcrumbs'][] = ['label' => 'Categories', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -28,9 +28,23 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'category_name',
-            'is_enabled',
+            [
+                'format' => 'html',
+                'attribute' => 'is_enabled',
+                'label' => 'Is Enabled',
+                'value' => function($model){
+                    return $model->statusLabel;
+                }
+            ],
+            [
+                'format' => 'html',
+                'attribute' => 'color',
+                'label' => 'Vest Color',
+                'value' => function($model){
+                    return $model->colorLabel;
+                }
+            ],
         ],
     ]) ?>
 

@@ -241,6 +241,58 @@ MAKLUMAT VEST & DEPOSIT
 </div>
 <div class="card-body">
 
+<?php 
+if($model->register_status == 100) {
+    echo DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            [
+                'label' => 'NO. VEST',
+                'value' => function ($model) {
+                    if($model->vest){
+                        return $model->vest->vest_no;
+                    }
+                    
+
+                }
+            ],
+            [
+                'label' => 'COLOR',
+                'format' => 'html',
+                'value' => function ($model) {
+                    if($model->vest){
+                        return $model->vest->colorLabel;
+                    }
+                    
+
+                }
+            ],
+            [
+                'label' => 'DEPOSIT',
+                'value' => function ($model) {
+                    
+
+                }
+            ],
+            [
+                'label' => 'ACTION',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    if($model->register_status == 100) {
+                        return Html::a('<i class="fas fa-edit"></i> Update', ['update-vest', 'id' => $model->id], ['class' => 'btn btn-primary btn-sm']);
+                    } else {
+                        return '-';
+                    }
+
+                }
+            ],
+
+
+        ],
+    ]);
+}
+?>
+
 </div></div>
 
 

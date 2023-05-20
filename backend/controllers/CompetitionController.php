@@ -7,9 +7,12 @@ use backend\models\Competition;
 use backend\models\CompetitionPrint;
 use backend\models\CompetitionSearch;
 use backend\models\Kejohanan;
+use backend\models\Vest;
+use yii\db\Expression;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 
 /**
  * CompetitionController implements the CRUD actions for Competition model.
@@ -154,6 +157,48 @@ class CompetitionController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+        ]);
+    }
+
+    public function actionUpdateVest($id)
+    {
+        $model = $this->findModel($id);
+        $category = $model->category;
+        $cat_color = $category->color;
+        
+        $assigned = Competition::find()->alias('c')
+        ->select('v.id, v.vest_no')
+            ->leftJoin('vest v', 'v.id = c.vest_id')
+            ->where(['kejohanan_id' => $model->kejohanan_id, 'category_id' => $model->category_id])
+            ->andWhere(new Expression('vest_id IS NOT NULL'))
+            ->all();
+
+        $assigned_arr = ArrayHelper::map($assigned, 'id', 'vest_no');
+
+        if($model->vest_id) {
+            unset($assigned_arr[$model->vest_id]);
+        }
+       /*  echo $model->vest_id;
+       print_r($assigned_arr);die(); */
+
+        $vest = Vest::find()->alias('v')
+            ->select('v.id, v.vest_no')
+            ->leftJoin('competition c','c.vest_id = v.id')
+            ->where(['color' => $cat_color, 'v.status' => 1])
+            ->andWhere(['NOT IN', 'v.id', $assigned_arr])
+            ->orderBy('vest_no ASC')
+            ->all();
+
+        $vest_list = ArrayHelper::map($vest, 'id', 'vest_no');
+        
+
+        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+        return $this->render('update-vest', [
+            'model' => $model,
+            'vest_list' => $vest_list
         ]);
     }
 

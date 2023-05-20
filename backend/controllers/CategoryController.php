@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use backend\models\Category;
 use backend\models\CategorySearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\AccessControl;
@@ -73,6 +74,7 @@ class CategoryController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
+                Yii::$app->session->addFlash('success', "Data Updated");
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -96,6 +98,7 @@ class CategoryController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            Yii::$app->session->addFlash('success', "Data Updated");
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
