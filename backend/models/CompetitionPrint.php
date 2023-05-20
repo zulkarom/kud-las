@@ -32,7 +32,7 @@ class CompetitionPrint
 		 
 
 
-		$this->pdf->Output('borang-tuntutan.pdf', 'I');
+		$this->pdf->Output('Kejohanan-Kuda-Lasak.pdf', 'I');
 	}
 	
 	public function writeHeaderFooter(){
