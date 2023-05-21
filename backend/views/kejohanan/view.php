@@ -26,13 +26,22 @@ $this->params['breadcrumbs'][] = $this->title;
         }?>
     </p>
 
-    <?= DetailView::widget([
+    <div class="card">
+  <div class="card-body">
+
+  <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'name',
-            'date_start',
-            'date_end',
+            [
+                'attribute' => 'date_start',
+			    'label' => 'Date',
+                'format' => 'html',
+                'value' => function($model){
+                    return $model->dateStartEndFormat();
+                }
+                
+            ],
             'location',
             [
                 'format' => 'html',
@@ -42,7 +51,19 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->statusLabel;
                 }
             ],
+            'date_vest:date',
+            [
+                'label' => 'Deposit',
+                'value' => function($model){
+                    return 'RM ' . number_format($model->deposit_amount,2);
+                }
+            ],
         ],
     ]) ?>
+
+  </div> 
+    </div>
+
+
 
 </div>

@@ -17,7 +17,7 @@ class CompetitionSearch extends Competition
     public function rules()
     {
         return [
-            [['id','kejohanan_id', 'category_id', 'rider_id', 'horse_id', 'status'], 'integer'],
+            [['id','kejohanan_id', 'category_id', 'rider_id', 'horse_id', 'register_status', 'deposit_paid'], 'integer'],
             [['hadlaju', 'jarak'], 'number'],
         ];
     }
@@ -46,6 +46,9 @@ class CompetitionSearch extends Competition
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 100,
+            ],
         ]);
 
         $this->load($params);
@@ -60,7 +63,9 @@ class CompetitionSearch extends Competition
         $query->andFilterWhere([
             'id' => $this->id,
             'kejohanan_id' => $this->kejohanan_id,
-            'status' => $this->status
+            'register_status' => $this->register_status,
+            'category_id' => $this->category_id,
+            'deposit_paid' => $this->deposit_paid
         ]);
 
         return $dataProvider;

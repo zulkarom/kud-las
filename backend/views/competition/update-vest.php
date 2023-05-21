@@ -106,7 +106,7 @@ BORANG KEMASKINI
 
 <?= $form->field($model, 'vest_id')->dropDownList($vest_list, ['prompt' => 'Sila Pilih']) ?>
 
-
+<?= $form->field($model, 'deposit_paid')->dropDownList($model->depositArray, ['prompt' => 'Sila Pilih']) ?>
 
 <div class="form-group">
     <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

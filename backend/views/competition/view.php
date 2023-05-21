@@ -269,8 +269,9 @@ if($model->register_status == 100) {
             ],
             [
                 'label' => 'DEPOSIT',
+                'format' => 'html',
                 'value' => function ($model) {
-                    
+                    return $model->depositLabel;
 
                 }
             ],

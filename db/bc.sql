@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 20, 2023 at 07:56 PM
+-- Generation Time: May 21, 2023 at 11:22 AM
 -- Server version: 5.7.42
 -- PHP Version: 8.1.16
 
@@ -29,18 +29,19 @@ START TRANSACTION;
 CREATE TABLE `category` (
   `id` int(11) NOT NULL,
   `category_name` varchar(255) NOT NULL,
-  `is_enabled` tinyint(1) NOT NULL DEFAULT '1'
+  `is_enabled` tinyint(1) NOT NULL DEFAULT '1',
+  `color` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `category`
 --
 
-INSERT INTO `category` (`id`, `category_name`, `is_enabled`) VALUES
-(1, 'Amatur 36 KM', 0),
-(2, 'National CEN 40KM', 1),
-(3, 'Amatur 35KM', 1),
-(4, 'VIP/Veteran 20KM', 1);
+INSERT INTO `category` (`id`, `category_name`, `is_enabled`, `color`) VALUES
+(1, 'Amatur 36 KM', 0, NULL),
+(2, 'National CEN 40KM', 1, 'Purple'),
+(3, 'Amatur 35KM', 1, 'Navy Blue'),
+(4, 'VIP/Veteran 20KM', 1, 'Cyan');
 
 -- --------------------------------------------------------
 
@@ -123,20 +124,22 @@ INSERT INTO `competition` (`id`, `kejohanan_id`, `category_id`, `rider_id`, `hor
 (69, 1, 1, 69, 69, NULL, NULL, NULL, 0, 0, 0, 10, NULL, 100, NULL, 0, NULL),
 (70, 1, 1, 70, 70, NULL, NULL, NULL, 0, 0, 0, 10, NULL, 100, NULL, 0, NULL),
 (71, 1, 1, 71, 71, NULL, NULL, NULL, 0, 0, 0, 10, NULL, 100, NULL, 0, NULL),
-(77, 2, 2, 76, 45, 'Fakulti Keusahawanan dan Perniagaan\r\nUniversiti Malaysia Kelantan\r\n16100 Kota Bharu\r\nKelantan.', '0136301461', 'Kelab Ekuin UMK', 0, 0, 0, 0, '2023-05-19 07:04:27', 100, 'S', 0, NULL),
-(80, 2, 3, 49, 76, '9054 Taman geliga intan 2 ', '0139286117', 'PERSATUAN EKUIN TERENGGANU(MZ STABLE)', 0, 0, 0, 0, '2023-05-14 15:40:50', 100, 'S', 0, NULL),
-(82, 2, 3, 78, 49, '78A KAMPUNG BANGGOL \r\nTOK JIRING\r\n21060 KUALA TERENGGANU', '0139286117', 'PERSATUAN EKUIN TERENGGANU(MZ STABLE)', 0, 0, 0, 0, '2023-05-14 15:45:43', 100, 'S', 0, NULL),
-(84, 2, 3, 79, 79, 'Kandang Kuda Gong badak Kuala Terengganu', '01161030907', 'PET (Syed Stable )', 0, 0, 0, 0, '2023-05-15 20:38:28', 100, 'XS', 0, NULL),
-(85, 2, 3, 80, 80, 'Kandang Kuda Gong Badak Kuala Terengganu', '01161030907', 'PET ( Syed Stable )', 0, 0, 0, 0, '2023-05-16 07:30:33', 100, 'S', 0, NULL),
-(86, 2, 3, 81, 84, 'PT 5068 kg Panchor,Kemumin, Pengkalan Chepa\r\nKota Bharu, 16100 kelantan', '0105422884', 'RnR stable', 0, 0, 0, 0, '2023-05-16 16:28:55', 100, 'S', 0, NULL),
-(87, 2, 3, 82, 81, '8662 G Kg banggol tok jiring 21060 kuala terengganu', '0139169911', 'HKRC Terengganu', 0, 0, 0, 0, '2023-05-16 16:16:37', 100, 'M', 0, NULL),
-(88, 2, 3, 83, 82, '8662 G kg banggol tok jiring 21060 kuala terengganu', '0139169911', 'Persatuan Ekuin Trg', 0, 0, 0, 0, '2023-05-16 16:22:03', 100, 'S', 0, NULL),
-(89, 2, 3, 84, 85, '8662 G kg banggol tok jiring 21060 kuala terengganu', '0139169911', 'Persatuan Ekuin Terengganu', 0, 0, 0, 0, '2023-05-16 16:28:24', 100, 'S', 0, NULL),
-(93, 2, 3, 86, 87, 'Lot.2563 Kg.Alor Jeringgau\r\n16300 Bachok.\r\nKelantan.', '01152893340', '8682 STABLE', 0, 0, 0, 0, '2023-05-19 21:44:42', 100, 'XXL', 0, NULL),
-(95, 2, 2, 88, 88, 'KAMPUNG PERALLA 2,\n17500 TANAH MERAH\nKELANTAN', '0182135358', 'AA GROUP STABLE', 0, 0, 0, 0, '2023-05-18 14:22:01', 100, 'S', 0, NULL),
-(96, 2, 3, 89, 90, 'Kg tok jaring ktrg', '0139718798', 'Zaki stable', 0, 0, 0, 0, '2023-05-18 18:28:37', 100, 'S', 0, NULL),
-(98, 2, 3, 90, 91, 'No 144,madrasah muhamadiah,kg beta hilir,16450,kota bharu,kelantan', '01159093082', 'Persatuan empayar sunnah berkuda kebangsaan(PESBUK)', 0, 0, 0, 0, '2023-05-19 00:14:34', 100, 'L', 0, NULL),
-(100, 2, 2, 91, 92, 'Lot 529, Kg Gong Gajah, Kemudi, 16300 Bachok, Kelantan', '0139233887', 'Kemudi Stud Farm', 0, 0, 0, 0, '2023-05-20 14:48:57', 100, 'XL', 0, NULL);
+(77, 2, 2, 76, 45, 'Fakulti Keusahawanan dan Perniagaan\r\nUniversiti Malaysia Kelantan\r\n16100 Kota Bharu\r\nKelantan.', '0136301461', 'Kelab Ekuin UMK', 0, 0, 0, 0, '2023-05-19 07:04:27', 100, 'S', 0, 10),
+(80, 2, 3, 49, 76, '9054 Taman geliga intan 2 ', '0139286117', 'PERSATUAN EKUIN TERENGGANU(MZ STABLE)', 0, 0, 0, 0, '2023-05-14 15:40:50', 100, 'S', 0, 51),
+(82, 2, 3, 78, 49, '78A KAMPUNG BANGGOL \r\nTOK JIRING\r\n21060 KUALA TERENGGANU', '0139286117', 'PERSATUAN EKUIN TERENGGANU(MZ STABLE)', 0, 0, 0, 0, '2023-05-14 15:45:43', 100, 'S', 0, 52),
+(84, 2, 3, 79, 79, 'Kandang Kuda Gong badak Kuala Terengganu', '01161030907', 'PET (Syed Stable )', 0, 0, 0, 0, '2023-05-15 20:38:28', 100, 'XS', 0, 53),
+(85, 2, 3, 80, 80, 'Kandang Kuda Gong Badak Kuala Terengganu', '01161030907', 'PET ( Syed Stable )', 0, 0, 0, 0, '2023-05-16 07:30:33', 100, 'S', 0, 54),
+(86, 2, 3, 81, 84, 'PT 5068 kg Panchor,Kemumin, Pengkalan Chepa\r\nKota Bharu, 16100 kelantan', '0105422884', 'RnR stable', 0, 0, 0, 0, '2023-05-16 16:28:55', 100, 'S', 0, 55),
+(87, 2, 3, 82, 81, '8662 G Kg banggol tok jiring 21060 kuala terengganu', '0139169911', 'HKRC Terengganu', 0, 0, 0, 0, '2023-05-16 16:16:37', 100, 'M', 0, 56),
+(88, 2, 3, 83, 82, '8662 G kg banggol tok jiring 21060 kuala terengganu', '0139169911', 'Persatuan Ekuin Trg', 0, 0, 0, 0, '2023-05-16 16:22:03', 100, 'S', 0, 57),
+(89, 2, 3, 84, 85, '8662 G kg banggol tok jiring 21060 kuala terengganu', '0139169911', 'Persatuan Ekuin Terengganu', 0, 0, 0, 0, '2023-05-16 16:28:24', 100, 'S', 0, 58),
+(93, 2, 3, 86, 87, 'Lot.2563 Kg.Alor Jeringgau\r\n16300 Bachok.\r\nKelantan.', '01152893340', '8682 STABLE', 0, 0, 0, 0, '2023-05-19 21:44:42', 100, 'XXL', 0, 59),
+(95, 2, 2, 88, 88, 'KAMPUNG PERALLA 2,\n17500 TANAH MERAH\nKELANTAN', '0182135358', 'AA GROUP STABLE', 0, 0, 0, 0, '2023-05-18 14:22:01', 100, 'S', 0, 1),
+(96, 2, 3, 89, 90, 'Kg tok jaring ktrg', '0139718798', 'Zaki stable', 0, 0, 0, 0, '2023-05-18 18:28:37', 100, 'S', 0, 60),
+(98, 2, 3, 90, 91, 'No 144,madrasah muhamadiah,kg beta hilir,16450,kota bharu,kelantan', '01159093082', 'Persatuan empayar sunnah berkuda kebangsaan(PESBUK)', 0, 0, 0, 0, '2023-05-19 00:14:34', 100, 'L', 0, 61),
+(100, 2, 2, 91, 92, 'Lot 529, Kg Gong Gajah, Kemudi, 16300 Bachok, Kelantan', '0139233887', 'Kemudi Stud Farm', 0, 0, 0, 0, '2023-05-20 14:48:57', 100, 'XL', 0, 2),
+(101, 2, 3, 92, 93, 'PT 3760\r\nTAMAN YAYASAN ISLAM\r\nKOK LANAS \r\n16450 KETEREH\r\nKELANTAN', '01112933670', 'PEMUDA PESBUK', 0, 0, 0, 0, '2023-05-20 21:12:38', 100, 'M', 0, 62),
+(102, 2, NULL, 93, NULL, 'Lot 1457, kg.Setek. 16450 Kota Bharu, Kelantan', '0178035230', 'Stable Tok Bachok', 0, 0, 0, 0, NULL, 0, NULL, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -497,7 +500,8 @@ INSERT INTO `horse` (`id`, `eam_id`, `horse_code`, `horse_name`, `horse_dob`, `h
 (89, NULL, 'M89', 'MEMBER J', '2019-05-18', 'Bay', 3, 'MY', 0),
 (90, NULL, 'M90', 'MEMBER J', '2019-05-18', 'Bay', 3, 'MY', 0),
 (91, NULL, 'D91', 'DALI\'', '2015-05-19', 'Quaterhorse', 2, 'MY', 0),
-(92, NULL, 'J92', 'JANE', '2015-01-22', 'Kelabu/Putih', 2, 'MY', 0);
+(92, NULL, 'J92', 'JANE', '2015-01-22', 'Kelabu/Putih', 2, 'MY', 0),
+(93, NULL, 'M93', 'MELISA', '2009-02-20', 'PALAMINO', 2, 'MY', 0);
 
 -- --------------------------------------------------------
 
@@ -647,7 +651,9 @@ INSERT INTO `rider` (`id`, `rider_name`, `nric`, `email`, `address`, `phone`, `k
 (88, 'MOHD RIDZUAN BIN ARIFIN', '801127035981', 'Wansatsing80@gmail.com', 'KAMPUNG PERALLA 2,\r\n17500 TANAH MERAH\r\nKELANTAN', '0182135358', 'AA GROUP STABLE', 0),
 (89, 'MUHAMMAD HAIRIE FITRI BIN MOHD HUSAINI', '031128110199', '', 'Kg tok jaring ktrg', '0139718798', 'Zaki stable', 0),
 (90, 'NOORUL HAFIEZ AIMAN BIN NOORUL ASMADI', '020326030479', 'hafiezaiman673@gmail.com', 'No 144,madrasah muhamadiah,kg beta hilir,16450,kota bharu,kelantan', '01159093082', 'Persatuan empayar sunnah berkuda kebangsaan(PESBUK)', 0),
-(91, 'MOHD AMIN B MOHD DAUD', '731206035057', 'aminmdnor@yahoo.com', 'Lot 529, Kg Gong Gajah, Kemudi, 16300 Bachok, Kelantan', '0139233887', 'Kemudi Stud Farm', 0);
+(91, 'MOHD AMIN B MOHD DAUD', '731206035057', 'aminmdnor@yahoo.com', 'Lot 529, Kg Gong Gajah, Kemudi, 16300 Bachok, Kelantan', '0139233887', 'Kemudi Stud Farm', 0),
+(92, 'MOHAMMAD DANISH AIMAN BIN ZULKARNAIN', '090209030385', 'norkharulbariah@gmail.com', 'PT 3760\r\nTAMAN YAYASAN ISLAM\r\nKOK LANAS \r\n16450 KETEREH\r\nKELANTAN', '01112933670', 'PEMUDA PESBUK', 0),
+(93, 'MUHAMMAD ALISYAKAR AL-BASRI BIN ROSIHAN', '070506030527', 'alisyakar07@gmail.com', 'Lot 1457, kg.Setek. 16450 Kota Bharu, Kelantan', '0178035230', 'Stable Tok Bachok', 0);
 
 -- --------------------------------------------------------
 
@@ -780,7 +786,7 @@ INSERT INTO `vest` (`id`, `vest_no`, `color`, `status`) VALUES
 (4, 4, 'Purple', 1),
 (5, 5, 'Purple', 1),
 (6, 6, 'Purple', 1),
-(7, 7, 'Purple', 1),
+(7, 7, 'Purple', 0),
 (8, 8, 'Purple', 1),
 (9, 9, 'Purple', 1),
 (10, 10, 'Purple', 1),
@@ -1020,7 +1026,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `competition`
 --
 ALTER TABLE `competition`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- AUTO_INCREMENT for table `country`
@@ -1032,7 +1038,7 @@ ALTER TABLE `country`
 -- AUTO_INCREMENT for table `horse`
 --
 ALTER TABLE `horse`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 
 --
 -- AUTO_INCREMENT for table `horse_gender`
@@ -1050,7 +1056,7 @@ ALTER TABLE `kejohanan`
 -- AUTO_INCREMENT for table `rider`
 --
 ALTER TABLE `rider`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 
 --
 -- AUTO_INCREMENT for table `rider_bc`

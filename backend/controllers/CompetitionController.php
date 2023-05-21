@@ -193,6 +193,7 @@ class CompetitionController extends Controller
         
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            Yii::$app->session->addFlash('success', "Data Updated");
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

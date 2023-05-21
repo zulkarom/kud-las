@@ -1,10 +1,9 @@
 <?php
 
-use backend\models\Competition;
+use kartik\export\ExportMenu;
 use yii\helpers\Html;
-use yii\helpers\Url;
-use yii\grid\ActionColumn;
-use yii\grid\GridView;
+use kartik\grid\GridView;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\CompetitionSearch */
@@ -12,7 +11,228 @@ use yii\grid\GridView;
 
 $this->title = 'PENDAFTARAN';
 $this->params['breadcrumbs'][] = $this->title;
+
+$exportColumns = [
+    ['class' => 'yii\grid\SerialColumn'],
+    [
+        'attribute' => 'id',
+        'label' => 'NO. PENDAFTARAN'
+    ],
+    [
+        'label' => 'STATUS',
+        'value' => function($model){
+            return $model->statusText;
+        }
+    ],
+    [
+        'label' => 'VEST NO',
+        'value' => function($model){
+            if($model->vest){
+                return $model->vest->vest_no;
+            }
+            
+        }
+    ],
+    [
+        'label' => 'WARNA VEST',
+        'value' => function($model){
+            if($model->vest){
+                return $model->vest->color;
+            }
+            
+        }
+    ],
+    [
+        'label' => 'KATEGORI',
+        'value' => function($model){
+            if($model->category){
+                return $model->category->category_name;
+            }
+            
+        }
+    ],
+    [
+        'label' => 'NAMA RIDER',
+        'value' => function($model){
+            if($model->rider){
+                return strtoupper($model->rider->rider_name);
+            }
+        } 
+    ],
+    [
+        'label' => 'NO. KP',
+        'contentOptions' => ['cellFormat' => DataType::TYPE_STRING], 
+        'value' => function($model){
+            return $model->rider->nric;
+        }
+    ],
+    [
+        'label' => 'PHONE',
+        'value' => function($model){
+            return $model->rider_phone;
+        }
+    ],
+    [
+        'label' => 'EMAIL',
+        'value' => function($model){
+            return $model->rider->email;
+        }
+    ],
+    [
+        'label' => 'ALAMAT',
+        'value' => function($model){
+            return $model->rider_address;
+        }
+    ],
+    [
+        'label' => 'KELAB/STABLE',
+        'value' => function($model){
+            return $model->rider_kelab;
+        }
+    ],
+    [
+        'label' => 'NAMA KUDA',
+        'value' => function($model){
+            if($model->horse){
+                $k = $model->horse;
+                return strtoupper($k->horse_name);
+            }
+            
+        }
+    ],
+    [
+        'label' => 'WARNA KUDA',
+        'value' => function($model){
+            if($model->horse){
+                $k = $model->horse;
+                return $k->horse_color;
+            }
+            
+        }
+    ],
+    [
+        'label' => 'JANTINA KUDA',
+        'value' => function($model){
+            if($model->horse){
+                $k = $model->horse;
+                return $k->genderShort;
+            }
+            
+        }
+    ],
+    [
+        'label' => 'D.O.B KUDA',
+        'value' => function($model){
+            if($model->horse){
+                $k = $model->horse;
+                return date('d/m/Y', strtotime($k->horse_dob));
+            }
+            
+        }
+    ],
+    [
+        'label' => 'NEGARA LAHIR KUDA',
+        'value' => function($model){
+            if($model->horse){
+                $k = $model->horse;
+                return $k->countryText;
+            }
+            
+        }
+    ],
+    [
+        'label' => 'NO. EAM',
+        'value' => function($model){
+            if($model->horse){
+                $k = $model->horse;
+                return $k->eam_id;
+            }
+            
+        }
+    ],
+    [
+        'label' => 'EKUDALASAK ID',
+        'value' => function($model){
+            if($model->horse){
+                $k = $model->horse;
+                return $k->horse_code;
+            }
+            
+        }
+    ],
+    [
+        'label' => 'PARTICULAR OF HORSE',
+        'value' => function($model){
+            if($model->horse){
+                $k = $model->horse;
+                $code = strtoupper($k->horse_name). '/' . $k->genderShort . '/' . $k->horse_color . '/' . date('Y', strtotime($k->horse_dob)) ;
+                if($k->eam_id){
+                    $code .= '/' . $k->eam_id;
+                }
+                return $code;
+            }
+            
+        }
+    ],
+    [
+        'label' => 'SAIZ BAJU',
+        'value' => function($model){
+            return $model->rider_size;
+        }
+    ],
+    [
+        'label' => 'DEPOSIT',
+        'value' => function($model){
+            return $model->depositText;
+        }
+    ],
+
+
+
+
+];
+
+
 ?>
+
+<div class="card">
+  <div class="card-body">
+
+  <?=$this->render('_search', ['model' => $searchModel])?>
+
+  </div> 
+    </div>
+
+    <div class="form-group" style="text-align:right" align="right"> <?=
+        ExportMenu::widget([
+            'dataProvider' => $dataProvider,
+            'columns' => $exportColumns,
+            'columnSelectorOptions'=>[
+                'label' => 'Columns',
+                'class' => 'btn btn-success',
+                'style'=> 'color:white;',
+                //'style'=> 'display:none;', 
+            ],
+            'fontAwesome' => true,
+            'dropdownOptions' => [
+                'label' => 'Export Data',
+                'class' => 'btn btn-success',
+                'style'=> 'color:white;',
+            ],
+            'filename' => 'DATA PENDAFTARAN',
+            'clearBuffers' => true,
+            
+            'exportConfig' => [
+                //ExportMenu::FORMAT_EXCEL_X => false,
+                //ExportMenu::FORMAT_EXCEL => false,
+                //ExportMenu::FORMAT_HTML => false,
+                //ExportMenu::FORMAT_CSV => false,
+                ExportMenu::FORMAT_TEXT => false,
+                ExportMenu::FORMAT_PDF => false,
+            ],
+        ]);
+    ?> </div>
+   
 
 <div class="card">
         <div class="card-body">
@@ -20,15 +240,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="competition-index">
 
-<?=$this->render('_search', ['model' => $searchModel])?>
+
 <div class="table-responsive">
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'pager' => [
             'class' => 'yii\bootstrap4\LinkPager',
         ],
-        'filterModel' => $searchModel,
+       // 'filterModel' => $searchModel,
         'columns' => [
+            [
+                'class' => 'yii\grid\CheckboxColumn',
+                // you may configure additional properties here
+            ],
             ['class' => 'yii\grid\SerialColumn'],
             [
                 'attribute' => 'id',
@@ -94,7 +318,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'html',
                 'value' => function($model){
 if($model->category){
-    return $model->category->category_name . '<br />Size: ' . $model->rider_size;
+    return $model->category->category_name . '<br />Size: ' . $model->rider_size . '<br />Deposit: ' . $model->depositLabel;
 }
                     
                     
@@ -104,7 +328,7 @@ if($model->category){
             [
                 'format' => 'html',
                 'attribute' => 'status',
-                'filter' => Html::activeDropDownList($searchModel, 'status', $searchModel->statusArray,['class'=> 'form-control','prompt' => 'Pilih Status']),
+                //'filter' => Html::activeDropDownList($searchModel, 'status', $searchModel->statusArray,['class'=> 'form-control','prompt' => 'Pilih Status']),
                 'label' => 'Status',
                 'value' => function($model){
                     return $model->statusLabel;

@@ -126,6 +126,8 @@ class Competition extends \yii\db\ActiveRecord
         return '<span class="badge badge-'.$color.'">'. $this->statusText .'</span>';
     }
 
+    
+
     public static function getPaidArray(){
         return [
             0 => 'UNPAID', 
@@ -192,5 +194,33 @@ class Competition extends \yii\db\ActiveRecord
     public function getRider()
     {
         return $this->hasOne(Rider::className(), ['id' => 'rider_id']);
+    }
+
+    public static function getDepositArray(){
+        return [
+            0 => 'NO', 
+            1 => 'YES',
+            2 => 'RETURN',
+        ];
+    }
+
+    public function getDepositText(){
+        $text = '';
+        if(array_key_exists($this->deposit_paid, $this->depositArray)){
+            $text = $this->depositArray[$this->deposit_paid];
+        }
+        return $text;
+    }
+
+    public static function getDepositColor(){
+	    return [0 => 'danger', 1 => 'success', 2 => 'primary'];
+	}
+
+    public function getDepositLabel(){
+        $color = "";
+        if(array_key_exists($this->deposit_paid, $this->depositColor)){
+            $color = $this->depositColor[$this->deposit_paid];
+        }
+        return '<span class="badge badge-'.$color.'">'. $this->depositText .'</span>';
     }
 }

@@ -14,7 +14,7 @@ class CompetitionPrint
 
 	
 	public function generatePdf(){
-
+		date_default_timezone_set("Asia/Kuala_Lumpur");
 		$this->directoryAsset = Yii::$app->assetManager->getPublishedUrl('@frontend/views/myasset');
 		
 		$this->pdf = new CompetitionPrintStart(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
@@ -29,18 +29,13 @@ class CompetitionPrint
 
 		 $this->disclaimer();
 
-		 
-
-
 		$this->pdf->Output('Kejohanan-Kuda-Lasak.pdf', 'I');
 	}
 	
 	public function writeHeaderFooter(){
 		$this->pdf->top_margin_first_page = - 4;
 		$this->pdf->header_first_page_only = true;
-		$this->pdf->header_html ='
-		
-		';
+		$this->pdf->header_html ='';
 		
 		
 		
@@ -50,6 +45,7 @@ class CompetitionPrint
 
 	public function writeTitle(){
 		$k = $this->model->kejohanan;
+		$m = $this->model;
 		$html = '
 		<br /><br /><br />
 		<table border="0" cellpadding="5">
@@ -62,10 +58,26 @@ class CompetitionPrint
 		
 		<table border="1" cellpadding="10">
 		<tr>
-		<td>VEST NO:
-		<br />
+		<td align="center">VEST NO
+		<br />';
+		if($m->vest){
+			$vest = '<span style="font-size:23px;font-weight:bold">' .$m->vest->vest_no . '</span>
+			<br /><span style="font-size:11px;"><i>' .$m->vest->color . '</i></span>';
+			if(!Yii::$app->user->isGuest && Yii::$app->user->identity->id == 1){
+				$html .= $vest;
+			}else{
+				if($k->date_vest){
+					$release_time = strtotime($k->date_vest);
+					if(time() > $release_time){
+						$html .= $vest;
+					}
+				}
+				
+			}
+		}
+
 		
-		</td>
+		$html .= '</td>
 		</tr>
 		</table>
 

@@ -73,6 +73,7 @@ class KejohananController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
+                Yii::$app->session->addFlash('success', "Kejohanan created.");
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -96,6 +97,7 @@ class KejohananController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            Yii::$app->session->addFlash('success', "Data Updated");
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -125,9 +127,13 @@ class KejohananController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        try {
+            $this->findModel($id)->delete();
+            Yii::$app->session->addFlash('success', "Kejohanan Deleted");
+            return $this->redirect(['index']);
+        } catch(\yii\db\IntegrityException $e) {
+            throw new \yii\web\ForbiddenHttpException('Could not delete this kejohanan. Other records depend on this data.');
+        }
     }
 
     /**

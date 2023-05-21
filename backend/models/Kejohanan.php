@@ -30,9 +30,10 @@ class Kejohanan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'is_active'], 'required'],
+            [['name', 'is_active','date_start', 'date_end', 'location'], 'required'],
             [['is_active'], 'integer'],
-            [['date_start', 'date_end'], 'safe'],
+            [['deposit_amount'], 'number'],
+            [['date_start', 'date_end', 'date_vest'], 'safe'],
             [['name', 'location'], 'string', 'max' => 200],
         ];
     }
@@ -48,6 +49,7 @@ class Kejohanan extends \yii\db\ActiveRecord
             'date_start' => 'Date Start',
             'date_end' => 'Date End',
             'location' => 'Location',
+            'date_vest' => 'Vest No. Release Date'
         ];
     }
 

@@ -13,16 +13,16 @@ use yii\grid\GridView;
 $this->title = 'Kejohanan';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
+    <p>
+        <?= Html::a('Create Kejohanan', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
 <div class="card">
         <div class="card-body">
             
 
 <div class="kejohanan-index">
 
-    <p>
-        <?= Html::a('Create Kejohanan', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -32,8 +32,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'name',
-            'date_start',
-            'date_end',
+            [
+                'attribute' => 'date_start',
+			    'label' => 'Date',
+                'format' => 'html',
+                'value' => function($model){
+                    return $model->dateStartEndFormat();
+                }
+                
+            ],
             'location',
             [
                 'format' => 'html',
@@ -45,10 +52,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             ['class' => 'yii\grid\ActionColumn',
-            'template' => '{update}',
+            'template' => '{view} {update}',
             'buttons'=>[
                 'update'=>function ($url, $model) {
-                    return Html::a('<span class="fa fa-edit"></span> View',['view', 'id' => $model->id],['class'=>'btn btn-primary btn-sm']);
+                    return Html::a('<span class="fa fa-edit"></span> Update',['update', 'id' => $model->id],['class'=>'btn btn-warning btn-sm']);
+                },
+                'view'=>function ($url, $model) {
+                    return Html::a('<span class="fa fa-eye"></span> View',['view', 'id' => $model->id],['class'=>'btn btn-primary btn-sm']);
                 }
                 ]
             ],
