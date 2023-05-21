@@ -1,3 +1,5 @@
 ALTER TABLE `kejohanan` ADD `date_vest` DATE NULL DEFAULT NULL AFTER `is_active`;
-ALTER TABLE `competition` ADD FOREIGN KEY (`kejohanan_id`) REFERENCES `kejohanan`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
 ALTER TABLE `kejohanan` ADD `deposit_amount` DECIMAL(11,2) NULL DEFAULT NULL AFTER `date_vest`;
+
+ALTER TABLE `competition` ADD FOREIGN KEY (`kejohanan_id`) REFERENCES `kejohanan`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;

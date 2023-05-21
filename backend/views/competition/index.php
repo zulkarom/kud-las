@@ -194,15 +194,6 @@ $exportColumns = [
 
 
 ?>
-
-<div class="card">
-  <div class="card-body">
-
-  <?=$this->render('_search', ['model' => $searchModel])?>
-
-  </div> 
-    </div>
-
     <div class="form-group" style="text-align:right" align="right"> <?=
         ExportMenu::widget([
             'dataProvider' => $dataProvider,
@@ -232,6 +223,15 @@ $exportColumns = [
             ],
         ]);
     ?> </div>
+<div class="card">
+  <div class="card-body">
+
+  <?=$this->render('_search', ['model' => $searchModel])?>
+
+  </div> 
+    </div>
+
+
    
 
 <div class="card">
