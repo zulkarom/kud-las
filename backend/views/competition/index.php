@@ -4,6 +4,8 @@ use kartik\export\ExportMenu;
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use yii\helpers\Url;
+use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\CompetitionSearch */
@@ -240,19 +242,15 @@ $exportColumns = [
 
 <div class="competition-index">
 
-
+<?php $form = ActiveForm::begin(['method' => 'post', 'options'=>['target'=>'_blank'], 'action'=> Url::to(['competition/download-selected'])]); ?>
 <div class="table-responsive">
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'pager' => [
             'class' => 'yii\bootstrap4\LinkPager',
         ],
-       // 'filterModel' => $searchModel,
         'columns' => [
-            [
-                'class' => 'yii\grid\CheckboxColumn',
-                // you may configure additional properties here
-            ],
+            ['class' => 'yii\grid\CheckboxColumn'],
             ['class' => 'yii\grid\SerialColumn'],
             [
                 'attribute' => 'id',
@@ -336,26 +334,33 @@ if($model->category){
             ],
 
             ['class' => 'yii\grid\ActionColumn',
-            'template' => '{update} {pdf}',
+            'template' => '{view} {update} {pdf}',
             'buttons'=>[
-                'update'=>function ($url, $model) {
+                'view'=>function ($url, $model) {
                     return Html::a('<span class="fa fa-eye"></span> VIEW',['view', 'id' => $model->id],['class'=>'btn btn-primary btn-sm']);
                 },
+                'update'=>function ($url, $model) {
+                    return Html::a('<span class="fa fa-edit"></span>',['update-vest', 'id' => $model->id],['class'=>'btn btn-warning btn-sm']);
+                },
                 'pdf'=>function ($url, $model) {
-                    return Html::a('<span class="fa fa-pdf"></span> PDF',['download-pdf', 'id' => $model->id],['class'=>'btn btn-danger btn-sm', 'target' => '_blank']);
+                    return Html::a('<span class="fa fa-file-pdf"></span>',['download-pdf', 'id' => $model->id],['class'=>'btn btn-danger btn-sm', 'target' => '_blank']);
                 }
                 ]
             ]
             
-            //'hadlaju',
-            //'jarak',
-            //'cert_achive',
-            //'status',
-            //'register_at',
-            //'register_status',
             
         ],
     ]); ?></div>
+
+<p>
+    <?= Html::submitButton('<i class="fa fa-file-pdf"></i>  DOWNLOAD PDF SELECTED (COMBINED)<span id="pay-selected"></span>', [
+    'class' => 'btn btn-danger'
+    ]);
+    ?>  
+
+</p>
+
+<?php ActiveForm::end(); ?>
 
 
 </div>

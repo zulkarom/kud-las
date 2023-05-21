@@ -9,6 +9,7 @@ use common\models\Common;
 class CompetitionPrint
 {
 	public $model;
+	public $models = null;
 	public $pdf;
 	public $directoryAsset;
 
@@ -18,22 +19,39 @@ class CompetitionPrint
 		$this->directoryAsset = Yii::$app->assetManager->getPublishedUrl('@frontend/views/myasset');
 		
 		$this->pdf = new CompetitionPrintStart(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-		
+
 		$this->writeHeaderFooter();
 		$this->startPage();
-		
-		 $this->writeTitle();
-		 $this->borangKuda();
-		 $this->borangRider();
-		 $this->borangDaftar();
 
-		 $this->disclaimer();
+		if($this->models){
+			foreach($this->models as $i => $m){
+				if($i>0){
+					$this->pdf->AddPage("P");
+				}
+				$this->model = $m;
+				 $this->writeTitle();
+				 $this->borangKuda();
+				 $this->borangRider();
+				 $this->borangDaftar();
+				 $this->disclaimer();
+				 
+			}
+			
+		}else{
+			$this->writeTitle();
+				 $this->borangKuda();
+				 $this->borangRider();
+				 $this->borangDaftar();
+				 $this->disclaimer();
+		}
+		
 
 		$this->pdf->Output('Kejohanan-Kuda-Lasak.pdf', 'I');
 	}
 	
 	public function writeHeaderFooter(){
 		$this->pdf->top_margin_first_page = - 4;
+		$this->pdf->margin_top = -4;
 		$this->pdf->header_first_page_only = true;
 		$this->pdf->header_html ='';
 		
@@ -246,8 +264,16 @@ EOD;
 		<tr>
 		<td width="600" colspan="2">
 		<b>Deposit Vest:</b><br />
-		<br />
-		<span style="font-size:8pt">Deposit Vest akan dipulangkan setelah vest diserahkan semula kepada penganjur</span>
+		';
+		$html .= 'RM ' . $k->deposit_amount;
+		if($m->deposit_paid == 0){
+			$html .= ' (BELUM BAYAR)';
+		}else if($m->deposit_paid == 1){
+			$html .= ' (TELAH BAYAR)';
+		}else if($m->deposit_paid == 2){
+			$html .= ' (TELAH DIKEMBALIKAN)';
+		}
+		$html .= '<br /><span style="font-size:8pt">Deposit Vest akan dipulangkan setelah vest diserahkan semula kepada penganjur</span>
 		</td>
 
 		</tr>

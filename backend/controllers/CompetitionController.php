@@ -160,6 +160,8 @@ class CompetitionController extends Controller
         ]);
     }
 
+    
+
     public function actionUpdateVest($id)
     {
         $model = $this->findModel($id);
@@ -224,6 +226,22 @@ class CompetitionController extends Controller
         $pdf->generatePdf();
         exit;
 
+    }
+
+    public function actionDownloadSelected(){
+        if (Yii::$app->request->post('selection') ){
+            $ids = Yii::$app->request->post('selection');
+            
+            $pdf = new CompetitionPrint;
+            $pdf->models = Competition::find()->where(['id' => $ids])->all();
+            $pdf->model = null;
+            $pdf->generatePdf();
+            exit;
+            
+        }
+            
+        Yii::$app->session->addFlash('error', "No item selected");
+        return $this->redirect(['index']);
     }
 
     protected function findCompetition($id)
