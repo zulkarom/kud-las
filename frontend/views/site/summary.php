@@ -51,8 +51,10 @@ $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
                     <div class="col-lg-5">
                         <div class="contact-info pt-25">
 
-                        <h4 class="info-title"><?=$kejohanan->name?></h4>
-                        <p><?=$kejohanan->dateStartEndFormat()?></p>
+                        <?=$this->render('_title', [
+            'kejohanan' => $kejohanan,
+          ]);
+      ?>
                         
                           
                             <div class="mt-30" style="font-size:20px;">
@@ -152,7 +154,8 @@ if($s->register_status == 0){
 }
 if($s->register_status == 100){
   ?>
-<a href="<?=Url::to(['download-pdf', 'f' => $s->id])?>" target="_blank" class="btn btn-danger">Download PDF</a> 
+  <i style="font-size:small">* Sila hubungi urusetia program jika terdapat keperluan untuk mengemaskini maklumat pendaftaran.</i><br /><br />
+<a href="<?=Url::to(['download-pdf', 'f' => $s->id])?>" target="_blank" class="btn btn-danger btn-sm">Muat Turun PDF</a> 
   <?php
 }
 ?>
