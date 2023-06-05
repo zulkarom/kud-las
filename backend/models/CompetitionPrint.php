@@ -353,7 +353,7 @@ EOD;
 
 
 
-		$html .= '<br /><br /><br /><span style="font-size:8pt">Deposit Vest akan dipulangkan setelah vest diserahkan semula kepada penganjur</span>
+		$html .= '<br /><br /><br /><span style="font-size:8pt">Deposit akan dipulangkan setelah vest diserahkan semula kepada penganjur</span>
 		</td>
 
 		</tr>
