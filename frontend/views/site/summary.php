@@ -74,14 +74,15 @@ $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
                                    <?php if($edit){
                                     echo 'Anda masih mempunyai borang yang belum dihantar. Sila klik butang kemaskini untuk mengemaskini serta menghantar borang pendaftaran.';
                                   }else{
-                                    echo 'Berikut merupakan maklumat pendaftaran anda. Jika sekiranya anda ingin menambah pendaftaran sila klik butang di bawah.';
+                                    echo 'Berikut merupakan maklumat pendaftaran anda.';
                                   
                                   }?>
                                 </div>
 
                                 <div class="form-group">  <a href="<?=Url::to(['/site/index', 'n' => $model->rider->nric])?>" class="btn btn-secondary" >KEMBALI</a>  
                           <?php if(!$edit){
-                            echo Html::a('TAMBAH PENDAFTARAN',['summary', 'f' => $model->id, 'new' => 1], ['class' => 'btn btn-warning']);
+                            //Jika sekiranya anda ingin menambah pendaftaran sila klik butang di bawah.
+                            //echo Html::a('TAMBAH PENDAFTARAN',['summary', 'f' => $model->id, 'new' => 1], ['class' => 'btn btn-warning']);
                           }
                             ?>
                         </div>
