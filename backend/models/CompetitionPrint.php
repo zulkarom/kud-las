@@ -121,6 +121,8 @@ EOD;
 		$color = '';
 		$country = '';
 		$gender = '';
+		$eam='';
+		$name = '';
 		if($m->horse){
 			$dob = $m->horse->horse_dob ? date('d/m/Y', strtotime($m->horse->horse_dob)) : '';
 			$color = $m->horse->horse_color ? $m->horse->horse_color: '';
@@ -128,20 +130,28 @@ EOD;
 				$country = $m->horse->countryText;
 			}
 			$gender = $m->horse->genderShort;
+			$eam = $m->horse->eam_id;
+			$name = $m->horse->horse_name;
+		}
+		$cat = '';
+		if($m->category){
+			$cat = $m->category->category_name;
 		}
 		
 		$html = '
-		<br />
+		
 		<div align="center"><b>BORANG PENDAFTARAN</b> <br />
 		(Sila lengkapkan borang ini)</div>
-
-		<br /><br />
+		
+		<h3 style="text-align:right">'.$cat.'</h3>
+		
+		
 		<b>Butiran Kuda</b><br />
 		<table border="1" cellpadding="5">
 		<tr>
-		<td width="240" rowspan="2">
+		<td width="240">
 		<b>Nama Kuda:</b><br />
-		'.$m->horse->horse_name.'
+		'.$name.'
 		</td>
 		<td width="180">
 		<b>Tarikh Lahir:</b>
@@ -155,6 +165,11 @@ EOD;
 		</tr>
 
 		<tr>
+
+		<td width="240">
+		<b>No. Pasport EAM:</b>
+		<br/>'.$eam.'
+		</td>
 		
 		<td width="180">
 		<b>Negara Lahir:</b>
@@ -185,12 +200,7 @@ EOD;
 		$country = '';
 		$gender = '';
 		if($m->rider){
-			$dob = $m->horse->horse_dob ? date('d/m/Y', strtotime($m->horse->horse_dob)) : '';
-			$color = $m->horse->horse_color ? $m->horse->horse_color: '';
-			if($m->horse->country_born){
-				$country = $m->horse->countryText;
-			}
-			$gender = $m->horse->genderShort;
+			
 		}
 		
 		$html = '
@@ -200,7 +210,7 @@ EOD;
 		<table border="1" cellpadding="5">
 
 		<tr>
-		<td width="600" colspan="2">
+		<td width="600" colspan="3">
 		<b>Nama Peserta:</b><br />
 		'.$m->rider->rider_name.'
 		</td>
@@ -208,25 +218,36 @@ EOD;
 		</tr>
 
 		<tr>
-		<td width="300">
+		<td width="200">
 		<b>No. Kad Pengenalan:</b><br />
 		'.$m->rider->nric.'
 		</td>
-		<td width="300">
+		<td width="200">
 		<b>No. Telefon:</b>
 		<br />'.$m->rider_phone.'
 		</td>
-		</tr>
 
-		<tr>
-		<td width="300">
+		<td width="200">
 		<b>Email:</b><br />
 		'.$m->rider->email.'
 		</td>
-		<td width="300">
-		<b>Kelab:</b>
+
+		</tr>
+
+		<tr>
+
+
+
+		<td width="200">
+		<b>No. Ahli EAM:</b><br />
+
+		</td>
+
+		<td width="400" colspan="2">
+		<b>Kelab/Stable:</b>
 		<br />'.$m->rider_kelab.'
 		</td>
+		
 		</tr>
 
 		
@@ -244,6 +265,10 @@ EOD;
 	public function borangDaftar(){
 		$k = $this->model->kejohanan;
 		$m = $this->model;
+		$cat = '';
+		if($m->category){
+			$cat = $m->category->category_name;
+		}
 
 		$html = '
 		<br />
@@ -253,7 +278,7 @@ EOD;
 		<tr>
 		<td width="300">
 		<b>Kategori:</b><br />
-		'.$m->category->category_name.'
+		'.$cat.'
 		</td>
 		<td width="300">
 		<b>Saiz Baju:</b>
@@ -263,17 +288,72 @@ EOD;
 
 		<tr>
 		<td width="600" colspan="2">
-		<b>Deposit Vest:</b><br />
-		';
-		$html .= 'RM ' . $k->deposit_amount;
+
+		
+
+
+		<table>
+
+		<tr>
+		<td width="120"><b>Deposit Vest:</b><br />
+		RM ' . $k->deposit_amount . '</td>
+		<td>';
+		
+		$c1 = '';$c2 = '';
 		if($m->deposit_paid == 0){
-			$html .= ' (BELUM BAYAR)';
+
 		}else if($m->deposit_paid == 1){
-			$html .= ' (TELAH BAYAR)';
+			$c1 = '<span style="font-family:zapfdingbats;">3</span>';
 		}else if($m->deposit_paid == 2){
-			$html .= ' (TELAH DIKEMBALIKAN)';
+			$c1 = '<span style="font-family:zapfdingbats;">3</span>';
+			$c2 = '<span style="font-family:zapfdingbats;">3</span>';
 		}
-		$html .= '<br /><span style="font-size:8pt">Deposit Vest akan dipulangkan setelah vest diserahkan semula kepada penganjur</span>
+		$html .= '<br /><br /><table border="0">
+
+<tr>
+
+<td width="190">
+
+
+<table border="0" cellpadding="2">
+<tr>
+<td width="20" style="border:1px solid #000000">'.$c1.'</td>
+<td width="100"> <b>Paid</b></td>
+</tr>
+</table>
+<i>Verifikasi oleh:</i>
+
+
+</td>
+
+<td width="200">
+
+
+<table border="0" cellpadding="2">
+<tr>
+<td width="20" style="border:1px solid #000000">'.$c2.'</td><td width="100"> <b>Return</b></td>
+</tr>
+</table>
+<i>Verifikasi oleh:</i>
+
+</td>
+
+
+</tr>
+
+</table>
+		
+		
+		</td>
+		</tr>
+
+		</table>';
+
+
+
+
+
+		$html .= '<br /><br /><br /><span style="font-size:8pt">Deposit akan dipulangkan setelah vest diserahkan semula kepada penganjur</span>
 		</td>
 
 		</tr>

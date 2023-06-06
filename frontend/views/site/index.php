@@ -48,11 +48,13 @@ $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
 
 
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-5">
                         <div class="contact-info pt-25">
 
-                        <h4 class="info-title"><?=$kejohanan->name?></h4>
-                        <p><?=$kejohanan->dateStartEndFormat()?></p>
+                        <?=$this->render('_title', [
+            'kejohanan' => $kejohanan,
+          ]);
+      ?>
                         
                           
                             <div class="mt-30" style="font-size:20px;">
@@ -64,7 +66,7 @@ $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
                        
                         </div> <!-- contact info -->
                     </div> 
-                    <div class="col-lg-8">
+                    <div class="col-lg-7">
 
                     <div class="contact-form">
                         
