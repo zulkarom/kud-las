@@ -55,12 +55,15 @@ class VestController extends Controller
     }
 
     public function actionTest(){
-        /* for($i=1;$i<=50;$i++){
+       /*   for($i=101;$i<=160;$i++){
             $vest = new Vest();
             $vest->vest_no = $i;
-            $vest->color = 'Cyan';
-            $vest->save();
-            echo 'vest id ' . $vest->id . ' created <br />';
+            $vest->color = 'Baby Blue';
+            $vest->status = 1;
+            if($vest->save()){
+                echo 'vest no ' . $vest->vest_no . ' created <br />';
+            }
+            
         }
 
         exit; */

@@ -54,11 +54,11 @@ class Vest extends \yii\db\ActiveRecord
     }
 
     public static function getColorArray(){
-        return ['Purple', 'Navy Blue', 'Cyan'];
+        return ['Purple', 'Hitam', 'Baby Blue'];
     }
 
     public static function getColorCodeArray(){
-        return ['#A020F0', '#000080', '#00D1D1'];
+        return ['#A020F0', '#000000', '#89CFF0'];
     }
 
     public static function listColors(){

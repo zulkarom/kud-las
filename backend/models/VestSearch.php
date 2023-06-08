@@ -46,6 +46,9 @@ class VestSearch extends Vest
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 300,
+            ],
         ]);
 
         $this->load($params);
