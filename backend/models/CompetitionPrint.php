@@ -68,7 +68,13 @@ class CompetitionPrint
 		<br /><br /><br />
 		<table border="0" cellpadding="5">
 		<tr>
-		<td width="500" align="center"><span style="font-size:15px;font-weight:bold">'.$k->name.'</span><br />
+
+		<td width="106"><img src="images/logo.jpg" /></td>
+
+
+		<td width="400" align="center">
+		
+		<span style="font-size:15px;font-weight:bold">'.$k->name.'</span><br />
 		'.strtoupper($k->dateStartEndFormat()).'<br />
 		'.$k->location.'<br />
 		</td>
@@ -149,7 +155,7 @@ EOD;
 		<b>Butiran Kuda</b><br />
 		<table border="1" cellpadding="5">
 		<tr>
-		<td width="240">
+		<td width="255">
 		<b>Nama Kuda:</b><br />
 		'.$name.'
 		</td>
@@ -166,17 +172,17 @@ EOD;
 
 		<tr>
 
-		<td width="240">
+		<td>
 		<b>No. Pasport EAM:</b>
 		<br/>'.$eam.'
 		</td>
 		
-		<td width="180">
+		<td>
 		<b>Negara Lahir:</b>
 		<br/>'.$country.'
 		</td>
 
-		<td width="180">
+		<td>
 		<b>Jantina:</b>
 		<br />'.$gender.'
 		</td>
@@ -210,7 +216,7 @@ EOD;
 		<table border="1" cellpadding="5">
 
 		<tr>
-		<td width="600" colspan="3">
+		<td width="615" colspan="3">
 		<b>Nama Peserta:</b><br />
 		'.$m->rider->rider_name.'
 		</td>
@@ -218,7 +224,7 @@ EOD;
 		</tr>
 
 		<tr>
-		<td width="200">
+		<td width="215">
 		<b>No. Kad Pengenalan:</b><br />
 		'.$m->rider->nric.'
 		</td>
@@ -238,7 +244,7 @@ EOD;
 
 
 
-		<td width="200">
+		<td width="215">
 		<b>No. Ahli EAM:</b><br />
 
 		</td>
@@ -276,18 +282,18 @@ EOD;
 		<table border="1" cellpadding="5">
 
 		<tr>
-		<td width="300">
+		<td width="310">
 		<b>Kategori:</b><br />
 		'.$cat.'
 		</td>
-		<td width="300">
+		<td width="305">
 		<b>Saiz Baju:</b>
 		<br />'.$m->rider_size .'
 		</td>
 		</tr>
 
 		<tr>
-		<td width="600" colspan="2">
+		<td width="615" colspan="2">
 
 		
 
@@ -419,7 +425,7 @@ EOD;
 		$this->pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
 		// set margins
-		$this->pdf->SetMargins(25, 10, PDF_MARGIN_RIGHT);
+		$this->pdf->SetMargins(19, 10, PDF_MARGIN_RIGHT);
 		//$this->pdf->SetMargins(0, 0, 0);
 		$this->pdf->SetHeaderMargin(10);
 		//$this->pdf->SetHeaderMargin(0);
