@@ -45,8 +45,17 @@ class VestController extends Controller
      */
     public function actionIndex()
     {
+        
+        $status = 1;
+        if(Yii::$app->getRequest()->getQueryParam('VestSearch')){
+            $form = Yii::$app->getRequest()->getQueryParam('VestSearch');
+            $status = isset($form['status']) ? $form['status'] : null;
+        }
+
         $searchModel = new VestSearch();
+        $searchModel->status = $status;
         $dataProvider = $searchModel->search($this->request->queryParams);
+        
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -177,13 +186,13 @@ class VestController extends Controller
             ->andWhere(['NOT IN', 'v.id', $assigned_arr])
             ->orderBy('vest_no ASC')
             ->all();
-
+            $success = 0;
             $vest_arr = [];
             if($vest){
                 foreach($vest as $v){
                     $vest_arr[] = $v->id;
                 }
-                $success = 0;
+                
                 if($unassigned){
                     
                     foreach($unassigned as $i => $ua){
@@ -193,6 +202,8 @@ class VestController extends Controller
                         }
                     }
                 }
+            }else{
+                Yii::$app->session->addFlash('error', "Tiada vest");
             }
 
             

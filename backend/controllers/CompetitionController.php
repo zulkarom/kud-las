@@ -165,33 +165,37 @@ class CompetitionController extends Controller
     public function actionUpdateVest($id)
     {
         $model = $this->findModel($id);
+        $vest_list = [];
         $category = $model->category;
-        $cat_color = $category->color;
+        if($category){
+            $cat_color = $category->color;
         
-        $assigned = Competition::find()->alias('c')
-        ->select('v.id, v.vest_no')
-            ->leftJoin('vest v', 'v.id = c.vest_id')
-            ->where(['kejohanan_id' => $model->kejohanan_id, 'category_id' => $model->category_id])
-            ->andWhere(new Expression('vest_id IS NOT NULL'))
-            ->all();
-
-        $assigned_arr = ArrayHelper::map($assigned, 'id', 'vest_no');
-
-        if($model->vest_id) {
-            unset($assigned_arr[$model->vest_id]);
-        }
-       /*  echo $model->vest_id;
-       print_r($assigned_arr);die(); */
-
-        $vest = Vest::find()->alias('v')
+            $assigned = Competition::find()->alias('c')
             ->select('v.id, v.vest_no')
-            ->leftJoin('competition c','c.vest_id = v.id')
-            ->where(['color' => $cat_color, 'v.status' => 1])
-            ->andWhere(['NOT IN', 'v.id', $assigned_arr])
-            ->orderBy('vest_no ASC')
-            ->all();
-
-        $vest_list = ArrayHelper::map($vest, 'id', 'vest_no');
+                ->leftJoin('vest v', 'v.id = c.vest_id')
+                ->where(['kejohanan_id' => $model->kejohanan_id, 'category_id' => $model->category_id])
+                ->andWhere(new Expression('vest_id IS NOT NULL'))
+                ->all();
+    
+            $assigned_arr = ArrayHelper::map($assigned, 'id', 'vest_no');
+    
+            if($model->vest_id) {
+                unset($assigned_arr[$model->vest_id]);
+            }
+           /*  echo $model->vest_id;
+           print_r($assigned_arr);die(); */
+    
+            $vest = Vest::find()->alias('v')
+                ->select('v.id, v.vest_no')
+                ->leftJoin('competition c','c.vest_id = v.id')
+                ->where(['color' => $cat_color, 'v.status' => 1])
+                ->andWhere(['NOT IN', 'v.id', $assigned_arr])
+                ->orderBy('vest_no ASC')
+                ->all();
+    
+            $vest_list = ArrayHelper::map($vest, 'id', 'vest_no');
+        }
+        
         
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
@@ -199,8 +203,24 @@ class CompetitionController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $rider = $model->rider;
+        if ($this->request->isPost && $rider->load($this->request->post()) && $rider->save()) {
+            //update dlm competition jgk
+            Yii::$app->session->addFlash('success', "Rider Data Updated");
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+        $horse = $model->horse;
+        if ($this->request->isPost && $horse->load($this->request->post()) && $horse->save()) {
+            //update dlm competition jgk
+            Yii::$app->session->addFlash('success', "Horse Data Updated");
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
         return $this->render('update-vest', [
             'model' => $model,
+            'rider' => $rider,
+            'horse' => $horse,
             'vest_list' => $vest_list
         ]);
     }

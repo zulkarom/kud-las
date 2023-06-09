@@ -74,9 +74,9 @@ class Competition extends \yii\db\ActiveRecord
             'cert_achive' => 'Cert Achive',
             'status' => 'Status',
             'register_at' => 'Register At',
-            'register_status' => 'Register Status',
+            'register_status' => 'Status',
             'rider_size' => 'Saiz Baju',
-            'vest_id' => 'Vest No.'
+            'vest_id' => 'Vest No.',
         ];
     }
 
@@ -222,5 +222,14 @@ class Competition extends \yii\db\ActiveRecord
             $color = $this->depositColor[$this->deposit_paid];
         }
         return '<span class="badge badge-'.$color.'">'. $this->depositText .'</span>';
+    }
+
+    public function getListSize(){
+        $size = ['XS', 'S', 'M','L', 'XL', 'XXL'];
+        $a=[];
+        foreach($size as $s){
+        $a[$s] = $s;
+        }
+        return $a;
     }
 }

@@ -77,12 +77,8 @@ $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
 ?>
 
 <?php
-$size = ['XS', 'S', 'M','L', 'XL', 'XXL'];
-$a=[];
-foreach($size as $s){
-  $a[$s] = $s;
-}
- echo $form->field($model, 'rider_size')->dropdownlist($a, ['prompt' => 'Pilih Saiz']);
+
+ echo $form->field($model, 'rider_size')->dropdownlist($model->listSize, ['prompt' => 'Pilih Saiz']);
 
 ?>
 <div class="form-group">PERAKUAN:

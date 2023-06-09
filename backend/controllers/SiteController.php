@@ -2,8 +2,10 @@
 
 namespace backend\controllers;
 
+use common\models\ChangePasswordForm;
 use common\models\LoginForm;
 use Yii;
+use yii\base\InvalidParamException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -24,7 +26,7 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error'],
+                        'actions' => ['login', 'error', 'change-password'],
                         'allow' => true,
                     ],
                     [
@@ -82,6 +84,25 @@ class SiteController extends Controller
         $model->password = '';
 
         return $this->render('login', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionChangePassword(){
+        $id = Yii::$app->user->id;
+     
+        try {
+            $model = new ChangePasswordForm($id);
+        } catch (InvalidParamException $e) {
+            throw new \yii\web\BadRequestHttpException($e->getMessage());
+        }
+     
+        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->changePassword()) {
+            Yii::$app->session->setFlash('success', 'Password Changed!');
+            return $this->refresh();
+        }
+     
+        return $this->render('change-password', [
             'model' => $model,
         ]);
     }

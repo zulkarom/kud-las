@@ -22,7 +22,7 @@ $items[] = ['label' => 'Horse Data', 'level' => 1, 'url' => ['/horse/index'], 'i
 
 $items[] = ['label' => 'Kejohanan', 'level' => 1, 'url' => ['/kejohanan/index'], 'icon' => 'fas fa-star', 'children' => []];
 
-$items[] = ['label' => 'Change Password', 'level' => 1, 'url' => ['/user/change-password'], 'icon' => 'fas fa-unlock-alt', 'children' => []];
+$items[] = ['label' => 'Change Password', 'level' => 1, 'url' => ['/site/change-password'], 'icon' => 'fas fa-unlock-alt', 'children' => []];
 
 $items[] = ['label' => 'Logout', 'level' => 1, 'url' => ['/site/logout'], ['data-method' => 'post'], 'icon' => 'fas fa-times', 'children' => []];
 

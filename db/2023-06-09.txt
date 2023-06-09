@@ -1,0 +1,2 @@
+ALTER TABLE `rider` ADD `eam_member_no` VARCHAR(255) NULL DEFAULT NULL AFTER `kelab`;
+ALTER TABLE `rider` ADD `rider_size` VARCHAR(10) NULL DEFAULT NULL AFTER `kelab`;

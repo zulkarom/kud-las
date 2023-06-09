@@ -1,35 +1,54 @@
 <?php
 
+use backend\models\Category;
+use backend\models\Kejohanan;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-/** @var yii\web\View $this */
-/** @var backend\models\VestSearch $model */
-/** @var yii\widgets\ActiveForm $form */
+/* @var $this yii\web\View */
+/* @var $model backend\models\CompetitionSearch */
+/* @var $form yii\widgets\ActiveForm */
 ?>
+<?php $form = ActiveForm::begin([
+    'id' => 'form-filter',
+    'action' => ['index'],
+    'method' => 'get',
+]); ?>
 
-<div class="vest-search">
-
-    <?php $form = ActiveForm::begin([
-        'action' => ['index'],
-        'method' => 'get',
-    ]); ?>
-
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'vest_no') ?>
-
-    <?= $form->field($model, 'color') ?>
-
-    <?= $form->field($model, 'status') ?>
-
-    <?= $form->field($model, 'competition_id') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
+<div class="row">
+    <div class="col-md-4">
+<?= $form->field($model, 'vest_no')->textInput(['placeholder' => 'Search Vest No'])->label(false) ?>
     </div>
 
-    <?php ActiveForm::end(); ?>
+
+    <div class="col-md-3">
+    <?= $form->field($model, 'status')->dropDownList($model->statusArray,['class'=> 'form-control','prompt' => 'Pilih Status'])->label(false)  ?>
+    </div>
+
+    <div class="col-md-3">
+    <?= $form->field($model, 'color')->dropDownList($model->listColors(),['class'=> 'form-control','prompt' => 'Pilih Color'])->label(false)  ?>
+    </div>
+
 
 </div>
+
+<?php ActiveForm::end(); ?>
+
+<?php 
+
+
+$this->registerJs('
+
+$("#vestsearch-status").change(function(){
+    $("#form-filter").submit();
+});
+
+$("#vestsearch-color").change(function(){
+    $("#form-filter").submit();
+});
+
+
+');
+
+
+?>

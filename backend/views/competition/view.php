@@ -275,7 +275,7 @@ if($model->register_status == 100) {
 
                 }
             ],
-            [
+           /*  [
                 'label' => 'ACTION',
                 'format' => 'raw',
                 'value' => function ($model) {
@@ -287,7 +287,7 @@ if($model->register_status == 100) {
 
                 }
             ],
-
+ */
 
         ],
     ]);
@@ -296,7 +296,7 @@ if($model->register_status == 100) {
 
 </div></div>
 
-
+<a href="<?=Url::to(['update-vest', 'id' => $model->id])?>" class="btn btn-warning"><i class="fa fa-edit"></i> KEMASKINI</a>
 <a href="<?=Url::to(['delete-all', 'id' => $model->id])?>" class="btn btn-danger" data-confirm="Are you sure to delete? This action cannot be undone!">DELETE REGISTRATION + RIDER* + KUDA*</a><br />
 * bergantung klu kebergantungan foreign key
     

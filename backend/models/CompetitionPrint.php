@@ -246,7 +246,7 @@ EOD;
 
 		<td width="215">
 		<b>No. Ahli EAM:</b><br />
-
+		'.$m->rider->eam_member_no.'
 		</td>
 
 		<td width="400" colspan="2">

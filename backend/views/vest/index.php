@@ -5,6 +5,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use yii\widgets\ListView;
 
 /** @var yii\web\View $this */
 /** @var backend\models\VestSearch $searchModel */
@@ -21,12 +22,22 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Assign Vest', ['assign'], ['class' => 'btn btn-primary']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <div class="card">
-  <div class="card-body">
 
-  <?= GridView::widget([
+
+  <?= ListView::widget([
+        'dataProvider' => $dataProvider,
+        'pager' => [
+            'class' => 'yii\bootstrap4\LinkPager',
+        ],
+        'itemView' => '_items',
+        'summary'=>'',
+        'layout' => '<div class="row">{items}</div>{summary}{pager}',
+        'itemOptions' => ['tag' => null],
+    ]); ?>
+
+  <?php /* echo GridView::widget([
         'dataProvider' => $dataProvider,
         'pager' => [
             'class' => 'yii\bootstrap4\LinkPager',
@@ -80,11 +91,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]
             ],
         ],
-    ]); ?>
+    ]); */ ?>
 
   </div> 
-    </div>
-   
 
-
-</div>

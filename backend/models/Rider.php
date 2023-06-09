@@ -36,7 +36,7 @@ class Rider extends \yii\db\ActiveRecord
         return [
             [['rider_name', 'address', 'phone', 'kelab'], 'required'],
 
-            [['rider_name', 'email', 'address', 'phone', 'kelab'], 'string', 'max' => 200],
+            [['rider_name', 'email', 'address', 'phone', 'kelab', 'eam_member_no'], 'string', 'max' => 200],
             [['nric'], 'string', 'max' => 20],
 
             [['email'], 'trim'],
@@ -58,6 +58,7 @@ class Rider extends \yii\db\ActiveRecord
             'address' => 'Alamat',
             'phone' => 'No. Telefon',
             'kelab' => 'Kelab/Stable',
+            'eam_member_no' => 'No. Ahli EAM:'
         ];
     }
 

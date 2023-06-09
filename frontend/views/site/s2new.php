@@ -130,6 +130,16 @@ $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
                         </div> <!-- single form -->
                     </div>
 
+                    <div class="col-lg-12">
+                  <div class="single-form form-group">
+                     <?= $form->field($model, 'eam_member_no', 
+                    )->textInput() ?>
+
+
+
+                        </div> <!-- single form -->
+                    </div>
+
                    
                           
                                     <p class="form-message"></p>
