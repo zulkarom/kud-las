@@ -1,0 +1,5 @@
+run on submit
+international
+default submit status
+admin view
+edit tukar kategori

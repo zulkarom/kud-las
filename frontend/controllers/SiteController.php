@@ -9,6 +9,7 @@ use backend\models\Competition;
 use backend\models\CompetitionPrint;
 use backend\models\Horse;
 use backend\models\Kejohanan;
+use backend\models\Vest;
 use frontend\models\HorseSearch;
 use frontend\models\S1Form;
 use yii\db\Expression;
@@ -280,6 +281,7 @@ class SiteController extends Controller
             $daftar->register_at = new Expression('NOW()');
             $daftar->register_status = 100;
             if($daftar->save()){
+                Vest::runUnassigned($daftar->category_id);
                 return $this->redirect(['thankyou', 'f' => $f]);
             }
         }

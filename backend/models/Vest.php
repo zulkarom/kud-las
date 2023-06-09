@@ -3,6 +3,8 @@
 namespace backend\models;
 
 use Yii;
+use yii\db\Expression;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "vest".
@@ -120,5 +122,51 @@ class Vest extends \yii\db\ActiveRecord
     public function getCompetition()
     {
         return $this->hasOne(Competition::className(), ['vest_id' => 'id']);
+    }
+
+    public static function runUnassigned($cat){
+        $kejohanan = Kejohanan::findOne(['is_active' => 1]);
+        $category = Category::findOne($cat);
+        $success = 0;
+        if($kejohanan && $category){
+            $assigned = Competition::find()
+            ->where(['kejohanan_id' => $kejohanan->id]) // semua category pun ok
+            ->andWhere(new Expression('vest_id IS NOT NULL'))
+            ->all();
+
+            $unassigned = Competition::find()
+            ->where(['kejohanan_id' => $kejohanan->id, 'category_id' => $category->id])
+            ->andWhere(new Expression('vest_id IS NULL'))
+            ->all();
+
+            $assigned_arr = ArrayHelper::map($assigned, 'id', 'vest_id');
+
+            $cat_color = $category->color;
+
+            $vest = Vest::find()->alias('v')
+            ->leftJoin('competition c','c.vest_id = v.id')
+            ->where(['color' => $cat_color, 'v.status' => 1])
+            ->andWhere(['NOT IN', 'v.id', $assigned_arr])
+            ->orderBy('vest_no ASC')
+            ->all();
+            
+            $vest_arr = [];
+            if($vest){
+                foreach($vest as $v){
+                    $vest_arr[] = $v->id;
+                }
+                
+                if($unassigned){
+                    
+                    foreach($unassigned as $i => $ua){
+                        $ua->vest_id = $vest_arr[$i];
+                        if($ua->save()){
+                            $success++;
+                        }
+                    }
+                }
+            }
+        }
+        return $success;
     }
 }
