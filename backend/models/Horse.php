@@ -36,7 +36,8 @@ class Horse extends \yii\db\ActiveRecord
     {
         return [
             [['horse_name', 'horse_color', 'horse_gender', 'horse_dob'], 'required'],
-            [['horse_dob'], 'safe'],
+            [['horse_dob'], 'trim'],
+            [['horse_dob'], 'date', 'format' => 'php:Y-m-d'],
             [['eam_id', 'horse_code'], 'string', 'max' => 255],
             [['horse_name', 'horse_color',  'country_born'], 'string', 'max' => 200],
             [['eam_id'], 'unique'],

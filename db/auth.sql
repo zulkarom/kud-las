@@ -3,12 +3,13 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 10, 2023 at 12:48 PM
+-- Generation Time: Jun 11, 2023 at 06:58 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -17,7 +18,7 @@ START TRANSACTION;
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `fkp_portal2`
+-- Database: `kuda_2023_5`
 --
 
 -- --------------------------------------------------------
@@ -31,6 +32,13 @@ CREATE TABLE `auth_assignment` (
   `user_id` int(11) NOT NULL,
   `created_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `auth_assignment`
+--
+
+INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
+('manage-user', 1, 1686399241);
 
 -- --------------------------------------------------------
 
@@ -48,6 +56,15 @@ CREATE TABLE `auth_item` (
   `updated_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `auth_item`
+--
+
+INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `created_at`, `updated_at`) VALUES
+('/admin/*', 2, NULL, NULL, NULL, 1686399191, 1686399191),
+('manage-registration', 1, NULL, NULL, NULL, 1686459451, 1686459451),
+('manage-user', 1, NULL, NULL, NULL, 1686399224, 1686399482);
+
 -- --------------------------------------------------------
 
 --
@@ -58,6 +75,13 @@ CREATE TABLE `auth_item_child` (
   `parent` varchar(64) NOT NULL,
   `child` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `auth_item_child`
+--
+
+INSERT INTO `auth_item_child` (`parent`, `child`) VALUES
+('manage-user', '/admin/*');
 
 -- --------------------------------------------------------
 

@@ -224,6 +224,7 @@ class CompetitionController extends Controller
         }
 
         $horse = $model->horse;
+        //$horse->horse_dob = 'werwerw';
         if ($this->request->isPost && $horse->load($this->request->post()) && $horse->save()) {
             //update dlm competition jgk
             Yii::$app->session->addFlash('success', "Horse Data Updated");
