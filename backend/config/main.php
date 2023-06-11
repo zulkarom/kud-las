@@ -75,7 +75,11 @@ return [
 			'user/*',
 			'gii/*',
 			'debug/*',
-            'competition/*'
+            'competition/*',
+            'vest/*',
+            'horse/*',
+            'category/*',
+            'kejohanan/*'
         ]
     ],
     'params' => $params,
