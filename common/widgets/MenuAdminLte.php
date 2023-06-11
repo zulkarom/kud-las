@@ -49,45 +49,63 @@ class MenuAdminLte
    
    protected function item1($item){
 	   $active = $this->isItemActive($item) ? 'active' : '';
-	   return '<li class="nav-item">
+	   $v = true;
+	   if(array_key_exists('visible',$item)){
+			$v = $item['visible'];
+	   }
+	   if($v){
+		return '<li class="nav-item">
 				   <a href="'. Url::to($item['url']) .' " class="nav-link '.$active.'">
 				   <i class="nav-icon '.$item['icon'].'"></i>
 				   <p>'.$item['label'].'</p>
 				   </a></li>';
+	   }else{
+		return '';
+	   }
+	   
    }
    
    protected function item2($item){
-	   $this->tree = false;
-	   $anak = '';
-	   $children = $item['children'];
-			if($children){
-				foreach($children as $child){
-					$anak .= $this->item1($child);
-				}
-			}
-	   $active =  '';
-	   $open = '';
-	   $block = 'none';
-	   if($this->tree){
-		  $active =  'active';
-		   $open = 'menu-open';
-		   $block = 'block'; 
+		$v = true;
+		if(array_key_exists('visible',$item)){
+				$v = $item['visible'];
+		}
+	   if($v){
+		$this->tree = false;
+		$anak = '';
+		$children = $item['children'];
+			 if($children){
+				 foreach($children as $child){
+					 $anak .= $this->item1($child);
+				 }
+			 }
+		$active =  '';
+		$open = '';
+		$block = 'none';
+		if($this->tree){
+		   $active =  'active';
+			$open = 'menu-open';
+			$block = 'block'; 
+		}
+		$html =  '<li class="nav-item '.$open.'">
+			 <a href="#" class="nav-link '.$active.'">
+				 <i class="nav-icon '.$item['icon'].'"></i>
+				 <p>
+					 '.$item['label'].'
+					 <i class="right fa fa-angle-left"></i>
+				 </p>
+			 </a>
+			 <ul class="nav nav-treeview '.$block.'">';
+			 
+			 $html .= $anak;
+						 
+							 
+	   $html .= '</ul></li>';
+	   return $html;
+	   }else{
+		return '';
 	   }
-	   $html =  '<li class="nav-item '.$open.'">
-			<a href="#" class="nav-link '.$active.'">
-				<i class="nav-icon '.$item['icon'].'"></i>
-				<p>
-					'.$item['label'].'
-					<i class="right fa fa-angle-left"></i>
-				</p>
-			</a>
-			<ul class="nav nav-treeview '.$block.'">';
-			
-			$html .= $anak;
-						
-                            
-      $html .= '</ul></li>';
-	  return $html;
+	   
    }
    
     protected function isItemActive($item)

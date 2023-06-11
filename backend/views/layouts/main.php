@@ -91,7 +91,7 @@ $dirAsset = Yii::$app->assetManager->getPublishedUrl('@backend/assets/adminlte')
             <img src="<?=$dirAsset?>/dist/img/user.png" class="img-circle elevation-2" alt="User Image">
 
             <p>
-               <?=Yii::$app->user->identity->username?>
+               <?=Yii::$app->user->identity->fullname; ?>
               <!-- <small>Member since Nov. 2012</small> -->
             </p>
           </li>
@@ -99,7 +99,16 @@ $dirAsset = Yii::$app->assetManager->getPublishedUrl('@backend/assets/adminlte')
        
           <!-- Menu Footer-->
           <li class="user-footer">
-            <a href="#" class="btn btn-default btn-flat">Profile</a>
+          <?php 
+          $session = Yii::$app->session;
+				  if ($session->has('or-usr')){ ?>
+                    <a href="<?=Url::to(['/site/return-role'])?>" class="btn btn-default btn-flat"><span class="fa fa-cog"></span> Return Role</a>
+				  <?php }else{
+                    ?>
+                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                    <?php
+                  } ?>
+            
             
             
             <?= Html::a(
@@ -141,7 +150,7 @@ $dirAsset = Yii::$app->assetManager->getPublishedUrl('@backend/assets/adminlte')
           <img src="<?=$dirAsset?>/dist/img/user.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block"><?=Yii::$app->user->identity->username?></a>
+          <a href="#" class="d-block"><?=Yii::$app->user->identity->fullname?></a>
         </div>
       </div>
 

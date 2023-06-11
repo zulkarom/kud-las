@@ -16,6 +16,13 @@ return [
             'class' => 'kartik\grid\Module'
             // other module settings
         ],
+        'admin' => [
+            'class' => 'mdm\admin\Module',
+			'controllerMap' => [
+				'assignment' => 'backend\modules\admin\controllers\AssignmentController',
+                'loginas' => 'backend\modules\admin\controllers\LoginasController',
+			],
+        ],
     ],
     'components' => [
         'request' => [
@@ -42,6 +49,16 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager', 
+        ],
+        'view' => [
+			'theme' => [
+				'pathMap' => [
+					'@mdm/admin/views' => '@backend/modules/admin/views/rbac',
+				],
+			],
+		],
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -50,6 +67,16 @@ return [
             ],
         ],
         */
+    ],
+    'as access' => [
+        'class' => 'mdm\admin\components\AccessControl',
+        'allowActions' => [
+            'site/*',
+			'user/*',
+			'gii/*',
+			'debug/*',
+            'competition/*'
+        ]
     ],
     'params' => $params,
 ];

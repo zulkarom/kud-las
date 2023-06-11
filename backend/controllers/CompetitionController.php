@@ -46,14 +46,27 @@ class CompetitionController extends Controller
      */
     public function actionIndex()
     {
+        $status = 100;
+        if(Yii::$app->getRequest()->getQueryParam('CompetitionSearch')){
+            $form = Yii::$app->getRequest()->getQueryParam('CompetitionSearch');
+            $status = isset($form['register_status']) ? $form['register_status'] : null;
+        }
+
+        
+
         //find default com
         $searchModel = new CompetitionSearch();
+        $searchModel->register_status = $status;
+        
+
         $com = Kejohanan::findOne(['is_active' => 1]);
         if($com){
             $searchModel->kejohanan_id = $com->id;
         }
         
         $dataProvider = $searchModel->search($this->request->queryParams);
+
+        
 
         return $this->render('index', [
             'searchModel' => $searchModel,

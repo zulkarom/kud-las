@@ -4,11 +4,13 @@ namespace backend\controllers;
 
 use common\models\ChangePasswordForm;
 use common\models\LoginForm;
+use common\models\User;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
 /**
@@ -30,7 +32,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['logout', 'index', 'return-role'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -118,4 +120,21 @@ class SiteController extends Controller
 
         return $this->goHome();
     }
+
+    public function actionReturnRole()
+	{
+		$session = Yii::$app->session;
+		if ($session->has('or-usr')){
+			$id = $session->get('or-usr');
+			$user = User::findIdentity($id);
+				if(Yii::$app->user->login($user)){
+					$session->remove('or-usr');
+					return $this->redirect(['/site/index']);
+				}
+			
+		}else{
+			throw new NotFoundHttpException('The requested page does not exist..');
+		}
+		
+	}
 }

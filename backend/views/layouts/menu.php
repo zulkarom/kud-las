@@ -22,6 +22,15 @@ $items[] = ['label' => 'Horse Data', 'level' => 1, 'url' => ['/horse/index'], 'i
 
 $items[] = ['label' => 'Kejohanan', 'level' => 1, 'url' => ['/kejohanan/index'], 'icon' => 'fas fa-star', 'children' => []];
 
+$items[] = ['label' => 'User Management', 'level' => 2, 'url' => ['/admin/user/index'], 'icon' => 'fas fa-users', 'visible' => Yii::$app->user->can('manage-user') ,'children' => [
+    ['label' => 'Assignment', 'level' => 1, 'url' => ['/admin/assignment/index'], 'icon' => 'far fa-circle'],
+    ['label' => 'Role List', 'icon' => 'far fa-circle', 'url' => ['/admin/role/index'],],
+							
+    ['label' => 'Route List', 'icon' => 'far fa-circle', 'url' => ['/admin/route/index'],],
+    
+    ['label' => 'Login As', 'icon' => 'far fa-circle', 'url' => ['/admin/loginas/index'],],
+]];
+
 $items[] = ['label' => 'Change Password', 'level' => 1, 'url' => ['/site/change-password'], 'icon' => 'fas fa-unlock-alt', 'children' => []];
 
 $items[] = ['label' => 'Logout', 'level' => 1, 'url' => ['/site/logout'], ['data-method' => 'post'], 'icon' => 'fas fa-times', 'children' => []];
