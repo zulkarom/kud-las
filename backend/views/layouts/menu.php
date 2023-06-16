@@ -10,6 +10,7 @@ $items[] = ['label' => 'Dashboard', 'level' => 1, 'url' => ['/site/index'], 'ico
 
 $items[] = ['label' => 'Pendaftaran', 'level' => 1, 'url' => ['/competition/index'], 'icon' => 'fas fa-edit', 'children' => []];
 
+$items[] = ['label' => 'Pencapaian', 'level' => 1, 'url' => ['/competition/achievement'], 'icon' => 'fas fa-certificate', 'children' => []];
 
 $items[] = ['label' => 'Vest Data', 'level' => 1, 'url' => ['/vest/index'], 'icon' => 'fas fa-tshirt', 'children' => []];
 
@@ -20,7 +21,7 @@ $items[] = ['label' => 'Riders Data', 'level' => 1, 'url' => ['/rider/index'], '
 
 $items[] = ['label' => 'Horse Data', 'level' => 1, 'url' => ['/horse/index'], 'icon' => 'fas fa-horse', 'children' => []];
 
-$items[] = ['label' => 'Kejohanan', 'level' => 1, 'url' => ['/kejohanan/index'], 'icon' => 'fas fa-star', 'children' => []];
+$items[] = ['label' => 'Kejohanan', 'level' => 1, 'url' => ['/kejohanan/index'], 'icon' => 'fas fa-trophy', 'children' => []];
 
 $items[] = ['label' => 'User Management', 'level' => 2, 'url' => ['/admin/user/index'], 'icon' => 'fas fa-users', 'visible' => Yii::$app->user->can('manage-user') ,'children' => [
     ['label' => 'Assignment', 'level' => 1, 'url' => ['/admin/assignment/index'], 'icon' => 'far fa-circle'],
@@ -33,7 +34,7 @@ $items[] = ['label' => 'User Management', 'level' => 2, 'url' => ['/admin/user/i
 
 $items[] = ['label' => 'Change Password', 'level' => 1, 'url' => ['/site/change-password'], 'icon' => 'fas fa-unlock-alt', 'children' => []];
 
-$items[] = ['label' => 'Logout', 'level' => 1, 'url' => ['/site/logout'], ['data-method' => 'post'], 'icon' => 'fas fa-times', 'children' => []];
+$items[] = ['label' => 'Logout', 'level' => 1, 'url' => ['/site/logout'], ['data-method' => 'post'], 'icon' => 'fa fa-sign-out', 'children' => []];
 
 
 ?> 

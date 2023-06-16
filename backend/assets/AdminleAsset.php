@@ -21,7 +21,7 @@ class AdminleAsset extends AssetBundle
         'plugins/overlayScrollbars/css/OverlayScrollbars.min.css',
         'plugins/daterangepicker/daterangepicker.css',
         'plugins/summernote/summernote-bs4.min.css',
-
+        'plugins/bootstrap4-toggle/bootstrap4-toggle.min.css',
     ];
 
     public $js = [
@@ -38,19 +38,14 @@ class AdminleAsset extends AssetBundle
         /*ChartJS */
         'plugins/chart.js/Chart.min.js',
 
-        /*Sparkline*/
         'plugins/sparklines/sparkline.js',
-
-        /*JQVMap*/
         'plugins/jqvmap/jquery.vmap.min.js',
-
-        /*jQuery Knob Chart*/
         'plugins/jqvmap/maps/jquery.vmap.usa.js',
-        'plugins/jquery-knob/jquery.knob.min.js',
+        //'plugins/jquery-knob/jquery.knob.min.js',
 
         /*daterangepicker*/ 
-        'plugins/moment/moment.min.js',
-        'plugins/daterangepicker/daterangepicker.js',
+        //'plugins/moment/moment.min.js',
+        //'plugins/daterangepicker/daterangepicker.js',
 
         /*Tempusdominus Bootstrap 4*/
         // 'plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js',
@@ -65,6 +60,7 @@ class AdminleAsset extends AssetBundle
         'dist/js/adminlte.js',
         // 'dist/js/demo.js',
         // 'dist/js/pages/dashboard.js',
+        'plugins/bootstrap4-toggle/bootstrap4-toggle.min.js',
 		
     ];
 

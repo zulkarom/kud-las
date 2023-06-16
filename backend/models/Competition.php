@@ -102,12 +102,13 @@ class Competition extends \yii\db\ActiveRecord
     public static function getStatusArray(){
         return [
             0 => 'DRAFT', 
+            10 => 'WITHDRAW',
             100 => 'SUBMIT'
         ];
     }
 
     public static function getStatusColor(){
-	    return [0 => 'danger', 100 => 'success'];
+	    return [0 => 'danger', 10 => 'warning', 100 => 'success'];
 	}
 
     public function getStatusText(){

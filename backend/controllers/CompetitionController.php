@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\AchievementSearch;
 use Yii;
 use backend\models\Competition;
 use backend\models\CompetitionPrint;
@@ -24,7 +25,7 @@ class CompetitionController extends Controller
      */
         
 
-    public function behaviors()
+    /* public function behaviors()
     {
         return [
             'access' => [
@@ -37,7 +38,7 @@ class CompetitionController extends Controller
                 ],
             ],
         ];
-    }
+    } */
 
     /**
      * Lists all Competition models.
@@ -51,27 +52,70 @@ class CompetitionController extends Controller
             $form = Yii::$app->getRequest()->getQueryParam('CompetitionSearch');
             $status = isset($form['register_status']) ? $form['register_status'] : null;
         }
-
-        
-
-        //find default com
         $searchModel = new CompetitionSearch();
         $searchModel->register_status = $status;
         
-
         $com = Kejohanan::findOne(['is_active' => 1]);
         if($com){
             $searchModel->kejohanan_id = $com->id;
         }
-        
         $dataProvider = $searchModel->search($this->request->queryParams);
-
-        
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function actionAchievement()
+    {
+        $searchModel = new AchievementSearch();
+        
+        $com = Kejohanan::findOne(['is_active' => 1]);
+        if($com){
+            $searchModel->kejohanan_id = $com->id;
+        }
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
+        return $this->render('achievement', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionAchievementChange(){
+        //Yii::$app->controller->enableCsrfValidation = false;
+        $post = $this->request->post();
+        $id = $post['competition'];
+        $status = $post['astatus'] == 1 ? 1 : 0;
+
+        $comp = Competition::findOne($id);
+        if($comp){
+            $comp->cert_achive = $status;
+            if($comp->save()){
+                return 1;
+            }
+        }
+        //print_r($post);
+        return 0;
+    }
+
+    public function actionAchievementLaju(){
+        
+        //Yii::$app->controller->enableCsrfValidation = false;
+        $post = $this->request->post();
+        $id = $post['competition'];
+        $laju = $post['kelajuan'];
+
+        $comp = Competition::findOne($id);
+        if($comp){
+            $comp->hadlaju = $laju;
+            if($comp->save()){
+                return 1;
+            }
+        }
+        //print_r($post);
+        return 0;
     }
 
     public function actionDeleteAll($id){
