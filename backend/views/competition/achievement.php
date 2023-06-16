@@ -96,15 +96,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
                 
             ],
-            [
-			    'label' => 'LAYAK',
-                'format' => 'raw',
-                'value' => function($model){
-                    $check = $model->cert_achive == 1 ? 'checked ': '';
+    [
+        'label' => 'LAYAK',
+        'format' => 'raw',
+        'value' => function($model){
+            $check = $model->cert_achive == 1 ? 'checked ': '';
 
-                    return '<input type="checkbox" '.$check.'data-toggle="toggle" data-on="YES" data-off="NO" data-onstyle="success" data-competition="'.$model->id.'" data-offstyle="danger" data-size="sm" class="achbtn">';
-                }
-            ],
+            return '<input type="checkbox" '.$check.'data-toggle="toggle" data-on="YES" data-off="NO" data-onstyle="success" data-competition="'.$model->id.'" data-offstyle="danger" data-size="sm" class="achbtn">';
+        }
+    ],
             [
 			    'label' => 'KELAJUAN',
                 'format' => 'raw',
@@ -163,6 +163,10 @@ $this->params['breadcrumbs'][] = $this->title;
       });
     }
 
+    function reverseChk(val, chk){
+        val == 1 ? chk.bootstrapToggle("off", true) : chk.bootstrapToggle("on", true);
+    }
+
     function ajaxLaju(val, chk, comp){
         chk.addClass("is-warning");
         $.ajax({url: "'. Url::to(['achievement-laju']) .'", 
@@ -188,9 +192,7 @@ $this->params['breadcrumbs'][] = $this->title;
       });
     }
 
-    function reverseChk(val, chk){
-        val == 1 ? chk.bootstrapToggle("off", true) : chk.bootstrapToggle("on", true);
-    }
+    
 
     function lajuError(chk){
         chk.removeClass("is-warning");

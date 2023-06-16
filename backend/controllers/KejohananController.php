@@ -5,10 +5,14 @@ namespace backend\controllers;
 use Yii;
 use backend\models\Kejohanan;
 use backend\models\KejohananSearch;
+use common\models\EcertFile;
+use common\models\Upload;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\FileHelper;
+use yii\web\UploadedFile;
 
 /**
  * KejohananController implements the CRUD actions for Kejohanan model.
@@ -72,9 +76,12 @@ class KejohananController extends Controller
         $model = new Kejohanan();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                Yii::$app->session->addFlash('success', "Kejohanan created.");
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load($this->request->post())) {
+                $model->cert_participant = $this->uploadFile($model);
+                if($model->save()){
+                    Yii::$app->session->addFlash('success', "Kejohanan created.");
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
             }
         } else {
             $model->loadDefaultValues();
@@ -96,9 +103,13 @@ class KejohananController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            Yii::$app->session->addFlash('success', "Data Updated");
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($this->request->isPost && $model->load($this->request->post())) {
+            $model->cert_participant = $this->uploadFile($model);
+            if($model->save()){
+                Yii::$app->session->addFlash('success', "Data Updated");
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+            
         }
 
         return $this->render('update', [
@@ -150,5 +161,51 @@ class KejohananController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    private function uploadFile($model){
+        $inst_property = 'cert_instance';
+        $attr_db = 'cert_participant';
+        $f = 'participant';
+        
+        $instance = UploadedFile::getInstance($model, $inst_property);
+        if($instance){
+            if($model->isNewRecord){
+                $path = time();
+            }else{
+                //delete existing file
+                $old_path = Yii::getAlias('@ecertdir/'.$model->id.'/' . $model->$attr_db);
+                if (is_file($old_path)) {
+                    unlink($old_path);
+                }
+                $path =  $model->id;
+            }
+            
+            
+            $directory = Yii::getAlias('@ecertdir/' . $path. '/');
+            if (!is_dir($directory)) {
+                FileHelper::createDirectory($directory);
+            }
+
+            $ext = $instance->extension;
+            $fileName = $f.'.' . $ext;
+            $filePath = $directory . $fileName;
+                if ($instance->saveAs($filePath)) {
+                    return $path . '/' . $fileName;
+                }
+        }
+
+        if($model->isNewRecord){
+            return '';
+        }else{
+            return $model->$attr_db;
+        }
+        
+    }
+
+    public function actionDownloadFile($id){
+        $model = $this->findModel($id);
+        //$filename = 'file';
+        EcertFile::download($model, 'cert_participant', 'file');
     }
 }

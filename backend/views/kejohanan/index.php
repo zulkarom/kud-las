@@ -31,7 +31,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'name',
+            
+            [
+                'attribute' => 'name',
+                'format' => 'html',
+                'value' => function($model){
+                    return Html::a($model->name, ['view', 'id' => $model->id]);
+                }
+                
+            ],
             [
                 'attribute' => 'date_start',
 			    'label' => 'Date',

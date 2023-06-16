@@ -1,0 +1,1 @@
+ALTER TABLE `kejohanan` ADD `cert_publish_at` DATE NULL DEFAULT NULL AFTER `deposit_amount`, ADD `cert_participant` VARCHAR(255) NULL DEFAULT NULL AFTER `cert_publish_at`;

@@ -16,6 +16,7 @@ use yii\helpers\ArrayHelper;
  */
 class Kejohanan extends \yii\db\ActiveRecord
 {
+    public $cert_instance;
     /**
      * {@inheritdoc}
      */
@@ -33,8 +34,14 @@ class Kejohanan extends \yii\db\ActiveRecord
             [['name', 'is_active','date_start', 'date_end', 'location'], 'required'],
             [['is_active'], 'integer'],
             [['deposit_amount'], 'number'],
-            [['date_start', 'date_end', 'date_vest'], 'safe'],
-            [['name', 'location'], 'string', 'max' => 200],
+            [['date_start', 'date_end', 'date_vest', 'cert_publish_at'], 'safe'],
+            [['name', 'location', 'cert_participant'], 'string', 'max' => 200],
+
+            [['cert_instance'], 'file',
+            'maxSize' => 1024 * 1024 * 3, // 3MB
+            'extensions' => 'gif, jpg, png', 
+            'mimeTypes' => 'image/gif, image/jpeg, image/png',
+            ],
         ];
     }
 
@@ -49,6 +56,7 @@ class Kejohanan extends \yii\db\ActiveRecord
             'date_start' => 'Date Start',
             'date_end' => 'Date End',
             'location' => 'Location',
+            'cert_instance' => 'Participant Cert Bg',
             'date_vest' => 'Vest No. Release Date'
         ];
     }

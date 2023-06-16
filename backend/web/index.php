@@ -15,4 +15,6 @@ $config = yii\helpers\ArrayHelper::merge(
     require __DIR__ . '/../config/main-local.php'
 );
 
+Yii::setAlias('@ecertdir', dirname(__DIR__) . '/web/images/ecertdir');
+//echo dirname(__DIR__) . '/web/images/ecertdir';die();
 (new yii\web\Application($config))->run();
