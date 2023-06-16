@@ -20,7 +20,7 @@ class AdminleAsset extends AssetBundle
         'dist/css/adminlte.min.css',
         'plugins/overlayScrollbars/css/OverlayScrollbars.min.css',
         'plugins/daterangepicker/daterangepicker.css',
-        'plugins/summernote/summernote-bs4.min.css',
+        //'plugins/summernote/summernote-bs4.min.css',
         'plugins/bootstrap4-toggle/bootstrap4-toggle.min.css',
     ];
 
@@ -51,7 +51,7 @@ class AdminleAsset extends AssetBundle
         // 'plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js',
 
         /*Summernote */
-        'plugins/summernote/summernote-bs4.min.js',
+        //'plugins/summernote/summernote-bs4.min.js',
 
         /*overlayScrollbars*/ 
         'plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js',
