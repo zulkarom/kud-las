@@ -56,8 +56,9 @@ class Kejohanan extends \yii\db\ActiveRecord
             'date_start' => 'Date Start',
             'date_end' => 'Date End',
             'location' => 'Location',
-            'cert_instance' => 'Participant Cert Bg',
-            'date_vest' => 'Vest No. Release Date'
+            'cert_instance' => 'Participant Cert Template',
+            'date_vest' => 'Vest No. Release Date',
+            'cert_publish_at' => 'Certificate Release Date'
         ];
     }
 
