@@ -44,7 +44,7 @@ class EcertSearch extends Competition
     {
         $query = Competition::find()
         ->joinWith(['rider r', 'horse h'])
-        ->where(['register_status' => 100, 'kejohanan_id' => 2]);
+        ->where(['register_status' => 100]);
 
         // add conditions that should always apply here
 

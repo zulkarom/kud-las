@@ -15,8 +15,12 @@ use yii\widgets\ActiveForm;
 ]); ?>
 
 <div class="row">
+
+<div class="col-md-4">
+<?= $form->field($model, 'kejohanan_id')->dropDownList(Kejohanan::getList())->label(false) ?>
+    </div>
  
-    <div class="col-md-3">
+    <div class="col-md-2">
     <?= $form->field($model, 'category_id')->dropDownList(Category::getCategoryList(), ['prompt' => 'Pilih Kategori'])->label(false)  ?>
     </div>
 
@@ -25,7 +29,8 @@ use yii\widgets\ActiveForm;
     <div class="col-md-2">
     <?= $form->field($model, 'cert_achive')->dropDownList($model->achieveArray, ['class'=> 'form-control','prompt' => 'Pilih Layak'])->label(false)  ?>
     </div>
-    <div class="col-md-7">LINK: <?=Html::a('https://pusatko.umk.edu.my/ekudalasak/ecert', 'https://pusatko.umk.edu.my/ekudalasak/ecert', ['target' => 'blank'])?></div>
+    
+    <div class="col-md-4">LINK: <?=Html::a('https://pusatko.umk.edu.my/ekudalasak/ecert', 'https://pusatko.umk.edu.my/ekudalasak/ecert', ['target' => 'blank'])?></div>
     
 
 </div>
@@ -37,6 +42,9 @@ use yii\widgets\ActiveForm;
 
 $this->registerJs('
 
+$("#achievementsearch-kejohanan_id").change(function(){
+    $("#form-filter").submit();
+});
 
 $("#achievementsearch-category_id").change(function(){
     $("#form-filter").submit();

@@ -112,4 +112,8 @@ class Category extends \yii\db\ActiveRecord
     public static function getCategoryList(){
         return ArrayHelper::map(self::find()->where(['is_enabled' => 1])->all(), 'id', 'category_name');
     }
+
+    public static function getCategoryListAll(){
+        return ArrayHelper::map(self::find()->all(), 'id', 'category_name');
+    }
 }

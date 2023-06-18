@@ -17,7 +17,7 @@ class AchievementSearch extends Competition
     public function rules()
     {
         return [
-            [['category_id', 'cert_achive'], 'integer'],
+            [['category_id', 'cert_achive', 'kejohanan_id'], 'integer'],
 
         ];
     }

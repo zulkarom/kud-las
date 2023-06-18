@@ -1,11 +1,14 @@
 <?php
 
-namespace backend\models;
+namespace backend\models\cert;
 
-class CertAchievement
+use backend\models\StartPdf;
+
+class CertAchievement2022
 {
 	public $model;
 	public $pdf;
+	public $cert;
 	public $filename;
 	public $frontend = false;
 
@@ -13,10 +16,12 @@ class CertAchievement
 	public function generatePdf(){
 
 		$this->pdf = new StartPdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+
+
 		if($this->frontend){
-		    $this->pdf->image_background = 'admin/images/ecertdir/'. $this->model->kejohanan->cert_participant;
+		    $this->pdf->image_background = 'admin/images/ecertdir/'. $this->cert->certificate_file;
 		}else{
-		    $this->pdf->image_background = 'images/ecertdir/'. $this->model->kejohanan->cert_participant;
+		    $this->pdf->image_background = 'images/ecertdir/'. $this->cert->certificate_file;
 		}
 		
 		$this->startPage();
@@ -59,7 +64,7 @@ class CertAchievement
 <td align="center" width="'.$left.'" ></td>
 <td align="center" width="'.$kuda.'" >'. $this->model->horse->horse_name .'</td>
 <td align="center" width="'.$laju.'" >'. $this->model->hadlaju .' KM/J</td>
-<td align="center" width="'.$jarak.'" >'. $this->model->category->category_name .' KM</td>
+<td align="center" width="'.$jarak.'" >'. $this->model->category->category_name .'</td>
 <td align="center" width="'.$right.'" ></td>
 </tr>
 

@@ -124,14 +124,25 @@ class CompetitionController extends Controller
     public function actionAchievementCert($id){
         $model = $this->findModel($id);
         if($model->cert_achive == 1 && $model->register_status == 100){
-            $pdf = new CertAchievement();
+            
             $cert = KejohananCert::findOne(['kejohanan_id' => $model->kejohanan_id, 'category_id' => $model->category_id]);
             if($cert){
-                $pdf->cert = $cert;
-                $pdf->frontend = false;
-                $pdf->model = $model;
-                $pdf->generatePdf();
-                exit;
+                if($cert->file_class){
+                    $pdf = new $cert->file_class;
+                    $pdf->cert = $cert;
+                    $pdf->frontend = false;
+                    $pdf->model = $model;
+                    $pdf->generatePdf();
+                    exit;
+                }else{
+                    $pdf = new CertAchievement();
+                    $pdf->cert = $cert;
+                    $pdf->frontend = false;
+                    $pdf->model = $model;
+                    $pdf->generatePdf();
+                    exit;
+                }
+                
             }
         }
         echo 'Tiada Sijil';
@@ -140,11 +151,18 @@ class CompetitionController extends Controller
     public function actionParticipantCert($id){
         $model = $this->findModel($id);
         if($model->register_status == 100){
-            $pdf = new CertParticipation();
+            if($model->kejohanan->file_class){
+                $pdf = new $model->file_class;
                 $pdf->frontend = false;
                 $pdf->model = $model;
                 $pdf->generatePdf();
-                exit;
+            }else{
+                $pdf = new CertParticipation();
+                $pdf->frontend = false;
+                $pdf->model = $model;
+                $pdf->generatePdf();
+            }
+            exit;
         }
         echo 'Tiada Sijil';
     }

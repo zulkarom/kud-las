@@ -17,7 +17,7 @@ use yii\helpers\Url;
   <div class="row">
 <div class="col-md-4">
 
-<?= $form->field($model, 'category_id')->dropDownList(Category::getCategoryList()) ?>
+<?= $form->field($model, 'category_id')->dropDownList(Category::getCategoryListAll()) ?>
 
 </div>
   </div>
