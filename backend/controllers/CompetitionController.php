@@ -146,6 +146,7 @@ class CompetitionController extends Controller
             }
         }
         echo 'Tiada Sijil';
+        exit;
     }
 
     public function actionParticipantCert($id){

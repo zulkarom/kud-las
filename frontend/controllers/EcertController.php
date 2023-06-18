@@ -71,24 +71,49 @@ class EcertController extends Controller
        
                 if($download->nric == $model->rider->nric && $model->register_status == 100){
                     if($jenis == 1){
-                        $pdf = new CertParticipation();
-                        $pdf->frontend = true;
-                        $pdf->model = $model;
-                        $pdf->generatePdf();
-                        exit;
-                    }else if($jenis == 2 && $model->cert_achive == 1){
-                        $pdf = new CertAchievement();
-                        $cert = KejohananCert::findOne(['kejohanan_id' => $model->kejohanan_id, 'category_id' => $model->category_id]);
-                        if($cert){
-                            $pdf->cert = $cert;
+                        if($model->kejohanan->file_class){
+                            $pdf = new $model->file_class;
                             $pdf->frontend = true;
                             $pdf->model = $model;
                             $pdf->generatePdf();
                             exit;
                         }else{
+                            $pdf = new CertParticipation();
+                            $pdf->frontend = true;
+                            $pdf->model = $model;
+                            $pdf->generatePdf();
+                            exit;
+                        }
+
+
+                    }else if($jenis == 2 && $model->cert_achive == 1){
+                        $pdf = new CertAchievement();
+                        $cert = KejohananCert::findOne(['kejohanan_id' => $model->kejohanan_id, 'category_id' => $model->category_id]);
+                        if($cert){
+                            if($cert->file_class){
+                                $pdf = new $cert->file_class;
+                                $pdf->cert = $cert;
+                                $pdf->frontend = true;
+                                $pdf->model = $model;
+                                $pdf->generatePdf();
+                                exit;
+                            }else{
+                                $pdf = new CertAchievement();
+                                $pdf->cert = $cert;
+                                $pdf->frontend = true;
+                                $pdf->model = $model;
+                                $pdf->generatePdf();
+                                exit;
+                            }
+                        }else{
                             Yii::$app->session->addFlash('error', "Sijil belum sedia");
                             return $this->refresh();
                         }
+
+
+                        
+
+
                         
                     }else{
                         Yii::$app->session->addFlash('error', "Sijil tidak dijumpai");
