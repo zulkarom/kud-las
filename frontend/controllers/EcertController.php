@@ -66,38 +66,44 @@ class EcertController extends Controller
         $model = $this->findModel($id);
         
         if ($download->load(Yii::$app->request->post())) {
-            $jenis = Yii::$app->request->post('jenis');
+            if($model->kejohanan->cert_publish_at && strtotime($model->kejohanan->cert_publish_at) <= time()){
+                $jenis = Yii::$app->request->post('jenis');
        
-            if($download->nric == $model->rider->nric && $model->register_status == 100){
-                if($jenis == 1){
-                    $pdf = new CertParticipation();
-                    $pdf->frontend = true;
-                    $pdf->model = $model;
-                    $pdf->generatePdf();
-                    exit;
-                }else if($jenis == 2 && $model->cert_achive == 1){
-                    $pdf = new CertAchievement();
-                    $cert = KejohananCert::findOne(['kejohanan_id' => $model->kejohanan_id, 'category_id' => $model->category_id]);
-                    if($cert){
-                        $pdf->cert = $cert;
+                if($download->nric == $model->rider->nric && $model->register_status == 100){
+                    if($jenis == 1){
+                        $pdf = new CertParticipation();
                         $pdf->frontend = true;
                         $pdf->model = $model;
                         $pdf->generatePdf();
                         exit;
+                    }else if($jenis == 2 && $model->cert_achive == 1){
+                        $pdf = new CertAchievement();
+                        $cert = KejohananCert::findOne(['kejohanan_id' => $model->kejohanan_id, 'category_id' => $model->category_id]);
+                        if($cert){
+                            $pdf->cert = $cert;
+                            $pdf->frontend = true;
+                            $pdf->model = $model;
+                            $pdf->generatePdf();
+                            exit;
+                        }else{
+                            Yii::$app->session->addFlash('error', "Sijil belum sedia");
+                            return $this->refresh();
+                        }
+                        
                     }else{
-                        Yii::$app->session->addFlash('error', "Sijil belum sedia");
+                        Yii::$app->session->addFlash('error', "Sijil tidak dijumpai");
                         return $this->refresh();
                     }
-                    
+    
                 }else{
                     Yii::$app->session->addFlash('error', "Sijil tidak dijumpai");
                     return $this->refresh();
                 }
-
             }else{
-                Yii::$app->session->addFlash('error', "Sijil tidak dijumpai");
+                Yii::$app->session->addFlash('error', "Sijil belum sedia");
                 return $this->refresh();
             }
+            
         }
         
         

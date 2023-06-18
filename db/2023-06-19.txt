@@ -1,2 +1,3 @@
 ALTER TABLE `kejohanan` ADD `cert_text_height` INT NULL DEFAULT NULL AFTER `cert_participant`;
-ALTER TABLE `kejohanan` ADD `cert_font_size` INT NULL DEFAULT NULL AFTER `text_height`;
+ALTER TABLE `kejohanan` ADD `cert_font_size` INT NULL DEFAULT NULL AFTER `cert_text_height`;
+UPDATE `kejohanan` SET `cert_text_height` = '490', `cert_font_size` = '17' WHERE `kejohanan`.`id` = 1; UPDATE `kejohanan` SET `cert_text_height` = '400', `cert_font_size` = '15' WHERE `kejohanan`.`id` = 2;
