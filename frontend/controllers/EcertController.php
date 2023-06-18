@@ -4,13 +4,13 @@ namespace frontend\controllers;
 
 use Yii;
 use yii\web\Controller;
-use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
 use backend\models\Rider;
-use frontend\models\RiderSearch;
 use frontend\models\DownloadForm;
 use backend\models\CertParticipation;
 use backend\models\CertAchievement;
+use backend\models\Competition;
+use backend\models\KejohananCert;
+use frontend\models\EcertSearch;
 
 /**
  * Site controller
@@ -38,9 +38,9 @@ class EcertController extends Controller
         
         $params = Yii::$app->request->queryParams;
         $dataProvider = null;
-        $model = new RiderSearch();
+        $model = new EcertSearch();
         $result = false;
-        if(array_key_exists('RiderSearch', $params)){
+        if(array_key_exists('EcertSearch', $params)){
             $result = true;
             
             $dataProvider = $model->search($this->request->queryParams);
@@ -68,7 +68,7 @@ class EcertController extends Controller
         if ($download->load(Yii::$app->request->post())) {
             $jenis = Yii::$app->request->post('jenis');
        
-            if($download->nric == $model->nric && $model->status == 10){
+            if($download->nric == $model->rider->nric && $model->register_status == 100){
                 if($jenis == 1){
                     $pdf = new CertParticipation();
                     $pdf->frontend = true;
@@ -77,10 +77,18 @@ class EcertController extends Controller
                     exit;
                 }else if($jenis == 2 && $model->cert_achive == 1){
                     $pdf = new CertAchievement();
-                    $pdf->frontend = true;
-                    $pdf->model = $model;
-                    $pdf->generatePdf();
-                    exit;
+                    $cert = KejohananCert::findOne(['kejohanan_id' => $model->kejohanan_id, 'category_id' => $model->category_id]);
+                    if($cert){
+                        $pdf->cert = $cert;
+                        $pdf->frontend = true;
+                        $pdf->model = $model;
+                        $pdf->generatePdf();
+                        exit;
+                    }else{
+                        Yii::$app->session->addFlash('error', "Sijil belum sedia");
+                        return $this->refresh();
+                    }
+                    
                 }else{
                     Yii::$app->session->addFlash('error', "Sijil tidak dijumpai");
                     return $this->refresh();
@@ -109,7 +117,7 @@ class EcertController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Rider::findOne(['id' => $id])) !== null) {
+        if (($model = Competition::findOne(['id' => $id])) !== null) {
             return $model;
         }
         

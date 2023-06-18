@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use Yii;
 use backend\models\Kejohanan;
+use backend\models\KejohananCert;
 use backend\models\KejohananSearch;
 use common\models\EcertFile;
 use common\models\Upload;
@@ -61,8 +62,11 @@ class KejohananController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $certs = $model->certs;
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'certs' => $certs
         ]);
     }
 
@@ -163,6 +167,15 @@ class KejohananController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
+    protected function findCert($id)
+    {
+        if (($model = KejohananCert::findOne(['id' => $id])) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
     private function uploadFile($model){
         $inst_property = 'cert_instance';
         $attr_db = 'cert_participant';
@@ -207,5 +220,71 @@ class KejohananController extends Controller
         $model = $this->findModel($id);
         //$filename = 'file';
         EcertFile::download($model, 'cert_participant', 'file');
+    }
+
+    public function actionDownloadCertFile($id){
+        $model = $this->findCert($id);
+        //$filename = 'file';
+        EcertFile::download($model, 'certificate_file', 'file');
+    }
+
+    public function actionCertAdd($id){
+        $model = $this->findModel($id);
+        $cert = new KejohananCert();
+        $cert->kejohanan_id = $model->id;
+
+        if ($this->request->isPost && $cert->load($this->request->post())) {
+            $cert->uploadFile();
+            if($cert->save()){
+                Yii::$app->session->addFlash('success', "Data Updated");
+                return $this->redirect(['view', 'id' => $model->id]);
+            } else{
+                print_r($cert->getErrors());
+                die();
+            } 
+            
+        }
+
+        return $this->render('cert-add', [
+            'model' => $cert,
+        ]);
+    }
+
+    public function actionCertUpdate($id){
+        $model = $this->findCert($id);
+
+        if ($this->request->isPost && $model->load($this->request->post())) {
+            $model->uploadFile();
+            if($model->save()){
+                Yii::$app->session->addFlash('success', "Data Updated");
+                return $this->redirect(['view', 'id' => $model->kejohanan_id]);
+            }/* else{
+                print_r($cert->getErrors());
+                die();
+            } */
+            
+        }
+
+        return $this->render('cert-update', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionCertDelete($id)
+    {
+        try {
+            $model = $this->findCert($id);
+            $path = $model->certificate_file;
+            $model->delete();
+            $old_path = Yii::getAlias('@ecertdir/' . $path);
+                if (is_file($old_path)) {
+                    unlink($old_path);
+                }
+
+            Yii::$app->session->addFlash('success', "Cert Deleted");
+            return $this->redirect(['view', 'id' => $model->kejohanan_id]);
+        } catch(\yii\db\IntegrityException $e) {
+            throw new \yii\web\ForbiddenHttpException('Could not delete this item. Other records depend on this data.');
+        }
     }
 }

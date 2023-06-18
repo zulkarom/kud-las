@@ -22,7 +22,7 @@ class DownloadForm extends Model
         return [
             // name, email, subject and body are required
             [['nric'], 'required'],
-            [['nric'], 'number'],
+            [['nric'], 'string'],
         ];
     }
 

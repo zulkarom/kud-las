@@ -75,7 +75,7 @@ table.detail-view th {
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Tambah Sijil Kejayaan', ['add-cert', 'id' => $model->id], ['class' => 'btn btn-secondary']) ?>
+        <?= Html::a('Tambah Sijil Kejayaan', ['cert-add', 'id' => $model->id], ['class' => 'btn btn-secondary']) ?>
         
         <?php 
         if($model->is_active == 0){ echo Html::a('Make Active', ['make-active', 'id' => $model->id], ['class' => 'btn btn-success']);
@@ -87,7 +87,7 @@ table.detail-view th {
     <div class="col-md-6" align="right">
 
 
-    <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+    <?= Html::a('<i class="fa fa-trash"></i>', ['delete', 'id' => $model->id], [
             'data' => [
                 'confirm' => 'Are you sure you want to delete this [kejohanan]?',
                 'method' => 'post',
@@ -97,4 +97,52 @@ table.detail-view th {
     </div>
 </div>
 
+
+
+<div class="card">
+  <div class="card-body">
+
+  <table class="table">
+<thead>
+    <tr>
+        <th>Category</th>
+        <th>Template</th>
+        <th></th>
+    </tr>
+</thead>
+<tbody>
+<?php 
+
+if($certs){
+    foreach($certs as $cert){
+        echo '<tr>
+        <td width="20%"><a href="'.Url::to(['cert-update', 'id' => $cert->id]).'">'. $cert->category->category_name .'</a></td>
+        <td>';
+
+        if($cert->certificate_file){
+            echo Html::img(Url::to(['download-cert-file','id' => $cert->id]),['width' => '20%']);
+            }
+        
+        
+        echo '</td>
+        <td><a href="'.Url::to(['cert-delete', 'id' => $cert->id]).'" data-confirm="Are you sure to delete this cert?"><i class="fa fa-trash"></i></a></td>
+        </tr>';
+    }
+}
+
+?>
+    
+</tbody>
+</table>
+
+
+  </div> 
+    </div>
+
+
+
+
+
+
 </div>
+

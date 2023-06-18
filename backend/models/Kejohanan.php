@@ -93,6 +93,11 @@ class Kejohanan extends \yii\db\ActiveRecord
         return ArrayHelper::map(self::find()->all(), 'id', 'name');
     }
 
+    public function getCerts()
+    {
+        return $this->hasMany(KejohananCert::className(), ['kejohanan_id' => 'id']);
+    }
+
     public function dateStartEndFormat($long = false){
 		$date1 = $this->date_start;
         $date2 = $this->date_end;

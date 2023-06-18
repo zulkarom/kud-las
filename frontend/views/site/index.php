@@ -2,10 +2,6 @@
 
 /** @var yii\web\View $this */
 
-use backend\models\Rider;
-use yii\grid\ActionColumn;
-use yii\grid\GridView;
-use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
@@ -61,6 +57,11 @@ $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
                         
                                 <div class="info-content">
                                     Sila taip nombor kad pengenalan anda untuk mula atau sambung proses pendaftaran.
+
+                                    <br /><br />
+                                        <a href="<?=Url::to(['/ecert'])?>"><i class="small-link">Carian e-sijil</i></a>
+
+
                                 </div>
                             </div> <!-- single info -->
                        

@@ -1,0 +1,2 @@
+ALTER TABLE `kejohanan` ADD `cert_text_height` INT NULL DEFAULT NULL AFTER `cert_participant`;
+ALTER TABLE `kejohanan` ADD `cert_font_size` INT NULL DEFAULT NULL AFTER `text_height`;

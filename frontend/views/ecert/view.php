@@ -8,7 +8,7 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Rider */
 
-$this->title = $model->riderName;
+$this->title = $model->rider->rider_name;
 $this->params['breadcrumbs'][] = ['label' => 'Riders', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -21,10 +21,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'riderName',
-            'horseName',
-            'horseColor',
-            'kelab'
+            'kejohanan.name',
+            'rider.rider_name',
+            'horse.horse_name',
+            'horse.horse_color',
+            'rider_kelab'
 
         ],
     ]) ?>

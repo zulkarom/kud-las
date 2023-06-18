@@ -23,6 +23,8 @@ $this->title = 'e-SIJIL KUDA LASAK';
                                         <div class="info-content">
                                             Sila taip nama <i>rider</i> dan nama kuda (keywords)
                                         </div>
+                                        <br /><br />
+                        
                                     </div> <!-- single info -->
                        
                         </div> <!-- contact info -->
@@ -82,7 +84,7 @@ $this->title = 'e-SIJIL KUDA LASAK';
                     </div> 
                 </div> <!-- row -->
         
-            
+            <br />
             
             
               <?php
@@ -97,9 +99,10 @@ $this->title = 'e-SIJIL KUDA LASAK';
        // 'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'riderName',
+            'kejohanan.name',
+            'rider.rider_name',
             
-            'horseName',
+            'horse.horse_name',
             ['class' => 'yii\grid\ActionColumn',
                  'contentOptions' => ['style' => 'width: 13%'],
                 'template' => '{view}',

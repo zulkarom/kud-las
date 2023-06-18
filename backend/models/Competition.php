@@ -77,6 +77,7 @@ class Competition extends \yii\db\ActiveRecord
             'register_status' => 'Status',
             'rider_size' => 'Saiz Baju',
             'vest_id' => 'Vest No.',
+            'kejohanan.name' => 'Kejohanan'
         ];
     }
 

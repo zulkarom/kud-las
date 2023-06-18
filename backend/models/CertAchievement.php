@@ -5,6 +5,7 @@ namespace backend\models;
 class CertAchievement
 {
 	public $model;
+	public $cert;
 	public $pdf;
 	public $filename;
 	public $frontend = false;
@@ -14,9 +15,9 @@ class CertAchievement
 
 		$this->pdf = new StartPdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 		if($this->frontend){
-		    $this->pdf->image_background = 'admin/images/cert-achievement.jpg';
+		    $this->pdf->image_background = 'admin/images/ecertdir/'. $this->cert->certificate_file;
 		}else{
-		    $this->pdf->image_background = 'images/cert-achievement.jpg';
+		    $this->pdf->image_background = 'images/ecertdir/'. $this->cert->certificate_file;
 		}
 		
 		$this->startPage();
@@ -33,35 +34,35 @@ class CertAchievement
 		
 		$all = 740;
 		
-		$left = 70;
-		$kuda = 260;
-		$laju = 157;
-		$jarak = 153;
+		$left = 150;
+		$kuda = 300;
+		$laju = 167;
+		$jarak = 180;
 		$right = $all - $left -$kuda - $laju - $jarak;
 		
 		$html ='<table border="0"> 
-<tr>
-<td colspan="2" height="330"></td>
+		<tr>
+<td height="430"></td>
 </tr>
 
 <tr>
-<td width="170"></td>
-<td align="center" width="740" style="font-size:17pt">'. $this->model->riderName . '</td>
+
+<td align="center" style="font-size:15pt">'. $this->model->rider->rider_name . '</td>
 </tr>
 
 <tr>
-<td colspan="2" height="493"></td>
+<td height="393"></td>
 </tr>
 
-<tr style="font-size:14">
-<td></td>
-
+<tr style="font-size:12">
 <td align="center" width="'.$left.'" ></td>
-<td align="center" width="'.$kuda.'" >'. $this->model->horseName .'</td>
+<td align="center" width="'.$kuda.'" >'. $this->model->horse->horse_name .'</td>
 <td align="center" width="'.$laju.'" >'. $this->model->hadlaju .' KM/J</td>
-<td align="center" width="'.$jarak.'" >'. $this->model->jarak .' KM</td>
-<td align="center" width="'.$right.'" ></td>
+<td align="center" width="'.$jarak.'" >'. $this->model->category->category_name .'</td>
+
 </tr>
+
+
 
 
 </table>';
@@ -75,7 +76,7 @@ EOD;
 	
 	public function startPage(){
 		// set document information
-	    $title = $this->model->riderName;
+	    $title = $this->model->rider->rider_name;
 	    $title = str_replace(' ', '_', $title);
 	    $title = 'SIJIL_KEJAYAAN_'.$title;
 	    $this->filename = $title;

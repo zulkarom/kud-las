@@ -2,7 +2,7 @@
 
 namespace backend\models;
 
-class CertParticipation
+class CertAchievement
 {
 	public $model;
 	public $pdf;
@@ -18,25 +18,52 @@ class CertParticipation
 		}else{
 		    $this->pdf->image_background = 'images/ecertdir/'. $this->model->kejohanan->cert_participant;
 		}
-
+		
 		$this->startPage();
 		$this->writeData();
+		
 		$this->pdf->Output($this->filename .'.pdf', 'I'); 
         
 	}
 
 	public function writeData(){
-		$size = $this->model->kejohanan->cert_font_size;
-		$this->pdf->SetFont('helvetica','b', $size ? $size : 1 );
+
+		$this->pdf->SetFont('helvetica','b', 10);
+		$this->pdf->SetTextColor(35, 22, 68);
+		
+		$all = 740;
+		
+		$left = 70;
+		$kuda = 260;
+		$laju = 157;
+		$jarak = 153;
+		$right = $all - $left -$kuda - $laju - $jarak;
+		
 		$html ='<table border="0"> 
 <tr>
-<td height="'.$this->model->kejohanan->cert_text_height.'"></td>
-
+<td colspan="2" height="330"></td>
 </tr>
+
 <tr>
-<td align="center" style="color:#231644">'. $this->model->rider->rider_name . '</td>
-
+<td width="170"></td>
+<td align="center" width="740" style="font-size:17pt">'. $this->model->rider->rider_name . '</td>
 </tr>
+
+<tr>
+<td colspan="2" height="493"></td>
+</tr>
+
+<tr style="font-size:14">
+<td></td>
+
+<td align="center" width="'.$left.'" ></td>
+<td align="center" width="'.$kuda.'" >'. $this->model->horse->horse_name .'</td>
+<td align="center" width="'.$laju.'" >'. $this->model->hadlaju .' KM/J</td>
+<td align="center" width="'.$jarak.'" >'. $this->model->category->category_name .' KM</td>
+<td align="center" width="'.$right.'" ></td>
+</tr>
+
+
 </table>';
 		$tbl = <<<EOD
 		$html
@@ -48,13 +75,10 @@ EOD;
 	
 	public function startPage(){
 		// set document information
-		
 	    $title = $this->model->rider->rider_name;
 	    $title = str_replace(' ', '_', $title);
 	    $title = 'SIJIL_KEJAYAAN_'.$title;
 	    $this->filename = $title;
-	    
-	    
 		$this->pdf->SetCreator(PDF_CREATOR);
 		$this->pdf->SetAuthor('KUDA LASAK');
 		$this->pdf->SetTitle($title);

@@ -57,6 +57,16 @@ AppAsset::register($this);
 .help-block{
     color:#721c24;
 }
+
+.stroke{
+-webkit-text-stroke: 1px black;
+}
+
+.small-link{
+    font-style: italic;
+    color:cornflowerblue;
+    font-size: small;
+}
   
   </style>
 </head>
@@ -75,7 +85,8 @@ AppAsset::register($this);
         <div class="row justify-content-center">
                 <div class="col-lg-12">
                     <div class="contact-title text-center">
-                        <h2 class="title" style="color:white"><a href="<?php echo Url::to(['/ecert'])?>">e-SIJIL KUDA LASAK</a></h2>
+                     
+                        <h2 class="title"><a href="<?php echo Url::to(['/ecert'])?>" class="stroke">e-SIJIL KUDA LASAK</a></h2>
                     </div> <!-- contact title -->
                 </div>
             </div> <!-- row -->

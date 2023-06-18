@@ -73,6 +73,11 @@ table.table th a {
 .form-note{
     font-size:12px;
 }
+.small-link{
+    font-style: italic;
+    color:cornflowerblue;
+    font-size: small;
+}
   
   </style>
 </head>
