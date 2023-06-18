@@ -25,6 +25,8 @@ use yii\widgets\ActiveForm;
     <div class="col-md-2">
     <?= $form->field($model, 'cert_achive')->dropDownList($model->achieveArray, ['class'=> 'form-control','prompt' => 'Pilih Layak'])->label(false)  ?>
     </div>
+    <div class="col-md-7">LINK: <?=Html::a('https://pusatko.umk.edu.my/ekudalasak/ecert', 'https://pusatko.umk.edu.my/ekudalasak/ecert', ['target' => 'blank'])?></div>
+    
 
 </div>
 
