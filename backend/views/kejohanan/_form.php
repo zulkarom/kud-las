@@ -55,7 +55,8 @@ use yii\helpers\Url;
 <div class="row">
     <div class="col-md-4">
 
-<?=$form->field($model, 'date_vest')->widget(DatePicker::classname(), [
+<?=$form->field($model, 'date_vest', ['template' => '{label}{input}<i>Leave it blank to unrelease</i>{error}
+            '])->widget(DatePicker::classname(), [
    'removeButton' => false,
    'pluginOptions' => [
        'autoclose'=>true,
@@ -79,7 +80,8 @@ use yii\helpers\Url;
 <div class="row">
     <div class="col-md-4">
 
-<?=$form->field($model, 'cert_publish_at')->widget(DatePicker::classname(), [
+<?=$form->field($model, 'cert_publish_at', ['template' => '{label}{input}<i>Leave it blank to unrelease</i>{error}
+            '])->widget(DatePicker::classname(), [
    'removeButton' => false,
    'pluginOptions' => [
        'autoclose'=>true,
