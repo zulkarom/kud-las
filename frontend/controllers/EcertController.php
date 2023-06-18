@@ -61,6 +61,7 @@ class EcertController extends Controller
      */
     public function actionView($id)
     {
+        date_default_timezone_set("Asia/Kuala_Lumpur");
         $download = new DownloadForm();
         
         $model = $this->findModel($id);
@@ -106,7 +107,7 @@ class EcertController extends Controller
                                 exit;
                             }
                         }else{
-                            Yii::$app->session->addFlash('error', "Sijil belum sedia");
+                            Yii::$app->session->addFlash('error', "Sijil belum sedia (c)");
                             return $this->refresh();
                         }
 
@@ -125,7 +126,7 @@ class EcertController extends Controller
                     return $this->refresh();
                 }
             }else{
-                Yii::$app->session->addFlash('error', "Sijil belum sedia");
+                Yii::$app->session->addFlash('error', "Sijil belum sedia (t)");
                 return $this->refresh();
             }
             
