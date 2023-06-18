@@ -17,8 +17,8 @@ class AchievementSearch extends Competition
     public function rules()
     {
         return [
-            [['id','kejohanan_id', 'category_id', 'rider_id', 'horse_id', 'register_status', 'deposit_paid'], 'integer'],
-            [['hadlaju', 'jarak'], 'number'],
+            [['category_id', 'cert_achive'], 'integer'],
+
         ];
     }
 
@@ -64,6 +64,8 @@ class AchievementSearch extends Competition
         // grid filtering conditions
        $query->andFilterWhere([
             'kejohanan_id' => $this->kejohanan_id,
+            'category_id' => $this->category_id,
+            'cert_achive' => $this->cert_achive,
         ]);
 
         return $dataProvider;

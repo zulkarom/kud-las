@@ -3,11 +3,14 @@
 namespace backend\controllers;
 
 use backend\models\AchievementSearch;
+use backend\models\CertAchievement;
+use backend\models\CertParticipation;
 use Yii;
 use backend\models\Competition;
 use backend\models\CompetitionPrint;
 use backend\models\CompetitionSearch;
 use backend\models\Kejohanan;
+use backend\models\KejohananCert;
 use backend\models\Vest;
 use yii\db\Expression;
 use yii\web\Controller;
@@ -118,6 +121,34 @@ class CompetitionController extends Controller
         return 0;
     }
 
+    public function actionAchievementCert($id){
+        $model = $this->findModel($id);
+        if($model->cert_achive == 1 && $model->register_status == 100){
+            $pdf = new CertAchievement();
+            $cert = KejohananCert::findOne(['kejohanan_id' => $model->kejohanan_id, 'category_id' => $model->category_id]);
+            if($cert){
+                $pdf->cert = $cert;
+                $pdf->frontend = false;
+                $pdf->model = $model;
+                $pdf->generatePdf();
+                exit;
+            }
+        }
+        echo 'Tiada Sijil';
+    }
+
+    public function actionParticipantCert($id){
+        $model = $this->findModel($id);
+        if($model->register_status == 100){
+            $pdf = new CertParticipation();
+                $pdf->frontend = false;
+                $pdf->model = $model;
+                $pdf->generatePdf();
+                exit;
+        }
+        echo 'Tiada Sijil';
+    }
+
     public function actionDeleteAll($id){
         $com = $this->findModel($id);
         $rider = $com->rider;
@@ -196,6 +227,7 @@ class CompetitionController extends Controller
             'model' => $model,
         ]);
     }
+
 
     /**
      * Updates an existing Competition model.
@@ -346,4 +378,6 @@ class CompetitionController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    
 }

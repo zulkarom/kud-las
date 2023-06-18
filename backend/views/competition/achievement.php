@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="card">
         <div class="card-body">
-            
+        <?=$this->render('_search_achieve', ['model' => $searchModel])?>       
 
 <div class="competition-index">
 
@@ -113,6 +113,20 @@ $this->params['breadcrumbs'][] = $this->title;
                     //add to class is-valid or is-warning is-invalid
                 }
             ],
+
+            [
+			    'label' => 'CERT',
+                'format' => 'raw',
+                'value' => function($model){
+                    if($model->cert_achive){
+                        $hide = '';
+                    }else{
+                        $hide = 'd-none';
+                    }
+                    return '<a href="'.Url::to(['participant-cert', 'id' => $model->id]).'" target="_blank"><i class="fa fa-file-pdf"></i></a> <a href="'.Url::to(['achievement-cert', 'id' => $model->id]).'" class="'.$hide.'" id="cert-'.$model->id.'" target="_blank"><i class="fa fa-file-pdf" style="color:green"></i></a>';
+                    //add to class is-valid or is-warning is-invalid
+                }
+            ],
         ],
     ]); 
     
@@ -154,11 +168,16 @@ $this->params['breadcrumbs'][] = $this->title;
             console.log(result);
             if(result == 0){
                 reverseChk(val, chk);
+                val == 0 ? $("#cert-"+comp).removeClass("d-none") : $("#cert-"+comp).addClass("d-none");
+            }else{
+                val == 1 ? $("#cert-"+comp).removeClass("d-none") : $("#cert-"+comp).addClass("d-none");
+                
             }
         },
         error: function (jqXhr, textStatus, errorMessage) { 
             // reverse
             reverseChk(val, chk);
+            val == 0 ? $("#cert-"+comp).removeClass("d-none") : $("#cert-"+comp).addClass("d-none");
         }
       });
     }

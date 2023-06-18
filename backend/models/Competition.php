@@ -206,6 +206,13 @@ class Competition extends \yii\db\ActiveRecord
         ];
     }
 
+    public static function getAchieveArray(){
+        return [
+            0 => 'NO', 
+            1 => 'YES'
+        ];
+    }
+
     public function getDepositText(){
         $text = '';
         if(array_key_exists($this->deposit_paid, $this->depositArray)){
