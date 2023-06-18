@@ -18,6 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="card">
         <div class="card-body">
+        LINK: <?=Html::a('https://pusatko.umk.edu.my/ekudalasak/ecert', 'https://pusatko.umk.edu.my/ekudalasak/ecert', ['target' => 'blank'])?>
         <?=$this->render('_search_achieve', ['model' => $searchModel])?>       
 
 <div class="competition-index">
