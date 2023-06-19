@@ -68,21 +68,24 @@ class SiteController extends Controller
 
             }else{
                 //cari rider dulu
-                $rider = Rider::findOne(['nric' => $nric]);
-                if($rider){
-                    //klu ada create competition terus - edit rider
-                    $daftar = new Competition();
-                    $daftar->kejohanan_id = $kejohanan->id;
-                    $daftar->rider_id = $rider->id;
-                    if($daftar->save()){
-                        return $this->redirect(['s2edit', 'f' => $daftar->id]);
-                    } 
+                if($kejohanan->canRegister()){
+                    $rider = Rider::findOne(['nric' => $nric]);
+                    if($rider){
+                        //klu ada create competition terus - edit rider
+                        $daftar = new Competition();
+                        $daftar->kejohanan_id = $kejohanan->id;
+                        $daftar->rider_id = $rider->id;
+                        if($daftar->save()){
+                            return $this->redirect(['s2edit', 'f' => $daftar->id]);
+                        } 
+                    }else{
+                        return $this->redirect(['s2new', 'n' => $nric]);
+                        //redirect to step 2 - create new rider
+                    }
                 }else{
-                    return $this->redirect(['s2new', 'n' => $nric]);
-                    //redirect to step 2 - create new rider
+                    return $this->redirect(['close']);
                 }
-  
-                
+
             }
 
         }
@@ -94,9 +97,11 @@ class SiteController extends Controller
     }
 
     public function actionS2new($n, $f = false){
+        $kejohanan = Kejohanan::findOne(['is_active' => 1]);
+        
         $model = new Rider();
         $model->nric = $n;
-        $kejohanan = Kejohanan::findOne(['is_active' => 1]);
+        
         if ($model->load(Yii::$app->request->post())) {
             $model->rider_name = strtoupper($model->rider_name);
             if($model->save()){
@@ -326,6 +331,13 @@ class SiteController extends Controller
 
         return $this->render('thankyou', [
             'model' => $daftar,
+            'kejohanan' => $kejohanan
+        ]);
+    }
+
+    public function actionClose(){
+        $kejohanan = Kejohanan::findOne(['is_active' => 1]);
+        return $this->render('close', [
             'kejohanan' => $kejohanan
         ]);
     }

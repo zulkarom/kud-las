@@ -119,4 +119,16 @@ class KejohananCert extends \yii\db\ActiveRecord
 
     }
 
+    public function countAchieveByCategory($achieve = 1){
+        $kira = Competition::find()
+        ->where([
+            'category_id' => $this->category_id, 
+            'cert_achive' => $achieve, 
+            'kejohanan_id' => $this->kejohanan_id,
+            'register_status' => 100
+        ])
+        ->count();
+        return $kira ? $kira : 0;
+    }
+
 }

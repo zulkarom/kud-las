@@ -47,7 +47,32 @@ use yii\helpers\Url;
 
 
 
+<div class="row">
+    <div class="col-md-4">
 
+<?=$form->field($model, 'reg_start')->widget(DatePicker::classname(), [
+   'removeButton' => false,
+   'pluginOptions' => [
+       'autoclose'=>true,
+       'format' => 'yyyy-mm-dd',
+       'todayHighlight' => true,
+       
+   ], 
+]);
+?>
+
+</div>
+    <div class="col-md-4"><?=$form->field($model, 'reg_end')->widget(DatePicker::classname(), [
+   'removeButton' => false,
+   'pluginOptions' => [
+       'autoclose'=>true,
+       'format' => 'yyyy-mm-dd',
+       'todayHighlight' => true,
+       
+   ], 
+]);
+?></div>
+</div>
 
 <?= $form->field($model, 'location')->textInput(['maxlength' => true]) ?>
 

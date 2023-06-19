@@ -38,7 +38,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function($model){
                     return Html::a($model->name, ['view', 'id' => $model->id]);
                 }
-                
             ],
             [
                 'attribute' => 'date_start',
@@ -47,7 +46,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function($model){
                     return $model->dateStartEndFormat();
                 }
-                
             ],
             'location',
             [

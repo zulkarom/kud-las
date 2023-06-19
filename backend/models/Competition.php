@@ -84,14 +84,14 @@ class Competition extends \yii\db\ActiveRecord
     public function validateCategory($attribute, $params, $validator)
     {
         $c = Competition::find()
-        ->where(['rider_id' => $this->rider_id, 'kejohanan_id' => $this->kejohanan_id, 'category_id' => $this->category_id])
+        ->where(['rider_id' => $this->rider_id, 'kejohanan_id' => $this->kejohanan_id, 'category_id' => $this->category_id, 'register_status' => 100])
         ->andWhere(['<>', 'id', $this->id])
         ->one();
         if($c){
             $this->addError($attribute, 'Satu Rider tidak boleh mendaftar dua kali kategori yang sama!');
         }else{
             $h = Competition::find()
-            ->where(['horse_id' => $this->horse_id, 'kejohanan_id' => $this->kejohanan_id, 'category_id' => $this->category_id])
+            ->where(['horse_id' => $this->horse_id, 'kejohanan_id' => $this->kejohanan_id, 'category_id' => $this->category_id, 'register_status' => 100])
             ->andWhere(['<>', 'id', $this->id])
             ->one();
             if($h){
@@ -168,6 +168,7 @@ class Competition extends \yii\db\ActiveRecord
         return $this->hasOne(Category::className(), ['id' => 'category_id']);
     }
 
+
     /**
      * Gets query for [[Horse]].
      *
@@ -241,4 +242,7 @@ class Competition extends \yii\db\ActiveRecord
         }
         return $a;
     }
+
+    
+    
 }

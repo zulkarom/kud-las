@@ -36,6 +36,21 @@ table.detail-view th {
                 }
                 
             ],
+            [
+                'attribute' => 'reg_start',
+			    'label' => 'Registration Date',
+                'format' => 'html',
+                'value' => function($model){
+                    $html = $model->registrationStartEnd();
+                    if($model->canRegister()){
+                        $html .= ' <span class="badge badge-success">BUKA</span>';
+                    }else{
+                        $html .= ' <span class="badge badge-warning">TUTUP</span>';
+                    }
+                    return $html; 
+                }
+                
+            ],
             'location',
             [
                 'format' => 'html',
@@ -67,21 +82,18 @@ table.detail-view th {
 
   </div> 
     </div>
-
-   
-
+        
     <div class="row">
     <div class="col-md-6">
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Tambah Sijil Kejayaan', ['cert-add', 'id' => $model->id], ['class' => 'btn btn-secondary']) ?>
+        <?= Html::a('Tambah Kategory & Sijil Kejayaan', ['cert-add', 'id' => $model->id], ['class' => 'btn btn-secondary']) ?>
         
         <?php 
         if($model->is_active == 0){ echo Html::a('Make Active', ['make-active', 'id' => $model->id], ['class' => 'btn btn-success']);
         }?>
     </p>
-
 
     </div>
     <div class="col-md-6" align="right">

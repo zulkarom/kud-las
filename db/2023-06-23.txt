@@ -1,0 +1,1 @@
+ALTER TABLE `kejohanan` ADD `reg_start` DATE NULL DEFAULT NULL AFTER `file_class`, ADD `reg_end` DATE NULL DEFAULT NULL AFTER `reg_start`;

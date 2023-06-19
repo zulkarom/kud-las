@@ -59,7 +59,7 @@ $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
                                     Sila taip nombor kad pengenalan anda untuk mula atau sambung proses pendaftaran.
 
                                     <br /><br />
-                                        <a href="<?=Url::to(['/ecert'])?>"><i class="small-link">Carian e-sijil</i></a>
+                                       
 
 
                                 </div>
@@ -111,6 +111,10 @@ $this->title = 'PENDAFTARAN SUKAN KUDA LASAK';
                      <!-- row -->
                     </div> 
                 </div> <!-- row -->
+                <div class="row">
+    <div class="col-md-6"> <a href="<?=Url::to(['/ecert'])?>"><i class="small-link"><br /><br />Carian e-Sijil Kuda Lasak</i></a></div>
+    <div class="col-md-6"></div>
+</div>
         
 </div>        
             

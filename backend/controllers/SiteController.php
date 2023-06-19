@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\Kejohanan;
 use common\models\ChangePasswordForm;
 use common\models\LoginForm;
 use common\models\User;
@@ -61,8 +62,11 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        //return $this->redirect(['\rider\index']);
-        return $this->render('index');
+        $kejohanan = Kejohanan::findOne(['is_active' => 1]);
+        
+        return $this->render('index', [
+            'kejohanan' => $kejohanan
+        ]);
     }
 
     /**
