@@ -8,7 +8,7 @@ use backend\models\Rider;
 use frontend\models\DownloadForm;
 use backend\models\CertParticipation;
 use backend\models\CertAchievement;
-use backend\models\Competition;
+use backend\models\Participant;
 use backend\models\KejohananCert;
 use frontend\models\EcertSearch;
 
@@ -149,7 +149,7 @@ class EcertController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Competition::findOne(['id' => $id])) !== null) {
+        if (($model = Participant::findOne(['id' => $id])) !== null) {
             return $model;
         }
         

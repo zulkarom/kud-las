@@ -4,12 +4,12 @@ namespace backend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\Competition;
+use backend\models\Participant;
 
 /**
- * CompetitionSearch represents the model behind the search form of `backend\models\Competition`.
+ * CompetitionSearch represents the model behind the search form of `backend\models\Participant`.
  */
-class AchievementSearch extends Competition
+class AchievementSearch extends Participant
 {
     /**
      * {@inheritdoc}
@@ -40,7 +40,7 @@ class AchievementSearch extends Competition
      */
     public function search($params)
     {
-        $query = Competition::find()->joinWith(['vest v'])
+        $query = Participant::find()->joinWith(['vest v'])
         ->where(['register_status' => 100])
         ->orderBy('v.vest_no ASC');
 

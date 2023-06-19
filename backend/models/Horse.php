@@ -80,7 +80,7 @@ class Horse extends \yii\db\ActiveRecord
     }
 
     public function getLastRider(){
-        $c = Competition::find()
+        $c = Participant::find()
         ->where(['horse_id' => $this->id])
         ->orderBy('id DESC')
         ->one();
@@ -100,6 +100,6 @@ class Horse extends \yii\db\ActiveRecord
      */
     public function getCompetitions()
     {
-        return $this->hasMany(Competition::className(), ['horse_id' => 'id']);
+        return $this->hasMany(Participant::className(), ['horse_id' => 'id']);
     }
 }

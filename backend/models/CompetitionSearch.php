@@ -4,12 +4,12 @@ namespace backend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\Competition;
+use backend\models\Participant;
 
 /**
- * CompetitionSearch represents the model behind the search form of `backend\models\Competition`.
+ * CompetitionSearch represents the model behind the search form of `backend\models\Participant`.
  */
-class CompetitionSearch extends Competition
+class CompetitionSearch extends Participant
 {
     /**
      * {@inheritdoc}
@@ -40,7 +40,7 @@ class CompetitionSearch extends Competition
      */
     public function search($params)
     {
-        $query = Competition::find();
+        $query = Participant::find();
 
         // add conditions that should always apply here
 

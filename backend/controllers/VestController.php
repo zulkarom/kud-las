@@ -3,7 +3,7 @@
 namespace backend\controllers;
 
 use backend\models\Category;
-use backend\models\Competition;
+use backend\models\Participant;
 use backend\models\Kejohanan;
 use backend\models\Vest;
 use backend\models\VestSearch;
@@ -106,10 +106,10 @@ class VestController extends Controller
         $category = Category::findOne($cat);
         if($kejohanan && $category){
             //reset all 
-            Competition::updateAll(['vest_id' => null],['kejohanan_id' => $kejohanan->id,'category_id' => $category->id]);
+            Participant::updateAll(['vest_id' => null],['kejohanan_id' => $kejohanan->id,'category_id' => $category->id]);
 
             //assumption semua unassgined
-            $unassigned = Competition::find()
+            $unassigned = Participant::find()
             ->where(['kejohanan_id' => $kejohanan->id, 'category_id' => $category->id])
             ->all();
 
@@ -150,7 +150,7 @@ class VestController extends Controller
         $category = Category::findOne($cat);
         if($kejohanan && $category){
             //reset all 
-            Competition::updateAll(['vest_id' => null],['kejohanan_id' => $kejohanan->id,'category_id' => $category->id]);
+            Participant::updateAll(['vest_id' => null],['kejohanan_id' => $kejohanan->id,'category_id' => $category->id]);
 
         }
 
@@ -166,12 +166,12 @@ class VestController extends Controller
         $kejohanan = Kejohanan::findOne(['is_active' => 1]);
         $category = Category::findOne($cat);
         if($kejohanan && $category){
-            $assigned = Competition::find()
+            $assigned = Participant::find()
             ->where(['kejohanan_id' => $kejohanan->id]) // semua category pun ok
             ->andWhere(new Expression('vest_id IS NOT NULL'))
             ->all();
 
-            $unassigned = Competition::find()
+            $unassigned = Participant::find()
             ->where(['kejohanan_id' => $kejohanan->id, 'category_id' => $category->id])
             ->andWhere(new Expression('vest_id IS NULL'))
             ->all();

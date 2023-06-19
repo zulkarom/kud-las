@@ -6,7 +6,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\CompetitionSearch */
+/* @var $model backend\models\ParticipantSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 <?php $form = ActiveForm::begin([

@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Competition */
+/* @var $model backend\models\Participant */
 
 $this->title = 'Update Competition: ' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Competitions', 'url' => ['index']];

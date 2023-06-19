@@ -2,7 +2,7 @@
 
 namespace frontend\models;
 
-use backend\models\Competition;
+use backend\models\Participant;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use backend\models\Rider;
@@ -42,7 +42,7 @@ class EcertSearch extends Competition
      */
     public function search($params)
     {
-        $query = Competition::find()
+        $query = Participant::find()
         ->joinWith(['rider r', 'horse h'])
         ->where(['register_status' => 100]);
 

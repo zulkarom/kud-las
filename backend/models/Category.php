@@ -106,7 +106,7 @@ class Category extends \yii\db\ActiveRecord
      */
     public function getCompetitions()
     {
-        return $this->hasMany(Competition::className(), ['category_id' => 'id']);
+        return $this->hasMany(Participant::className(), ['category_id' => 'id']);
     }
 
     public static function getCategoryList(){

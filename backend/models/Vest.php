@@ -121,7 +121,7 @@ class Vest extends \yii\db\ActiveRecord
 
     public function getCompetition()
     {
-        return $this->hasOne(Competition::className(), ['vest_id' => 'id']);
+        return $this->hasOne(Participant::className(), ['vest_id' => 'id']);
     }
 
     public static function runUnassigned($cat){
@@ -129,12 +129,12 @@ class Vest extends \yii\db\ActiveRecord
         $category = Category::findOne($cat);
         $success = 0;
         if($kejohanan && $category){
-            $assigned = Competition::find()
+            $assigned = Participant::find()
             ->where(['kejohanan_id' => $kejohanan->id]) // semua category pun ok
             ->andWhere(new Expression('vest_id IS NOT NULL'))
             ->all();
 
-            $unassigned = Competition::find()
+            $unassigned = Participant::find()
             ->where(['kejohanan_id' => $kejohanan->id, 'category_id' => $category->id])
             ->andWhere(new Expression('vest_id IS NULL'))
             ->all();

@@ -119,6 +119,13 @@ class Kejohanan extends \yii\db\ActiveRecord
         return $kira ? $kira : 0;
     }
 
+    public function countAchieve($achieve = 1){
+        $kira = Participant::find()
+        ->where(['kejohanan_id' => $this->id, 'cert_achive' => $achieve, 'register_status' => 100])
+        ->count();
+        return $kira ? $kira : 0;
+    }
+
     public function dateStartEndFormat($long = false){
 		$date1 = $this->date_start;
         $date2 = $this->date_end;
@@ -141,7 +148,7 @@ class Kejohanan extends \yii\db\ActiveRecord
     
 
     public function countParticipantByStatus($status){
-        $kira = Competition::find()
+        $kira = Participant::find()
         ->where(['register_status' => $status, 'kejohanan_id' => $this->id])
         ->count();
         return $kira ? $kira : 0;

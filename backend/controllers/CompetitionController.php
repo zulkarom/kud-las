@@ -6,7 +6,7 @@ use backend\models\AchievementSearch;
 use backend\models\CertAchievement;
 use backend\models\CertParticipation;
 use Yii;
-use backend\models\Competition;
+use backend\models\Participant;
 use backend\models\CompetitionPrint;
 use backend\models\CompetitionSearch;
 use backend\models\Kejohanan;
@@ -92,7 +92,7 @@ class CompetitionController extends Controller
         $id = $post['competition'];
         $status = $post['astatus'] == 1 ? 1 : 0;
 
-        $comp = Competition::findOne($id);
+        $comp = Participant::findOne($id);
         if($comp){
             $comp->cert_achive = $status;
             if($comp->save()){
@@ -110,7 +110,7 @@ class CompetitionController extends Controller
         $id = $post['competition'];
         $laju = $post['kelajuan'];
 
-        $comp = Competition::findOne($id);
+        $comp = Participant::findOne($id);
         if($comp){
             $comp->hadlaju = $laju;
             if($comp->save()){
@@ -278,7 +278,7 @@ class CompetitionController extends Controller
         if($category){
             $cat_color = $category->color;
         
-            $assigned = Competition::find()->alias('c')
+            $assigned = Participant::find()->alias('c')
             ->select('v.id, v.vest_no')
                 ->leftJoin('vest v', 'v.id = c.vest_id')
                 ->where(['kejohanan_id' => $model->kejohanan_id, 'category_id' => $model->category_id])
@@ -362,7 +362,7 @@ class CompetitionController extends Controller
             $ids = Yii::$app->request->post('selection');
             
             $pdf = new CompetitionPrint;
-            $pdf->models = Competition::find()->where(['id' => $ids])->all();
+            $pdf->models = Participant::find()->where(['id' => $ids])->all();
             $pdf->model = null;
             $pdf->generatePdf();
             exit;
@@ -375,7 +375,7 @@ class CompetitionController extends Controller
 
     protected function findCompetition($id)
     {
-        if (($model = Competition::findOne(['id' => $id])) !== null) {
+        if (($model = Participant::findOne(['id' => $id])) !== null) {
             return $model;
         }
         
@@ -391,7 +391,7 @@ class CompetitionController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Competition::findOne(['id' => $id])) !== null) {
+        if (($model = Participant::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

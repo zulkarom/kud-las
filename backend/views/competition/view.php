@@ -5,7 +5,7 @@ use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Competition */
+/* @var $model backend\models\Participant */
 
 $this->title = $model->rider->rider_name;
 $this->params['breadcrumbs'][] = ['label' => 'Pendaftaran', 'url' => ['index']];

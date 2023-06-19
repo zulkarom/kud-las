@@ -23,7 +23,7 @@ use Yii;
  * @property Horse $horse
  * @property Rider $rider
  */
-class Competition extends \yii\db\ActiveRecord
+class Participant extends \yii\db\ActiveRecord
 {
     public $vest_no;
     /**
@@ -83,14 +83,14 @@ class Competition extends \yii\db\ActiveRecord
 
     public function validateCategory($attribute, $params, $validator)
     {
-        $c = Competition::find()
+        $c = Participant::find()
         ->where(['rider_id' => $this->rider_id, 'kejohanan_id' => $this->kejohanan_id, 'category_id' => $this->category_id, 'register_status' => 100])
         ->andWhere(['<>', 'id', $this->id])
         ->one();
         if($c){
             $this->addError($attribute, 'Satu Rider tidak boleh mendaftar dua kali kategori yang sama!');
         }else{
-            $h = Competition::find()
+            $h = Participant::find()
             ->where(['horse_id' => $this->horse_id, 'kejohanan_id' => $this->kejohanan_id, 'category_id' => $this->category_id, 'register_status' => 100])
             ->andWhere(['<>', 'id', $this->id])
             ->one();

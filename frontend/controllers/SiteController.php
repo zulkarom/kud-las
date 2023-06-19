@@ -5,7 +5,7 @@ namespace frontend\controllers;
 use Yii;
 use yii\web\Controller;
 use backend\models\Rider;
-use backend\models\Competition;
+use backend\models\Participant;
 use backend\models\CompetitionPrint;
 use backend\models\Horse;
 use backend\models\Kejohanan;
@@ -52,7 +52,7 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $nric = $model->nric;
             
-            $ada = Competition::find()->alias('a')
+            $ada = Participant::find()->alias('a')
             ->joinWith(['rider r'])
             ->where(['r.nric' => $nric, 'a.kejohanan_id' => $kejohanan->id])
             ->one();
@@ -72,7 +72,7 @@ class SiteController extends Controller
                     $rider = Rider::findOne(['nric' => $nric]);
                     if($rider){
                         //klu ada create competition terus - edit rider
-                        $daftar = new Competition();
+                        $daftar = new Participant();
                         $daftar->kejohanan_id = $kejohanan->id;
                         $daftar->rider_id = $rider->id;
                         if($daftar->save()){
@@ -106,7 +106,7 @@ class SiteController extends Controller
             $model->rider_name = strtoupper($model->rider_name);
             if($model->save()){
                 //buat id pendaftaran
-                $daftar = new Competition();
+                $daftar = new Participant();
                 $daftar->kejohanan_id = $kejohanan->id;
                 $daftar->rider_id = $model->id;
 
@@ -302,7 +302,7 @@ class SiteController extends Controller
         $daftar = $this->findCompetition($f);
         $r = $daftar->rider_id;
         if($new){
-            $daftar = new Competition();
+            $daftar = new Participant();
             $daftar->kejohanan_id = $kejohanan->id;
             $daftar->rider_id = $r;
             if($daftar->save()){
@@ -310,7 +310,7 @@ class SiteController extends Controller
             } 
         }
        
-        $semua = Competition::find()
+        $semua = Participant::find()
         ->where(['rider_id' => $r, 'kejohanan_id' => $kejohanan->id])
         ->all();
 
@@ -354,7 +354,7 @@ class SiteController extends Controller
 
     protected function findCompetition($id)
     {
-        if (($model = Competition::findOne(['id' => $id])) !== null) {
+        if (($model = Participant::findOne(['id' => $id])) !== null) {
             return $model;
         }
         

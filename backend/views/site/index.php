@@ -85,14 +85,16 @@ $this->title = 'DASHBOARD';
 <thead>
     <tr>
         <th>Categories</th>
-        <th>Layak</th>
+        <th>Layak Sijil Kejayaan</th>
         <th>Tidak Layak</th>
         <th>Jumlah</th>
     </tr>
 </thead>
 <tbody>
 <?php 
-
+$total_layak = $kejohanan->countAchieve();
+$total_xlayak = $kejohanan->countAchieve(0);
+$gtotal = $total_layak + $total_xlayak;
 if($kejohanan->certs){
     foreach($kejohanan->certs as $cert){
         $layak = $cert->countAchieveByCategory();
@@ -102,13 +104,21 @@ if($kejohanan->certs){
         <td>'. $cert->category->category_name .'</td>
         <td>'.$layak   .'</td>
         <td>'.$xlayak  .'</td>
-        <td>'.$total  .'</td>
+        <td><b>'.$total  .'</b></td>
         </tr>';
     }
 }
 
 
 ?>
+
+<tr>
+<td><i>Jumlah</i></td>
+        <td><b><?=$total_layak?></b></td>
+        <td><b><?=$total_xlayak?></b></td>
+        
+        <td><b><?=$gtotal?></b></td>
+        </tr>
  
 </tbody>
 </table>
