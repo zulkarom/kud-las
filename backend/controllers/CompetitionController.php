@@ -295,7 +295,7 @@ class CompetitionController extends Controller
     
             $vest = Vest::find()->alias('v')
                 ->select('v.id, v.vest_no')
-                ->leftJoin('competition c','c.vest_id = v.id')
+                ->leftJoin('participant c','c.vest_id = v.id')
                 ->where(['color' => $cat_color, 'v.status' => 1])
                 ->andWhere(['NOT IN', 'v.id', $assigned_arr])
                 ->orderBy('vest_no ASC')
@@ -306,9 +306,13 @@ class CompetitionController extends Controller
         
         
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            Yii::$app->session->addFlash('success', "Data Updated");
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($this->request->isPost && $model->load($this->request->post())) {
+            $model->participant_vest_id = $model->vest_id;
+            if($model->save()){
+                Yii::$app->session->addFlash('success', "Data Updated");
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+            
         }
 
         $rider = $model->rider;

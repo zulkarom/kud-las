@@ -1,0 +1,2 @@
+ALTER TABLE `participant` ADD `participant_vest_id` INT NULL DEFAULT NULL AFTER `vest_id`;
+UPDATE `participant` SET `participant_vest_id` = `vest_id`;

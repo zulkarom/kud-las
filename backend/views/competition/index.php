@@ -259,7 +259,7 @@ $exportColumns = [
                 'value' => function($model){
                     $html = 'ID: ' . $model->id;
                     if($model->vest_id){
-                        $html .= '<br /> VEST: ' . $model->vest->vest_no . '<br />('.$model->vest->color.')';
+                        $html .= '<br /> VEST: ' . $model->vestParticipant->vest_no . '<br />('.$model->vest->color.')';
                     }
                     return $html;
                 }

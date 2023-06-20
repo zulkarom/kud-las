@@ -31,7 +31,7 @@ class Participant extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'competition';
+        return 'participant';
     }
 
     /**
@@ -43,16 +43,19 @@ class Participant extends \yii\db\ActiveRecord
             [['kejohanan_id', 'rider_id'], 'required'],
             [['category_id', 'rider_size'], 'required', 'on' => 'kejohanan'],
 
-            [['kejohanan_id', 'category_id', 'rider_id', 'horse_id', 'cert_achive', 'status', 'register_status', 'vest_id', 'deposit_paid'], 'integer'],
+            [['kejohanan_id', 'category_id', 'rider_id', 'horse_id', 'cert_achive', 'status', 'register_status', 'vest_id', 'deposit_paid', 'participant_vest_id'], 'integer'],
 
             [['hadlaju', 'jarak'], 'number'],
             [['register_at'], 'safe'],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
+
             [['rider_id'], 'exist', 'skipOnError' => true, 'targetClass' => Rider::className(), 'targetAttribute' => ['rider_id' => 'id']],
+
             [['horse_id'], 'exist', 'skipOnError' => true, 'targetClass' => Horse::className(), 'targetAttribute' => ['horse_id' => 'id']],
             [['rider_size'], 'string'],
 
             [['vest_id'], 'unique'],
+            [['kejohanan_id', 'participant_vest_id'], 'unique', 'targetAttribute' => ['kejohanan_id', 'participant_vest_id']],
 
             [['category_id'], 'validateCategory'],
         ];
@@ -182,6 +185,11 @@ class Participant extends \yii\db\ActiveRecord
     public function getVest()
     {
         return $this->hasOne(Vest::className(), ['id' => 'vest_id']);
+    }
+
+    public function getVestParticipant()
+    {
+        return $this->hasOne(Vest::className(), ['id' => 'participant_vest_id']);
     }
 
     public function getKejohanan()

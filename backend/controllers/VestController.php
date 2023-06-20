@@ -105,8 +105,12 @@ class VestController extends Controller
         $kejohanan = Kejohanan::findOne(['is_active' => 1]);
         $category = Category::findOne($cat);
         if($kejohanan && $category){
-            //reset all 
-            Participant::updateAll(['vest_id' => null],['kejohanan_id' => $kejohanan->id,'category_id' => $category->id]);
+
+            //reset vest data
+            Participant::updateAll(['vest_id' => null]);
+
+            //reset all kejohanan
+            Participant::updateAll(['participant_vest_id' => null],['kejohanan_id' => $kejohanan->id,'category_id' => $category->id]);
 
             //assumption semua unassgined
             $unassigned = Participant::find()
@@ -131,6 +135,7 @@ class VestController extends Controller
                         
                         foreach($unassigned as $i => $ua){
                             $ua->vest_id = $vest_arr[$i];
+                            $ua->participant_vest_id = $vest_arr[$i];
                             if($ua->save()){
                                 $success++;
                             }
@@ -150,7 +155,7 @@ class VestController extends Controller
         $category = Category::findOne($cat);
         if($kejohanan && $category){
             //reset all 
-            Participant::updateAll(['vest_id' => null],['kejohanan_id' => $kejohanan->id,'category_id' => $category->id]);
+            Participant::updateAll(['vest_id' => null, 'participant_vest_id' => null],['kejohanan_id' => $kejohanan->id,'category_id' => $category->id]);
 
         }
 
@@ -158,6 +163,7 @@ class VestController extends Controller
         return $this->redirect(['assign']);
 
     }
+
 
     public function actionRunUnassigned($cat){
         //get list of unassigned vest
@@ -181,7 +187,7 @@ class VestController extends Controller
             $cat_color = $category->color;
 
             $vest = Vest::find()->alias('v')
-            ->leftJoin('competition c','c.vest_id = v.id')
+            ->leftJoin('participant c','c.vest_id = v.id')
             ->where(['color' => $cat_color, 'v.status' => 1])
             ->andWhere(['NOT IN', 'v.id', $assigned_arr])
             ->orderBy('vest_no ASC')
@@ -192,11 +198,10 @@ class VestController extends Controller
                 foreach($vest as $v){
                     $vest_arr[] = $v->id;
                 }
-                
                 if($unassigned){
-                    
                     foreach($unassigned as $i => $ua){
                         $ua->vest_id = $vest_arr[$i];
+                        $ua->participant_vest_id = $vest_arr[$i];
                         if($ua->save()){
                             $success++;
                         }
@@ -205,10 +210,6 @@ class VestController extends Controller
             }else{
                 Yii::$app->session->addFlash('error', "Tiada vest");
             }
-
-            
-
-
         }
         Yii::$app->session->addFlash('success', $success . " Vest(s) has been successfully assigned.");
         return $this->redirect(['assign']);
