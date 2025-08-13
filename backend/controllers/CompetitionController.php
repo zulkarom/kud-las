@@ -303,8 +303,6 @@ class CompetitionController extends Controller
     
             $vest_list = ArrayHelper::map($vest, 'id', 'vest_no');
         }
-        
-        
 
         if ($this->request->isPost && $model->load($this->request->post())) {
             $model->participant_vest_id = $model->vest_id;

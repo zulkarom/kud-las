@@ -81,10 +81,13 @@ class KejohananController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
+                $model->is_active = 0;
                 $model->cert_participant = $this->uploadFile($model);
                 if($model->save()){
                     Yii::$app->session->addFlash('success', "Kejohanan created.");
                     return $this->redirect(['view', 'id' => $model->id]);
+                }else{
+                    $model->flashError();
                 }
             }
         } else {
